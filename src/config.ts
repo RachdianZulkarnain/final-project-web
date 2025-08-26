@@ -1,0 +1,5 @@
+export const NEXT_PUBLIC_BASE_URL_API = process.env.NEXT_PUBLIC_BASE_URL_API;
+export const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const NEXT_PUBLIC_GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const NEXT_PUBLIC_GOOGLE_CLIENT_SECRET =process.env.GOOGLE_CLIENT_SECRET;
+
