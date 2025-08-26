@@ -1,6 +1,6 @@
 "use client";
 
-import SetPasswordPage from "@/app/sign-up/set-password";
+import SetPasswordPage from "@/app/auth/sign-up/set-password";
 import { useSearchParams } from "next/navigation";
 
 const SetPassword = () => {

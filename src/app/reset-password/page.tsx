@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import yupPassword from "yup-password";
 import useResetPassword from "./_hooks/useResetPassword";
-import InvalidToken from "../sign-up/set-password/components/InvalidToken";
+import InvalidToken from "../auth/sign-up/set-password/components/InvalidToken";
 yupPassword(Yup);
 
 interface ResetPasswordPageProps {
