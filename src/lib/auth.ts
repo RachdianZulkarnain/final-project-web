@@ -88,7 +88,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async redirect({ url, baseUrl }) {
       if (url === baseUrl || url === `${baseUrl}/`) {
-        return `${baseUrl}/user/profile`;
+        return `${baseUrl}/`;
       }
 
       if (url.startsWith("/")) return `${baseUrl}${url}`;

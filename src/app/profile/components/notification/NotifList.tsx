@@ -1,0 +1,73 @@
+import { cn } from "@/lib/utils";
+import { Notification } from "@/types/notification";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import useGetNotificationUser from "../../_hooks/useGetNotificationUser";
+import useMarkAllNotif from "../../_hooks/useMarkNotification";
+dayjs.extend(relativeTime);
+
+const PAGE_SIZE = 5;
+
+const NotifListSection = () => {
+  const [page, setPage] = useState(1);
+  const [allNotifications, setAllNotifications] = useState<Notification[]>([]);
+  const { data: session } = useSession();
+  const {
+    data: notifications,
+    isLoading,
+    isFetching,
+  } = useGetNotificationUser({ page, limit: PAGE_SIZE });
+  const { mutate: markAllAsRead, isPending: isMarking } = useMarkAllNotif();
+  const userId = session?.user?.id;
+
+  useEffect(() => {
+    if (notifications && page === 1) {
+      setAllNotifications(notifications);
+    } else if (notifications && page > 1) {
+      setAllNotifications((prev) => [...prev, ...notifications]);
+    }
+  }, [notifications, page]);
+
+  const hasMore = notifications?.length === PAGE_SIZE;
+
+  return (
+    <div className="p-4 max-h-[32rem] overflow-auto space-y-4">
+      <div className="flex justify-between items-center mb-2">
+        <h2 className="text-lg font-semibold">Notifications</h2>
+        <button
+          onClick={() => markAllAsRead()}
+          disabled={isMarking}
+          className="text-sm text-[#0290d1] hover:underline disabled:opacity-50"
+        >
+          Mark all as read
+        </button>
+      </div>
+
+      {isLoading && page === 1 ? (
+        <div className="flex justify-center items-center py-10">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      ) : allNotifications.length > 0 ? (
+        <>
+          {hasMore && (
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={isFetching}
+                className="px-4 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-100 transition"
+              >
+                {isFetching ? "Loading..." : "Load more"}
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="text-sm text-gray-400">No notifications</div>
+      )}
+    </div>
+  );
+};
+
+export default NotifListSection;

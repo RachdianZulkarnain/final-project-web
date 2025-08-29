@@ -7,14 +7,11 @@ const useResetPassword = (token: string) => {
   const router = useRouter();
   return useMutation({
     mutationFn: async (newPassword: string) => {
+      if (!token) throw new Error("Reset token is missing");
+
       const { data } = await axiosInstance.post(
-        "/auth/reset-password",
-        { newPassword },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `/auth/reset-password?token=${token}`,
+        { newPassword }
       );
       return data;
     },
@@ -23,10 +20,14 @@ const useResetPassword = (token: string) => {
       router.push("/sign-in");
     },
     onError: (error: any) => {
-      const message = error?.response?.data?.message || "Something went wrong";
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        "Something went wrong";
       toast.error(message);
     },
   });
 };
+
 
 export default useResetPassword;
