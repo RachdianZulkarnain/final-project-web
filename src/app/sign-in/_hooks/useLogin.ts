@@ -34,8 +34,8 @@ const useLogin = () => {
           await update();
 
           const routes: Record<string, string> = {
-            TENANT: "/tenant/dashboard",
-            USER: "/user/profile",
+            TENANT: "/dashboard",
+            USER: "/profile",
           };
 
           setTimeout(() => {
@@ -54,5 +54,7 @@ const useLogin = () => {
     },
   });
 };
+
+
 
 export default useLogin;
