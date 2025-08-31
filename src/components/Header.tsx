@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,12 +14,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Home, Search, Calendar, MessageCircle } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 export default function Header() {
   const { data: session } = useSession();
+  const pathname = usePathname();
 
-  // session.user diambil dari NextAuth, pastikan adapter NextAuth kamu mapping ke Prisma User
+  const isHome = pathname === "/";
   const user = session?.user as
     | {
         id: number;
@@ -29,164 +32,139 @@ export default function Header() {
       }
     | undefined;
 
-  const [navbar, setNavbar] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
-
-  const pageScrolled = () => setNavbar(window.scrollY > 170);
-  const pageResized = () => setWindowWidth(window.innerWidth);
+  const [navbar, setNavbar] = useState(!isHome);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", pageResized);
-    if (windowWidth < 769) setNavbar(true);
-    else window.addEventListener("scroll", pageScrolled);
+    setMounted(true);
+    if (!isHome) return;
 
-    return () => {
-      window.removeEventListener("scroll", pageScrolled);
-      window.removeEventListener("resize", pageResized);
-    };
-  }, [windowWidth]);
+    const handleScroll = () => setNavbar(window.scrollY > 170);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHome]);
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/sign-in" });
+  };
+
+  // ✅ taruh return setelah hook
+  if (pathname.startsWith("/profile")) return null;
+
+  if (!mounted) {
+    return (
+      <header className="fixed top-0 w-full z-50 bg-transparent">
+        <div className="flex items-center justify-between px-8 py-4 lg:px-32">
+          <Link href="/" className="flex items-center gap-2 text-white">
+            <Image
+              src="/assets/Homigo Logo2.png"
+              alt="Homigo Logo"
+              width={40}
+              height={40}
+              className="object-contain"
+            />
+            <span className="text-2xl font-bold text-white">Homigo</span>
+          </Link>
+        </div>
+      </header>
+    );
+  }
 
   return (
-    <div>
-      {navbar ? (
-        <div className="fixed top-0 w-full z-50 transition rounded-b-3xl">
-          <div className="py-4 px-8 lg:px-32 flex justify-between items-center bg-white border-b-2 rounded-b-3xl">
-            {/* Logo */}
-            <Link href="/" className="flex gap-2 items-center text-black">
-              <Home />
-              <span className="text-2xl font-bold">Homigo</span>
-            </Link>
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        navbar
+          ? "bg-white border-b-2 rounded-b-3xl shadow-md"
+          : "bg-transparent border-none"
+      }`}
+    >
+      <div className="flex items-center justify-between px-8 py-4 lg:px-32">
+        <Link
+          href="/"
+          className={`flex items-center gap-2 transition-all duration-500 ${
+            navbar ? "text-black" : "text-white"
+          }`}
+        >
+          <Image
+            src={
+              navbar ? "/assets/Homigo Logo1.png" : "/assets/Homigo Logo2.png"
+            }
+            alt="Homigo Logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <span
+            className={`text-2xl font-bold ${
+              navbar ? "text-[#0290d1]" : "text-white"
+            }`}
+          >
+            Homigo
+          </span>
+        </Link>
 
-            {/* User Actions */}
-            {user ? (
-              <div className="flex items-center gap-3 bg-black text-white rounded-full px-4 py-1">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={user.imageUrl || "/placeholder.svg"} />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
-                    {(user.firstName?.charAt(0) ?? user.email[0]).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden md:flex text-sm">
-                  {user.firstName ?? user.email}
-                </div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="text-white">
-                      ☰
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end">
-                    <DropdownMenuItem asChild>
-                      <Link href="/profile">Profile</Link>
-                    </DropdownMenuItem>
-                    {user.role === "tenant" && (
-                      <DropdownMenuItem asChild>
-                        <Link href="/my-listings">My Listings</Link>
-                      </DropdownMenuItem>
-                    )}
-                    <DropdownMenuItem asChild>
-                      <Link href="/settings">Settings</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => signOut()}
-                      className="text-red-500"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <div className="space-x-4 flex">
-                <Link href="/sign-up">
-                  <Button className="hidden md:flex rounded-full">
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link href="/sign-in">
-                  <Button
-                    className="rounded-full bg-black text-white md:text-black md:bg-white md:border-2 md:border-black"
-                    variant={"outline"}
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="fixed top-0 w-full z-50">
-          <div className="py-4 px-8 lg:px-32 flex justify-between items-center text-white">
-            {/* Logo */}
-            <Link href="/" className="flex gap-2 items-center">
-              <Home />
-              <span className="text-2xl font-bold">Homigo</span>
-            </Link>
-
-            {/* User Actions */}
-            {user ? (
-              <div className="flex items-center gap-3 bg-white text-black rounded-full px-4 py-1">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={user.imageUrl || "/placeholder.svg"} />
-                  <AvatarFallback>
-                    {(user.firstName?.charAt(0) ?? user.email[0]).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden md:flex text-sm">
-                  {user.firstName ?? user.email}
-                </div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      ☰
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end">
-                    <DropdownMenuItem asChild>
-                      <Link href="/profile">Profile</Link>
-                    </DropdownMenuItem>
-                    {user.role === "tenant" && (
-                      <DropdownMenuItem asChild>
-                        <Link href="/my-listings">My Listings</Link>
-                      </DropdownMenuItem>
-                    )}
-                    <DropdownMenuItem asChild>
-                      <Link href="/settings">Settings</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => signOut()}
-                      className="text-red-500"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <div className="space-x-4 flex">
-                <Button
-                  className="hidden md:flex rounded-full bg-white text-black"
-                  onClick={() => signIn("credentials")}
-                >
-                  Sign Up
+        {user ? (
+          <div className="flex items-center gap-3">
+            <Avatar>
+              <AvatarImage src={user?.imageUrl || "/placeholder.svg"} />
+              <AvatarFallback>
+                {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  ☰
                 </Button>
-
-                <Button
-                  className="rounded-full bg-black text-white md:bg-transparent md:border-2"
-                  variant="outline"
-                  onClick={() => signIn()}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link href="/profile">Profile</Link>
+                </DropdownMenuItem>
+                {user?.role === "tenant" && (
+                  <DropdownMenuItem asChild>
+                    <Link href="/my-listings">My Listings</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="text-red-500"
                 >
-                  Sign In
-                </Button>
-              </div>
-            )}
+                  <LogOut className="mr-2 h-4 w-4" /> Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className="flex space-x-4">
+            <Link href="/sign-up">
+              <Button
+                className={`hidden md:flex rounded-full transition-colors duration-300 ${
+                  navbar ? "bg-[#0290d1] text-white" : "bg-white text-[#0290d1]"
+                }`}
+              >
+                Sign Up
+              </Button>
+            </Link>
+            <Link href="/sign-in">
+              <Button
+                className={`rounded-full transition-colors duration-300 ${
+                  navbar
+                    ? "bg-black text-white"
+                    : "bg-white text-black border-2"
+                } md:bg-transparent md:border-2 ${
+                  navbar
+                    ? "md:border-[#0290d1] md:text-[#0290d1]"
+                    : "md:border-white md:text-white"
+                }`}
+              >
+                Sign In
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }

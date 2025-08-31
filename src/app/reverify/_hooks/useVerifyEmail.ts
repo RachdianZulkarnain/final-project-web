@@ -1,3 +1,5 @@
+"use client";
+
 import { axiosInstance } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -5,6 +7,7 @@ import { toast } from "sonner";
 
 const useVerifyEmail = () => {
   const router = useRouter();
+
   return useMutation({
     mutationFn: async (token: string) => {
       const { data } = await axiosInstance.post(
@@ -20,7 +23,7 @@ const useVerifyEmail = () => {
     },
     onSuccess: () => {
       toast.success("Your email has been verified.");
-      router.push("/user/profile");
+      router.push("/profile");
     },
     onError: (error: any) => {
       toast.error(

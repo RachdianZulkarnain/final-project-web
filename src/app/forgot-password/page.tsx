@@ -30,7 +30,7 @@ const ForgotPasswordPage = () => {
   return (
     <main className="min-h-screen bg-gradient-to-br from-white to-blue-50 flex flex-col items-center py-32">
       <div className="p-8 sm:p-12 w-11/12 max-w-xl">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">
+        <h2 className="text-3xl font-bold mb-4 text-[#0290d1]">
           Forgot your password?
         </h2>
         <p className="text-gray-600 mb-8 text-md leading-loose">
@@ -60,7 +60,7 @@ const ForgotPasswordPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary text-white py-3 rounded-md font-semibold text-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 hover:cursor-pointer"
+            className="w-full bg-primary text-white py-3 rounded-md font-semibold text-lg hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 hover:cursor-pointer"
           >
             Continue
           </button>
