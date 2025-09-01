@@ -1,24 +1,21 @@
-import { Toaster } from '@/components/ui/sonner';
-import { useUpdateListingMutation } from '../api/useUpdateListingMutation';
-import { useQueryClient } from '@tanstack/react-query';
+import { useUpdateListingMutation } from "../api/useUpdateListingMutation";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateListing = () => {
   const queryClient = useQueryClient();
-  // const { toast } = useToast();
+
   const { mutate: mutationUpdateListing } = useUpdateListingMutation({
     onSuccess: (res: any) => {
-      Toaster({
-
-      });
-      queryClient.invalidateQueries({ queryKey: ['my-listings'] });
+      toast.success(res.data.message || "Listing updated successfully.");
+      queryClient.invalidateQueries({ queryKey: ["my-listings"] });
     },
     onError: (err: any) => {
-      console.log(err);
-      Toaster({
-
-      });
+      console.error(err);
+      toast.error(err?.response?.data?.message || "Something went wrong!");
     },
   });
+
   return {
     mutationUpdateListing,
   };

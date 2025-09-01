@@ -1,12 +1,12 @@
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "@/lib/axios";
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axios';
 
 export const useGetListingsQuery = () => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ["AllListings"],
+    queryKey: ['AllListings'],
     queryFn: async () => {
-      return await axiosInstance.get("/listings/");
+      return await axiosInstance.get('/listings/');
     },
   });
 
@@ -19,7 +19,7 @@ export const useGetListingsQuery = () => {
 
 export const useGetListingByIdQuery = (id: string) => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ["Listing"],
+    queryKey: ['Listing'],
     queryFn: async () => {
       return await axiosInstance.get(`/listings/id/${id}`);
     },
@@ -34,7 +34,7 @@ export const useGetListingByIdQuery = (id: string) => {
 
 export const useGetListingsBySearchQuery = (params: string) => {
   const { data, isSuccess, isError, refetch } = useQuery({
-    queryKey: ["SearchListing", params],
+    queryKey: ['SearchListing', params],
     queryFn: async () => {
       return await axiosInstance.get(`/listings/search?${params}`);
     },
@@ -49,9 +49,9 @@ export const useGetListingsBySearchQuery = (params: string) => {
 
 export const useGetListingsCategoryQuery = () => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ["Categories"],
+    queryKey: ['Categories'],
     queryFn: async () => {
-      return axiosInstance.get("/listings/categories");
+      return axiosInstance.get('/listings/categories');
     },
   });
 
@@ -64,9 +64,9 @@ export const useGetListingsCategoryQuery = () => {
 
 export const useGetListingsFacilitiesQuery = () => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ["Facilities"],
+    queryKey: ['Facilities'],
     queryFn: async () => {
-      return axiosInstance.get("/listings/facilities");
+      return axiosInstance.get('/listings/facilities');
     },
   });
 

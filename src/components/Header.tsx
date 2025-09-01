@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
 
 export default function Header() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession(); // ✅ ambil update
   const pathname = usePathname();
 
   const isHome = pathname === "/";
@@ -28,6 +28,7 @@ export default function Header() {
         firstName?: string;
         lastName?: string;
         imageUrl?: string;
+        profilePic?: string;
         role: "user" | "tenant";
       }
     | undefined;
@@ -48,7 +49,20 @@ export default function Header() {
     await signOut({ callbackUrl: "/sign-in" });
   };
 
-  // ✅ taruh return setelah hook
+  // ✅ refresh session user kalau ada perubahan profilePic
+  useEffect(() => {
+    if (user?.profilePic) {
+      update({
+        ...session,
+        user: {
+          ...user,
+          profilePic: user.profilePic,
+        },
+      });
+    }
+  }, [user?.profilePic, session, update]);
+
+  // ✅ sembunyikan header di halaman profile
   if (pathname.startsWith("/profile")) return null;
 
   if (!mounted) {
@@ -106,7 +120,9 @@ export default function Header() {
         {user ? (
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src={user?.imageUrl || "/placeholder.svg"} />
+              <AvatarImage
+                src={user?.profilePic || user?.imageUrl || "/placeholder.svg"}
+              />
               <AvatarFallback>
                 {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
               </AvatarFallback>
@@ -121,9 +137,12 @@ export default function Header() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile">Profile</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/order">Order History</Link>
+                </DropdownMenuItem>
                 {user?.role === "tenant" && (
                   <DropdownMenuItem asChild>
-                    <Link href="/my-listings">My Listings</Link>
+                    <Link href="/dashboard">Dashboard</Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
