@@ -25,6 +25,7 @@ const RegisterTenant = () => {
       firstName: "",
       lastName: "",
       email: "",
+      phone: "",
     },
     validationSchema: SignupSchema,
     onSubmit: async (values, actions) => {
@@ -76,6 +77,22 @@ const RegisterTenant = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Phone */}
+          <div>
+            <input
+              id="phone"
+              type="text"
+              placeholder="Phone number"
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+              {...formik.getFieldProps("phone")}
+            />
+            {formik.touched.phone && formik.errors.phone && (
+              <div className="text-red-500 text-sm mt-1">
+                {formik.errors.phone}
+              </div>
+            )}
           </div>
 
           {/* Email */}

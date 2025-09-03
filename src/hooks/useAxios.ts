@@ -32,7 +32,7 @@ const useAxios = () => {
           err?.response?.data?.message === "Token expired" ||
           err?.response?.data?.message === "Invalid Token"
         ) {
-          signOut({ callbackUrl: "/login" });
+          signOut({ callbackUrl: "/sign-in" });
         }
         return Promise.reject(err);
       }

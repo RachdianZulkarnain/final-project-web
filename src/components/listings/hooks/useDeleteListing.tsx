@@ -6,7 +6,7 @@ export const useDeleteListing = () => {
   const queryClient = useQueryClient();
 
   const { mutate: mutationDeleteListing } = useDeleteListingMutation({
-    onSuccess: () => {
+    onSuccess: (res: any) => {
       toast.success("Listing deleted successfully.");
       queryClient.invalidateQueries({ queryKey: ["my-listings"] });
     },

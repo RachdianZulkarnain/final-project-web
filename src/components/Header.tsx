@@ -62,8 +62,9 @@ export default function Header() {
     }
   }, [user?.profilePic, session, update]);
 
-  // ✅ sembunyikan header di halaman profile
-  if (pathname.startsWith("/profile")) return null;
+  // ✅ sembunyikan header di halaman profile dan dashboard
+if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
+  return null;
 
   if (!mounted) {
     return (

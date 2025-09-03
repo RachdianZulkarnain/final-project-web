@@ -31,7 +31,7 @@ const BasicInfoSection: FC<BasicInfoSectionProps> = ({ user }) => {
       )}
 
       {showPasswordForm && (
-        <EditPasswordForm onClose={handleClosePasswordForm} onSave={() => {}} />
+        <EditPasswordForm onClose={handleClosePasswordForm} />
       )}
 
       <div className="bg-white w-full mt-8">

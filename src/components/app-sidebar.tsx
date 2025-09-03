@@ -7,17 +7,23 @@ import {
   IconSettings,
   IconClipboardList,
   IconPencil,
+  IconCalendar,
+  IconCalendarBolt,
+  IconCalendarCheck,
+  IconHome,
+  IconBuilding,
 } from "@tabler/icons-react";
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { useGetDashboardProfile } from "@/app/dashboard/settings/_hooks/useGetDashboardProfile"; 
+import { useGetDashboardProfile } from "@/app/dashboard/settings/_hooks/useGetDashboardProfile";
+import Image from "next/image";
+import { NavUser } from "./nav-user";
 
 const data = {
   navMain: [
@@ -32,15 +38,33 @@ const data = {
       icon: IconReceipt2,
     },
     {
-      title: "My Listings",
-      url: "/dashboard/listings",
-      icon: IconListDetails,
+      title: "My Properties",
+      url: "/dashboard/property",
+      icon: IconBuilding,
       children: [
         {
-          title: "New Listing",
-          url: "/dashboard/listings/create",
+          title: "Manage category",
+          url: "/dashboard/property/category",
+        },
+        {
+          title: "Manage Property",
+          url: "/dashboard/property/management",
+        },
+        {
+          title: "Manage Room",
+          url: "/dashboard/property/room",
+        },
+
+        {
+          title: "Room Non Availability",
+          url: "/dashboard/property/room-non-availability",
         },
       ],
+    },
+    {
+      title: "Peak Seasons",
+      url: "/dashboard/property/peak-season-rate",
+      icon: IconCalendar,
     },
     {
       title: "Sales Report",
@@ -87,10 +111,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     >
       {/* Logo / Branding */}
       <div className="px-4 py-3 border-b border-border flex items-center space-x-2">
-        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-sm">H</span>
-        </div>
-        <span className="font-bold text-foreground text-lg">Homigo</span>
+        <Image
+          src="/assets/Homigo Logo1.png"
+          alt="Homigo Logo"
+          width={40}
+          height={40}
+          className="object-contain flex items-center justify-center"
+        />
+        <span className="font-bold text-lg text-[#0290d1]">Homigo</span>
       </div>
 
       {/* Navigation */}

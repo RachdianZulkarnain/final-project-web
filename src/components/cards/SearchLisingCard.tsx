@@ -16,7 +16,7 @@ interface IListingCard {
   price_indexes?: { room_index: number; price_index: number };
 }
 
-// ==================== TO CURRENCY FUNCTION ====================
+// Fungsi toCurrency digabung langsung
 function toCurrency(val: number | undefined) {
   if (val === undefined) val = 0;
   return Number(val).toLocaleString("id-ID", {
@@ -24,7 +24,6 @@ function toCurrency(val: number | undefined) {
     currency: "IDR",
   });
 }
-// ===============================================================
 
 export const SearchListingCard = ({
   imageUrl,
@@ -62,6 +61,12 @@ export const SearchListingCard = ({
                   {city}, {country}
                 </span>
               </div>
+              {/* <CommentRatings
+                rating={avgRating}
+                disabled
+                showCurrentRating={false}
+                size={15}
+              /> */}
             </div>
           </div>
           <div className="block md:hidden">

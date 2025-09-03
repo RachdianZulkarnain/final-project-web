@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 export const useNewListing = () => {
   const { mutate: mutationNewListing } = useNewListingMutation({
-    onSuccess: () => {
+    onSuccess: (res: any) => {
       toast.success(
         "New listing created successfully. You can now see the listing in My Listing section."
       );

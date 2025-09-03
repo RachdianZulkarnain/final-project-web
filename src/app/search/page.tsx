@@ -16,7 +16,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { SortSearch } from "./sections/sortSelect";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { SearchListingCard } from "@/components/cards/SearchLisingCard";
 import {
   useGetListingsBySearch,
   useGetListingsCategory,
@@ -24,6 +23,7 @@ import {
 } from "@/components/listings/hooks/useGetListings";
 import SearchBarVariant from "@/components/searchbar/searchBarVariant";
 import { Slider } from "@/components/ui/slider";
+import { SearchListingCard } from "@/components/cards/SearchLisingCard";
 
 // ==================== TO CURRENCY FUNCTION ====================
 function toCurrency(val: number | undefined) {

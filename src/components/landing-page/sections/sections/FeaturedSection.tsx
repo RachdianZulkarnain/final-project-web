@@ -1,6 +1,5 @@
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight, ArrowRightCircle } from "lucide-react";
-import { ListingCard } from "@/components/cards/ListingCard";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { ListingCard } from "@/components/cards/ListingCard";
 
 export const FeaturedRooms = ({ listings }: { listings: any[] }) => {
   return (
