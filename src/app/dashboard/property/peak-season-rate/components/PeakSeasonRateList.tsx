@@ -1,88 +1,137 @@
 "use client";
-
+import Pagination from "@/components/PaginationSection";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
-import { useState } from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useSearchParams } from "next/navigation";
-import PaginationSection from "@/components/PaginationSection";
-import PropertyTenantCard from "@/components/PropertyTenantCard";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useDeletePeakSeasonRate } from "@/hooks/api/peak-season-rate/useDeletePeakSeasonRate";
+import { useGetPeakSeasons } from "@/hooks/api/peak-season-rate/useGetPeakSeasonRate";
+import { useSession } from "next-auth/react";
+import { FC, useState } from "react";
+import { EditPeakSeasonButton } from "./EditPeakSeasonRate";
 
-const PropertyTenantList = () => {
-  const searchParams = useSearchParams();
-  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+interface PeakSeasonsPageProps {
+  roomId: number;
+}
 
-  const { data, isPending, error } = useGetPropertiesTenant({
-    page,
-    take: 8,
-    sortBy: "createdAt",
-    sortOrder: "desc",
+const PeakSeasonsRateList: FC<PeakSeasonsPageProps> = ({ roomId }) => {
+  const session = useSession();
+  const [page, setPage] = useState(1);
+  const userId = session.data?.user.id ?? 0; // fallback 0
+
+  const { data, isPending } = useGetPeakSeasons({
+    userId,
+    take: 10,
   });
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
-  if (error) {
-    return (
-      <div className="container mx-auto max-w-7xl py-8">
-        <Alert variant="destructive">
-          <AlertDescription>
-            Failed to load properties. Please try again.
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
+  const { mutateAsync: deletePeakSeason, isPending: pendingPeakSeason } =
+    useDeletePeakSeasonRate();
 
   if (isPending) {
     return (
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {[...Array(8)].map((_, index) => (
-            <Skeleton key={index} className="h-[300px] rounded-xl" />
-          ))}
-        </div>
+      <div className="w-full">
+        <Skeleton className="h-[400px] w-full rounded-lg bg-gray-200 dark:bg-gray-700" />
       </div>
     );
   }
 
-  if (!data?.data || data.data.length === 0) {
+  if (!data) {
     return (
-      <div className="container mx-auto max-w-7xl py-8">
-        <div className="text-center">
-          <h5 className="text-lg font-medium text-gray-600">
-            No properties found
-          </h5>
-          <p className="mt-2 text-gray-500">
-            Start by creating your first property
-          </p>
-        </div>
+      <div className="flex h-40 w-full items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          No peak season rates found
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto max-w-7xl space-y-8 py-8">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {data.data.map((property) => (
-          <PropertyTenantCard
-            key={property.id}
-            id={property.id}
-            imageUrl={property.propertyImage?.[0]?.imageUrl ?? ""}
-            title={property.title ?? ""}
-            rating={0} // tidak menggunakan property.review karena tidak ada di tipe Property
-          />
-        ))}
+    <div className="w-full">
+      <div className="overflow-hidden">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-50 dark:bg-gray-800/50">
+                <TableHead className="font-medium text-gray-700 dark:text-gray-300">
+                  Room
+                </TableHead>
+                <TableHead className="font-medium text-gray-700 dark:text-gray-300">
+                  Price
+                </TableHead>
+                <TableHead className="font-medium text-gray-700 dark:text-gray-300">
+                  Duration
+                </TableHead>
+                <TableHead className="font-medium text-gray-700 dark:text-gray-300">
+                  Action
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data?.data.map((peakSeasons) => {
+                return (
+                  <TableRow
+                    key={peakSeasons.id}
+                    className="border-b border-gray-100 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-800/50"
+                  >
+                    <TableCell className="font-medium">
+                      {peakSeasons.room?.name} {peakSeasons.room?.type}
+                    </TableCell>
+                    <TableCell>
+                      {new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }).format(peakSeasons.price)}
+                    </TableCell>
+                    <TableCell>
+                      {peakSeasons.startDate && peakSeasons.endDate
+                        ? `${new Date(peakSeasons.startDate).toLocaleDateString()} - ${new Date(peakSeasons.endDate).toLocaleDateString()}`
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <EditPeakSeasonButton id={peakSeasons.id} />
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="h-8 px-3 text-xs"
+                          disabled={pendingPeakSeason}
+                          onClick={() => deletePeakSeason(peakSeasons.id)}
+                        >
+                          {pendingPeakSeason ? "Deleting..." : "Delete"}
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+              {data.data.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-24 text-center text-sm text-gray-500"
+                  >
+                    No peak season rates found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
-      {data.meta.total > data.meta.take && (
-        <div className="flex justify-center">
-          <PaginationSection
-            page={page}
+      {data.data.length > 0 && (
+        <div className="mt-6 flex justify-center">
+          <Pagination
             take={data.meta.take}
             total={data.meta.total}
-            onChangePage={handlePageChange}
+            page={page}
+            onChangePage={(newPage: number) => setPage(newPage)}
           />
         </div>
       )}
@@ -90,4 +139,4 @@ const PropertyTenantList = () => {
   );
 };
 
-export default PropertyTenantList;
+export default PeakSeasonsRateList;

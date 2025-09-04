@@ -54,7 +54,7 @@ const useUpdateRoom = (id: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["room"] });
       toast.success("Update room success");
-      router.push("/tenant/dashboard/property/room");
+      router.push("/dashboard/property/room");
     },
     onError: (error: AxiosError<any>) => {
       const errorMessage = error.response?.data || "Update room failed";

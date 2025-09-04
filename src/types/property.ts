@@ -109,6 +109,7 @@ export interface PeakSeasonRate {
   endDate: string;
   isDeleted: boolean;
   roomId: number;
+  room?: Room;
   createdAt: string;
   updatedAt: string;
 }

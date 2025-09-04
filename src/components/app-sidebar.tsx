@@ -39,7 +39,6 @@ const data = {
     },
     {
       title: "My Properties",
-      url: "/dashboard/property",
       icon: IconBuilding,
       children: [
         {

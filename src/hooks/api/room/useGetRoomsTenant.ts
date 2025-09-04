@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import useAxios from '@/hooks/useAxios';
-import { PageableResponse, PaginationQueries } from '@/types/pagination';
-import { Room } from '@/types/property';
-import { useQuery } from '@tanstack/react-query';
+import useAxios from "@/hooks/useAxios";
+import { PageableResponse, PaginationQueries } from "@/types/pagination";
+import { Room } from "@/types/property";
+import { useQuery } from "@tanstack/react-query";
 
 interface GetRoomsQueries extends PaginationQueries {
   propertyId?: number;
@@ -11,16 +11,16 @@ interface GetRoomsQueries extends PaginationQueries {
 }
 
 export const useGetRoomsTenant = (queries: GetRoomsQueries) => {
-  const axiosInstance = useAxios(); 
+  const axiosInstance = useAxios();
 
   return useQuery({
-    queryKey: ['room', queries],
+    queryKey: ["room", queries],
     queryFn: async () => {
       const { data } = await axiosInstance.get<PageableResponse<Room>>(
-        '/rooms/tenant',
+        "/rooms/tenant",
         {
           params: queries,
-        },
+        }
       );
       return data;
     },

@@ -104,7 +104,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
           </div>
 
           <div className="p-6">
-            {/* <PeakSeasonsRateList roomId={roomId} /> */}
+            <PeakSeasonsRateList roomId={roomId} />
           </div>
         </div>
       </div>

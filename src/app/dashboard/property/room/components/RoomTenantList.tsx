@@ -49,7 +49,7 @@ const RoomTenantList = () => {
               key={room.id}
               id={room.id}
               guest={room.guest}
-              imageUrl={room.roomImage?.[0]?.imageUrl}
+              imageUrl={room.roomImage?.[0]?.imageUrl || ""} // <- fallback
               name={room.name || room.type}
               stock={room.stock}
               price={room.price}
