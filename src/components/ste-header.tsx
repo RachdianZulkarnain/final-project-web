@@ -20,15 +20,20 @@ export function SiteHeader() {
   });
 
   return (
-    <header className="sticky top-0 z-50 flex h-[var(--header-height)] shrink-0 items-center 
+    <header
+      className="sticky top-0 z-50 flex h-[var(--header-height)] shrink-0 items-center 
       border-b border-border bg-card/50 backdrop-blur-sm 
       px-4 shadow-sm transition-[width,height] ease-linear 
-      group-has-data-[collapsible=icon]/sidebar-wrapper:h-[var(--header-height)] lg:px-6">
+      group-has-data-[collapsible=icon]/sidebar-wrapper:h-[var(--header-height)] lg:px-6"
+    >
       <div className="flex w-full items-center justify-between gap-2">
         {/* Left side: sidebar trigger and breadcrumbs */}
         <div className="flex items-center gap-3">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="h-6 bg-muted-foreground/40" />
+          <Separator
+            orientation="vertical"
+            className="h-6 bg-muted-foreground/40"
+          />
 
           <nav className="flex items-center gap-2 text-sm font-medium text-foreground">
             <Link

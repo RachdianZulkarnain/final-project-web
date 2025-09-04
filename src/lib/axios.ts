@@ -1,10 +1,9 @@
 import axios from "axios";
+import { fa } from "zod/v4/locales";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  withCredentials: false,
 });
 
 export default axiosInstance;

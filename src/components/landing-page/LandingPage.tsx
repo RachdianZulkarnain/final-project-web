@@ -38,7 +38,8 @@ export default function LandingPage() {
       >
         <div className="w-[80vw] mx-auto ">
           <ExploreCity></ExploreCity>
-          <FeaturedRooms ></FeaturedRooms>
+          <FeaturedRooms listings={listings}></FeaturedRooms>
+          
           <BestDeals></BestDeals>
         </div>
       </div>

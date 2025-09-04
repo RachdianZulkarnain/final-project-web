@@ -1,18 +1,18 @@
-import { Toaster } from '@/components/ui/sonner';
-import { useDeleteListingMutation } from '../api/useDeleteListingMutation';
-import { useQueryClient } from '@tanstack/react-query';
+import { useDeleteListingMutation } from "../api/useDeleteListingMutation";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const useDeletelisting = () => {
+export const useDeleteListing = () => {
   const queryClient = useQueryClient();
 
   const { mutate: mutationDeleteListing } = useDeleteListingMutation({
     onSuccess: (res: any) => {
-      Toaster({
-      });
-      queryClient.invalidateQueries({ queryKey: ['my-listings'] });
+      toast.success("Listing deleted successfully.");
+      queryClient.invalidateQueries({ queryKey: ["my-listings"] });
     },
     onError: (err: any) => {
-      console.log(err);
+      console.error(err);
+      toast.error("Failed to delete listing.");
     },
   });
 
