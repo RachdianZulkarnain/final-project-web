@@ -381,9 +381,6 @@ export function RoomPriceCalendar({
   return (
     <div className="mx-auto max-w-md space-y-6 rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
       <div className="space-y-2">
-        <label className="text-sm font-medium leading-none text-slate-700">
-          Select Room Type
-        </label>
         <Select onValueChange={onRoomSelect} value={selectedRoomId}>
           <SelectTrigger className="border-slate-200 bg-white shadow-sm transition-colors hover:border-slate-300 focus:ring-offset-0">
             <SelectValue placeholder="Select a room type" />

@@ -64,7 +64,7 @@ const RoomCard: FC<RoomCardProps> = ({
         <div className="-mt-7 space-y-4">
           <div className="rounded-lg bg-white p-4 shadow-sm">
             <h4 className="text-center text-sm font-medium text-gray-600">
-              Price/room/night
+              Price room/night
             </h4>
             <p className="text-center text-xl font-semibold text-[#396ee4]">
               {new Intl.NumberFormat("id-ID", {

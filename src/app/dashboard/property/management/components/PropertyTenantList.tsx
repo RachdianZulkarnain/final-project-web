@@ -5,15 +5,14 @@ import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTen
 import { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useSearchParams } from "next/navigation";
-import PaginationSection from "@/components/PaginationSection";
 import PropertyTenantCard from "@/components/PropertyTenantCard";
+import PaginationSection from "@/components/PaginationSection";
 
 // Tipe data API-safe
 interface PropertyTenant {
   id: number;
   title: string;
   propertyImage: { imageUrl?: string }[];
-  review?: { rating: number }[]; // optional, bisa kosong
 }
 
 const PropertyTenantList = () => {
@@ -55,7 +54,7 @@ const PropertyTenantList = () => {
     );
   }
 
-  if (!data?.data || data.data.length === 0) {
+  if (!data?.data || (Array.isArray(data.data) && data.data.length === 0)) {
     return (
       <div className="container mx-auto max-w-7xl py-8">
         <div className="text-center">
@@ -79,11 +78,9 @@ const PropertyTenantList = () => {
             id={property.id}
             imageUrl={property.propertyImage[0]?.imageUrl || ""}
             title={property.title}
-            rating={property.review?.[0]?.rating || 0} // optional chaining
           />
         ))}
       </div>
-
       {data.meta.total > data.meta.take && (
         <div className="flex justify-center">
           <PaginationSection

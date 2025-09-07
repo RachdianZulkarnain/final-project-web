@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useGetCategory from "@/hooks/api/category/useGetCategory";
-import { PropertyCategory } from "@/types/propertyCategory";
+import { PropertyCategory } from "@/types/property";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 

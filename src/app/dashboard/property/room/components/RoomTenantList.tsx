@@ -39,9 +39,6 @@ const RoomTenantList = () => {
   }
   return (
     <>
-      <h3 className="container mx-auto mb-3 max-w-7xl text-center text-2xl font-semibold md:text-left">
-        Room
-      </h3>
       <section className="container mx-auto max-w-7xl grid-cols-4 gap-5 md:grid">
         {data?.data.map((room) => {
           return (

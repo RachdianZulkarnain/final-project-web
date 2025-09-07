@@ -37,19 +37,25 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-12">
         <header className="mb-8">
-          <h1 className="text-2xl font-light text-gray-800 dark:text-gray-100 md:text-3xl">
-            Peak Season <span className="font-semibold">Rate Management</span>
-          </h1>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            Set special rates for high-demand periods to maximize revenue
-          </p>
+          <div className="border-b border-gray-200 bg-gray-50 p-6 rounded-2xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-semibold  text-[#0290d1]">
+                  Peak Season Rate Management
+                </h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Set special rates for high-demand periods to maximize revenue
+                </p>
+              </div>
+            </div>
+          </div>
         </header>
         <div className="mb-8 overflow-hidden rounded-xl bg-white shadow-sm transition-all dark:bg-gray-800">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
-            <h2 className="font-medium text-gray-700 dark:text-gray-300">
+            <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
               Add New Rate
             </h2>
           </div>
@@ -82,7 +88,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
 
               <div className="mt-6 flex justify-end">
                 <Button
-                  className="px-6 transition-all hover:bg-opacity-90"
+                  className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
                   {isPending ? "Processing..." : "Add Peak Season Rate"}
@@ -94,7 +100,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
         <div className="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-800">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <div className="flex items-center justify-between">
-              <h2 className="font-medium text-gray-700 dark:text-gray-300">
+              <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
                 Current Peak Season Rates
               </h2>
               <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">

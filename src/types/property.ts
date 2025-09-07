@@ -25,10 +25,11 @@ export interface Property {
   PropertyCategory?: PropertyCategory[]; 
 }
 
+
 export interface PropertyImage {
   isDeleted: any;
   id: number;
-  imageUrl?: string;
+  imageUrl: string;
   propertyId: number;
   createdAt: string;
   updatedAt: string;

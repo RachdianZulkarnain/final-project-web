@@ -8,7 +8,7 @@ interface IThumbnailCard {
   text?: string | undefined;
 }
 
-export const ThumbnailCard = ({
+export const  ThumbnailCard = ({
   redirectUrl,
   imageUrl,
   hoverAnim,
