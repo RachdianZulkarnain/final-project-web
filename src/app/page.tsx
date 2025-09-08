@@ -1,9 +1,12 @@
 import LandingPage from "@/components/landing-page/LandingPage";
+import LandingPageLayout from "@/components/LandingPageLayout";
 
 export default function Home() {
   return (
     <main>
-      <LandingPage />
+      <LandingPageLayout>
+        <LandingPage />
+      </LandingPageLayout>
     </main>
   );
 }

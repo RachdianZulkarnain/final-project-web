@@ -5,13 +5,27 @@ export interface PaginationMeta {
 }
 
 export interface PageableResponse<T> {
-  data: T[];
-  meta: PaginationMeta;
+  meta: any;
+  message: string;
+  data: {
+    length: any;
+    map(
+      arg0: (
+        category: import("./property").PropertyCategory
+      ) => import("react").JSX.Element
+    ): import("react").ReactNode;
+    data: T[];
+    meta: {
+      lastPage: number;
+      total: number;
+      totalCount: number;
+      page: number;
+      take: number;
+    };
+  };
 }
 
 export interface PaginationQueries {
   take?: number;
   page?: number;
-  sortBy?: string;
-  sortOrder?: string;
 }

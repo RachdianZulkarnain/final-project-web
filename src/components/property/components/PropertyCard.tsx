@@ -29,17 +29,19 @@ const LocationIcon = () => (
 
 const PriceIcon = () => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
     className="h-5 w-5 text-[#00A9FF]"
     fill="none"
+    viewBox="0 0 24 24"
     stroke="currentColor"
     strokeWidth={1.5}
-    viewBox="0 0 24 24"
   >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M7 10h10M7 14h10M9 6l-2 2m8-2l2 2m-2 10l2 2m-8-2l-2 2"
+      d="M7 7h5l7 7-5 5-7-7V7z"
     />
+    <circle cx="9" cy="9" r="1.5" fill="currentColor" />
   </svg>
 );
 interface PropertyCardProps {

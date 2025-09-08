@@ -4,9 +4,7 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { toast } from "sonner";
 import useRegisterTenant from "./_hooks/useRegisterTenant";
-import { Button } from "@/components/ui/button";
 import { SignupSchema } from "../schema";
 
 const RegisterTenant = () => {
@@ -41,8 +39,12 @@ const RegisterTenant = () => {
       <div className="max-w-2xl w-full space-y-10 bg-white px-10 rounded-lg">
         <div className="text-center">
           <h2 className="text-3xl md:text-3xl font-extrabold text-[#0290d1]">
-            Register Tenant
+            Create Tenant Account
           </h2>
+          <p className="mt-2 text-md text-gray-600">
+            Register your account to list and manage your properties on our
+            platform.
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col sm:flex-row gap-4">

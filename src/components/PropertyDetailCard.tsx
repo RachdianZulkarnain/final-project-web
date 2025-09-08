@@ -64,7 +64,7 @@ const RoomInfo = ({ name, guest }: { name: string; guest: number }) => (
 const PriceInfo = ({ price }: { price: string }) => (
   <div>
     <h4 className="mt-7 text-center text-base font-semibold md:mt-0">
-      Price/room/night
+      Price room/night
     </h4>
     <p className="text-center text-xl font-medium text-[#396ee4]">{price}</p>
   </div>

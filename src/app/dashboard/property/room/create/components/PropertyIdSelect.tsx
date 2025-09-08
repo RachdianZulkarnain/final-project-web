@@ -28,7 +28,7 @@ export const PropertyIdSelect: FC<FormSelectProps> = ({ setFieldValue }) => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Your Property List</SelectLabel>
-          {data?.data.map((property: Property) => (
+          {data?.data.data.map((property: Property) => (
             <SelectItem key={property.id} value={String(property.id)}>
               {property.title}
             </SelectItem>

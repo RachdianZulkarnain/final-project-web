@@ -35,20 +35,24 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-12">
-        <header className="mb-8">
-          <h1 className="text-2xl font-light text-gray-800 dark:text-gray-100 md:text-3xl">
-            Room <span className="font-semibold">Availability Management</span>
-          </h1>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            Define periods when rooms are unavailable for booking
-          </p>
-        </header>
+        <div className="border-b border-gray-200 bg-gray-50 p-6 rounded-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold  text-[#0290d1]">
+                Manage Room Availability
+              </h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Define periods when rooms are unavailable for booking
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <div className="mb-8 overflow-hidden rounded-xl bg-white shadow-sm transition-all dark:bg-gray-800">
+        <div className="mb-8 overflow-hidden rounded-xl bg-white shadow-sm transition-all dark:bg-gray-800 mt-10">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
-            <h2 className="font-medium text-gray-700 dark:text-gray-300">
+            <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
               Block Room Availability
             </h2>
           </div>
@@ -81,7 +85,7 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
 
               <div className="mt-6 flex justify-end">
                 <Button
-                  className="px-6 transition-all hover:bg-opacity-90"
+                  className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
                   {isPending ? "Processing..." : "Block Room Availability"}
@@ -94,7 +98,7 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
         <div className="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-800">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <div className="flex items-center justify-between">
-              <h2 className="font-medium text-gray-700 dark:text-gray-300">
+              <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
                 Blocked Availability Periods
               </h2>
               <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">

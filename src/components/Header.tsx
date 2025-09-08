@@ -14,12 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 
 export default function Header() {
-  const { data: session, update } = useSession(); // ✅ ambil update
+  const { data: session, update } = useSession();
   const pathname = usePathname();
-
   const isHome = pathname === "/";
   const user = session?.user as
     | {
@@ -35,6 +34,7 @@ export default function Header() {
 
   const [navbar, setNavbar] = useState(!isHome);
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // ✅ state untuk burger menu
 
   useEffect(() => {
     setMounted(true);
@@ -49,7 +49,6 @@ export default function Header() {
     await signOut({ callbackUrl: "/sign-in" });
   };
 
-  // ✅ refresh session user kalau ada perubahan profilePic
   useEffect(() => {
     if (user?.profilePic) {
       update({
@@ -62,9 +61,8 @@ export default function Header() {
     }
   }, [user?.profilePic, session, update]);
 
-  // ✅ sembunyikan header di halaman profile dan dashboard
-if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
-  return null;
+  if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
+    return null;
 
   if (!mounted) {
     return (
@@ -94,6 +92,7 @@ if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
       }`}
     >
       <div className="flex items-center justify-between px-8 py-4 lg:px-32">
+        {/* Logo */}
         <Link
           href="/"
           className={`flex items-center gap-2 transition-all duration-500 ${
@@ -118,21 +117,21 @@ if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
           </span>
         </Link>
 
-        {user ? (
-          <div className="flex items-center gap-3">
-            <Avatar>
-              <AvatarImage
-                src={user?.profilePic || user?.imageUrl || "/placeholder.svg"}
-              />
-              <AvatarFallback>
-                {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-4">
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  ☰
-                </Button>
+                <Avatar>
+                  <AvatarImage
+                    src={
+                      user?.profilePic || user?.imageUrl || "/placeholder.svg"
+                    }
+                  />
+                  <AvatarFallback>
+                    {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
@@ -155,36 +154,105 @@ if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        ) : (
-          <div className="flex space-x-4">
-            <Link href="/sign-up">
-              <Button
-                className={`hidden md:flex rounded-full transition-colors duration-300 ${
-                  navbar ? "bg-[#0290d1] text-white" : "bg-white text-[#0290d1]"
-                }`}
-              >
-                Sign Up
-              </Button>
-            </Link>
-            <Link href="/sign-in">
-              <Button
-                className={`rounded-full transition-colors duration-300 ${
-                  navbar
-                    ? "bg-black text-white"
-                    : "bg-white text-black border-2"
-                } md:bg-transparent md:border-2 ${
-                  navbar
-                    ? "md:border-[#0290d1] md:text-[#0290d1]"
-                    : "md:border-white md:text-white"
-                }`}
-              >
-                Sign In
-              </Button>
-            </Link>
-          </div>
-        )}
+          ) : (
+            <div className="flex space-x-4">
+              <Link href="/sign-up">
+                <Button
+                  className={`rounded-full ${
+                    navbar
+                      ? "bg-[#0290d1] text-white"
+                      : "bg-white text-[#0290d1]"
+                  }`}
+                >
+                  Sign Up
+                </Button>
+              </Link>
+              <Link href="/sign-in">
+                <Button
+                  className={`rounded-full ${
+                    navbar
+                      ? "bg-[#0290d1] text-white"
+                      : "bg-white text-[#0290d1] "
+                  }`}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Burger menu (mobile) */}
+        <div className="md:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
       </div>
+
+      {/* Mobile Nav */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-lg rounded-b-2xl px-6 py-6 space-y-4">
+          {user ? (
+            <>
+              <nav className="flex flex-col space-y-3">
+                <Link
+                  href="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-700 hover:text-[#0290d1] transition-colors"
+                >
+                  Profile
+                </Link>
+                <Link
+                  href="/order"
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-700 hover:text-[#0290d1] transition-colors"
+                >
+                  Order History
+                </Link>
+                {user?.role === "tenant" && (
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsOpen(false)}
+                    className="text-gray-700 hover:text-[#0290d1] transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                )}
+              </nav>
+
+              <div className="pt-4 border-t border-gray-200">
+                <Button
+                  variant="destructive"
+                  className="w-full"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col gap-3">
+                <Link href="/sign-up" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full bg-[#0290d1] text-white">
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link href="/sign-in" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full border-2 border-[#0290d1] text-[#0290d1] bg-white">
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 }

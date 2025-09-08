@@ -8,6 +8,7 @@ import { PasswordSchema } from "./schema";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import useSetPassword from "./_hooks/useSetPassword";
+import { Eye, EyeOff } from "lucide-react";
 yupPassword(Yup);
 
 interface SetPasswordPageProps {
@@ -51,7 +52,7 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
     <div className="min-h-screen flex justify-center items-center px-4 bg-gradient-to-br from-white to-blue-50">
       <div className="p-10 max-w-xl w-full mx-auto space-y-8">
         <div className="text-start">
-          <h2 className="text-4xl font-extrabold text-gray-900">
+          <h2 className="text-4xl font-extrabold text-[#0290d1]">
             Set Your New Password
           </h2>
           <p className="mt-2 text-md text-gray-600">
@@ -104,12 +105,16 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
               onClick={handlePasswordVisibility}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-primary bg-secondary hover:cursor-pointer hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary mb-4"
             >
-              {showPasswords ? "Hide Passwords" : "Show Passwords"}
+              {showPasswords ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </button>
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary hover:cursor-pointer hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary hover:cursor-pointer hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {formik.isSubmitting ? "Setting Password..." : "Submit"}
             </button>

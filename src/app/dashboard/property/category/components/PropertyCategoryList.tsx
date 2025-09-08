@@ -16,6 +16,7 @@ import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { EditPropertyCategory } from "./EditPropertyCategory";
+import { Trash, Trash2 } from "lucide-react";
 
 interface Category {
   id: number;
@@ -32,7 +33,7 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
   const session = useSession();
   const userId = session.data?.user.id;
 
-  // Gunakan hook tanpa generic
+  // Ambil data kategori
   const { data, isPending } = useGetCategory({
     userId,
     take: 7,
@@ -42,6 +43,8 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
     useDeleteCategory();
   useUpdateCategory();
 
+  const categories = (data?.data ?? []) as Category[];
+
   if (isPending) {
     return (
       <div className="container mx-auto max-w-7xl">
@@ -50,7 +53,7 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
     );
   }
 
-  if (!data || !data.data || data.data.length === 0) {
+  if (categories.length === 0) {
     return (
       <h5 className="container mx-auto mb-3 max-w-7xl text-center font-semibold md:text-left">
         Category Not Found
@@ -60,12 +63,12 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
 
   return (
     <>
-      <h5 className="container mx-auto mb-3 max-w-7xl text-center font-semibold md:text-left">
+      <h5 className="container mx-auto mb-3 max-w-7xl text-center font-semibold md:text-left text-[#0290d1]">
         Category List
       </h5>
       <section className="container mx-auto max-w-7xl rounded-lg bg-white p-5">
         <Table>
-          <TableCaption>A list of your property category</TableCaption>
+          <TableCaption>A list of property category</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
@@ -73,16 +76,21 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.data.map((category: Category) => (
+            {categories.map((category) => (
               <TableRow key={category.id}>
                 <TableCell className="font-medium">{category.name}</TableCell>
                 <TableCell className="flex items-center gap-3">
                   <Button
                     variant="destructive"
+                    size="icon"
                     disabled={pendingDelete}
                     onClick={() => deleteCategory(category.id)}
                   >
-                    {pendingDelete ? "Deleting..." : "Delete"}
+                    {pendingDelete ? (
+                      <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                    ) : (
+                      <Trash2 className="h-4 w-4" />
+                    )}
                   </Button>
                   <EditPropertyCategory id={category.id} />
                 </TableCell>

@@ -14,6 +14,7 @@ import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
 import { useFormik } from "formik";
 import { FC, useState } from "react";
 import { PropertyCategorySchema } from "../schemas/PropertyCategoryScema";
+import { Pencil } from "lucide-react";
 
 interface EditPropertyCategory {
   id: number;
@@ -37,8 +38,8 @@ export const EditPropertyCategory: FC<EditPropertyCategory> = ({ id }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => setIsOpen(true)}>
-          Edit
+        <Button variant="outline" size="icon" onClick={() => setIsOpen(true)}>
+          <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

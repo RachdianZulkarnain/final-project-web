@@ -17,9 +17,9 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
 import { EditPropertyCategory } from "../../category/components/EditPropertyCategory";
 import PaginationSection from "@/components/PaginationSection";
+import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
 
 // Tipe data API-safe
 interface PropertyItem {
@@ -39,10 +39,13 @@ const PropertyList = () => {
   const session = useSession();
   const userId = session.data?.user.id;
 
+  if (!userId)
+    return <p className="text-center">Please login to see properties</p>;
+
   const { data, isPending } = useGetPropertiesTenant({
     take: 10,
     page,
-    userId,
+    userId, // sekarang pasti number
   });
 
   const { mutateAsync: deleteProperty, isPending: isDeleting } =
@@ -52,7 +55,7 @@ const PropertyList = () => {
     return <Skeleton className="h-[400px] w-full" />;
   }
 
-  if (!data?.data || !data.data.length) {
+  if (!data?.data?.data?.length) {
     return <p className="text-center">No properties found</p>;
   }
 
@@ -71,7 +74,7 @@ const PropertyList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.data.map((property: PropertyItem) => (
+          {data.data.data.map((property: PropertyItem) => (
             <TableRow key={property.id}>
               <TableCell>
                 <div className="relative h-16 w-16 overflow-hidden rounded-lg">
@@ -110,15 +113,6 @@ const PropertyList = () => {
           ))}
         </TableBody>
       </Table>
-
-      <div className="mt-4 flex justify-center">
-        <PaginationSection
-          page={page}
-          take={data.meta.take}
-          total={data.meta.total}
-          onChangePage={setPage}
-        />
-      </div>
     </>
   );
 };
