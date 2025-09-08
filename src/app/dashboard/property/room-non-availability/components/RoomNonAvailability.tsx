@@ -1,4 +1,5 @@
 "use client";
+import Pagination from "@/components/PaginationSection";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -14,7 +15,6 @@ import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRo
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { EditRoomNonAvailabilityButton } from "./EditRoomNonAvailability";
-import PaginationSection from "@/components/PaginationSection";
 
 interface RoomNonAvailabilityPageProps {
   roomId: number;
@@ -86,8 +86,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                     className="border-b border-gray-100 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-800/50"
                   >
                     <TableCell className="font-medium">
-                      Room ID: {roomNonAvailability.roomId}{" "}
-                      {/* ganti room.name → roomId */}
+                      {roomNonAvailability.room.name}
                     </TableCell>
                     <TableCell>
                       <span className="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
@@ -123,6 +122,16 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                   </TableRow>
                 );
               })}
+              {data.data.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-24 text-center text-sm text-gray-500"
+                  >
+                    No blocked availability periods found
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </div>
@@ -130,7 +139,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
 
       {data.data.length > 0 && (
         <div className="mt-6 flex justify-center">
-          <PaginationSection
+          <Pagination
             take={data.meta.take}
             total={data.meta.total}
             page={page}

@@ -257,7 +257,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
         <div className="container mx-auto max-w-5xl px-4 py-6 sm:px-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="mb-1 text-2xl font-bold text-gray-900">
+              <h1 className="mb-1 text-2xl font-bold text-[#0290d1]">
                 Update Room
               </h1>
               <p className="text-sm text-gray-500">
@@ -463,7 +463,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
               <div className="space-y-6">
                 {activeFacilities.map((facility, index) => {
                   const formikIndex = formik.values.facilities.findIndex(
-                    (f) => f === facility,
+                    (f) => f === facility
                   );
 
                   return (
@@ -513,24 +513,24 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
                             formik.touched,
                             formik.errors,
                             formikIndex,
-                            "title",
+                            "title"
                           )}
                           error={getNestedError(
                             formik.errors,
                             formikIndex,
-                            "title",
+                            "title"
                           )}
                           onBlur={formik.handleBlur}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleFacilityChange(
                               formikIndex,
                               "title",
-                              e.target.value,
+                              e.target.value
                             )
                           }
                         />
 
-                        <FormTextarea
+                        {/* <FormTextarea
                           name={`facilities.${formikIndex}.description`}
                           label="Facility Description"
                           placeholder="Provide details about this facility..."
@@ -539,24 +539,24 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
                             formik.touched,
                             formik.errors,
                             formikIndex,
-                            "description",
+                            "description"
                           )}
                           error={getNestedError(
                             formik.errors,
                             formikIndex,
-                            "description",
+                            "description"
                           )}
                           onBlur={formik.handleBlur}
                           onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>,
+                            e: React.ChangeEvent<HTMLTextAreaElement>
                           ) =>
                             handleFacilityChange(
                               formikIndex,
                               "description",
-                              e.target.value,
+                              e.target.value
                             )
                           }
-                        />
+                        /> */}
                       </div>
                     </div>
                   );
