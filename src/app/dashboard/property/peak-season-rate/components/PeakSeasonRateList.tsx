@@ -103,8 +103,12 @@ const PeakSeasonsRateList: FC<PeakSeasonsPageProps> = ({ roomId }) => {
                           disabled={pendingPeakSeason}
                           onClick={() => deletePeakSeason(peakSeasons.id)}
                         >
+<<<<<<< HEAD
                           {pendingPeakSeason ? "Deleting..." : ""}
                           <Trash2 className="h-4 w-4" />
+=======
+                          {pendingPeakSeason ? "Deleting..." : "Delete"}
+>>>>>>> main
                         </Button>
                       </div>
                     </TableCell>

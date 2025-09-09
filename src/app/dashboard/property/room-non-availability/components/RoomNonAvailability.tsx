@@ -1,5 +1,6 @@
 "use client";
 import Pagination from "@/components/PaginationSection";
+import Pagination from "@/components/PaginationSection";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -88,6 +89,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                   >
                     <TableCell className="font-medium">
                       {roomNonAvailability.room.name}
+                      {roomNonAvailability.room.name}
                     </TableCell>
                     <TableCell>
                       <span className="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
@@ -132,6 +134,16 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                   </TableCell>
                 </TableRow>
               )}
+              {data.data.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-24 text-center text-sm text-gray-500"
+                  >
+                    No blocked availability periods found
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </div>
@@ -139,6 +151,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
 
       {data.data.length > 0 && (
         <div className="mt-6 flex justify-center">
+          <Pagination
           <Pagination
             take={data.meta.take}
             total={data.meta.total}
