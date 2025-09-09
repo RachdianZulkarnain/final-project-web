@@ -3,7 +3,7 @@
 import useAxios from "@/hooks/useAxios";
 import { PageableResponse, PaginationQueries } from "@/types/pagination";
 import { PeakSeasonRate } from "@/types/property";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 interface GetPeakSeasonsQueries extends PaginationQueries {
   search?: string;
@@ -11,20 +11,25 @@ interface GetPeakSeasonsQueries extends PaginationQueries {
   startDate?: Date;
   endDate?: Date;
   roomId?: number;
-  userId: number;
+  userId?: number; // dibuat optional
 }
 
-export const useGetPeakSeasons = (queries: GetPeakSeasonsQueries) => {
+export const useGetPeakSeasons = (
+  queries: GetPeakSeasonsQueries,
+  options?: UseQueryOptions<PageableResponse<PeakSeasonRate>, Error>
+) => {
   const axiosInstance = useAxios();
 
-  return useQuery({
+  return useQuery<PageableResponse<PeakSeasonRate>, Error>({
     queryKey: ["peakSeasonRate", queries],
     queryFn: async () => {
       const { data } = await axiosInstance.get<
         PageableResponse<PeakSeasonRate>
-      >("/peak-season-rates", { params: queries });
+      >("/peak-season", { params: queries });
       return data;
     },
     staleTime: 1000 * 60 * 5,
+    enabled: !!queries.userId, // query hanya jalan kalau ada userId
+    ...options,
   });
 };

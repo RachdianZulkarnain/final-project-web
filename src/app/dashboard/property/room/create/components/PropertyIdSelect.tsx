@@ -8,27 +8,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
+import { PropertyCategory } from "@/types/property";
 import { FC } from "react";
-import { Property } from "@/types/property"; // <-- gunakan type Property yang sesuai hook
 
 interface FormSelectProps {
   setFieldValue: any;
 }
 
 export const PropertyIdSelect: FC<FormSelectProps> = ({ setFieldValue }) => {
-  const { data, isPending } = useGetPropertiesTenant({ take: 100 });
+  const { data, isPending } = useGetPropertiesTenant({
+    take: 100,
+  });
 
   return (
-    <Select
-      onValueChange={(value) => setFieldValue("propertyId", Number(value))}
-    >
+    <Select onValueChange={(value) => setFieldValue("propertyId", value)}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select Property" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Your Property List</SelectLabel>
-          {data?.data.data.map((property: Property) => (
+          {data?.data.map((property: PropertyCategory) => (
             <SelectItem key={property.id} value={String(property.id)}>
               {property.title}
             </SelectItem>

@@ -381,7 +381,7 @@ const CreateRoomPage = () => {
                         }
                       />
 
-                      <FormTextarea
+                      {/* <FormTextarea
                         name={`facilities.${index}.description`}
                         label="Facility Description"
                         placeholder="Provide details about this facility..."
@@ -405,7 +405,7 @@ const CreateRoomPage = () => {
                             e.target.value,
                           )
                         }
-                      />
+                      /> */}
                     </div>
                   </div>
                 ))}

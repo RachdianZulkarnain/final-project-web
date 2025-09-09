@@ -21,8 +21,8 @@ export const useUpdatePeakSeasonRate = () => {
     mutationFn: async (payload: UpdatePeakSeasonRatePayload) => {
       const { id, ...data } = payload;
       const { data: response } = await axiosInstance.patch(
-        `/peak-season-rates/peak-season/${id}`,
-        data,
+        `/peak-season/${id}`,
+        data
       );
       return response;
     },
@@ -32,7 +32,7 @@ export const useUpdatePeakSeasonRate = () => {
     },
     onError: (error: AxiosError<any>) => {
       toast.error(
-        error.response?.data?.message || "Failed to update Peak Season Rate",
+        error.response?.data?.message || "Failed to update Peak Season Rate"
       );
     },
   });

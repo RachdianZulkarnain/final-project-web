@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 interface GetPropertyQueries extends PaginationQueries {
   userId?: number;
   search?: string;
+  sortBy?: string;
+  sortOrder?: string;
 }
 
 export const useGetPropertiesTenant = (queries: GetPropertyQueries) => {
