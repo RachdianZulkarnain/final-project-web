@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Search, User, Baby, Dog } from "lucide-react";
+import { Search, User, Baby } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Popover,
@@ -14,7 +14,7 @@ import {
 import { DatePickerWithRange } from "../DateRangePicker";
 import { CounterComponent } from "../cards/CounterComponent";
 
-export default function SearchBarFormikShadcn() {
+export default function SearchBarResponsive() {
   const router = useRouter();
 
   const formik = useFormik({
@@ -28,14 +28,12 @@ export default function SearchBarFormikShadcn() {
     }),
     onSubmit: async (values) => {
       const totalGuests = values.guests.adults + values.guests.children;
-
       const query = new URLSearchParams({
         title: values.title,
-        guest: String(totalGuests), // ✅ samakan dengan SearchPropertiesPage
+        guest: String(totalGuests),
         startDate: values.duration.from?.toISOString() ?? "",
         endDate: values.duration.to?.toISOString() ?? "",
       }).toString();
-
       router.push(`/property/search?${query}`);
     },
   });
@@ -44,9 +42,78 @@ export default function SearchBarFormikShadcn() {
 
   return (
     <div className="mx-auto mt-5 max-w-5xl px-4">
+      {/* Mobile version */}
       <form
         onSubmit={formik.handleSubmit}
-        className="flex items-center justify-between rounded-full bg-white shadow-lg overflow-hidden"
+        className="flex flex-col gap-4 md:hidden"
+      >
+        {/* Location */}
+        <div className="flex flex-col bg-white rounded-4xl shadow p-2">
+          <Input
+            name="title"
+            type="text"
+            placeholder="Where are you going?"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            className="h-12 border-0 text-base placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+          />
+        </div>
+
+        {/* Duration */}
+        <div className="flex flex-col bg-white rounded-4xl shadow p-3">
+          <DatePickerWithRange setFieldValue={formik.setFieldValue} />
+        </div>
+
+        {/* Guests */}
+        <div className="flex flex-col bg-white rounded-4xl shadow p-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "justify-start h-12 w-full text-base text-gray-500 hover:bg-transparent px-0",
+                  guests.adults + guests.children > 0 && "text-black"
+                )}
+              >
+                {guests.adults + guests.children === 0
+                  ? "Who's coming?"
+                  : `Adults (${guests.adults}), Children (${guests.children})`}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full grid gap-2 bg-white p-4 rounded-lg shadow-lg">
+              <CounterComponent
+                icon={<User className="h-4 w-4" />}
+                text="Adults"
+                count={guests.adults}
+                setCount={(val: number) =>
+                  formik.setFieldValue("guests.adults", val)
+                }
+              />
+              <CounterComponent
+                icon={<Baby className="h-4 w-4" />}
+                text="Children"
+                count={guests.children}
+                setCount={(val: number) =>
+                  formik.setFieldValue("guests.children", val)
+                }
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+
+        {/* Search Button */}
+        <Button
+          type="submit"
+          className="flex items-center justify-center bg-[#0290d1] hover:bg-[#70cefa] text-white rounded-3xl w-full h-12"
+        >
+          <Search className="h-5 w-5 mr-2" />
+        </Button>
+      </form>
+
+      {/* Desktop version */}
+      <form
+        onSubmit={formik.handleSubmit}
+        className="hidden md:flex items-center justify-between rounded-full bg-white shadow-lg overflow-hidden"
       >
         {/* Location */}
         <div className="flex flex-col flex-1 px-6 py-3 border-r">
@@ -78,7 +145,7 @@ export default function SearchBarFormikShadcn() {
               >
                 {guests.adults + guests.children === 0
                   ? "Who's coming?"
-                  : `Adults (${guests.adults}), Children (${guests.children}))`}
+                  : `Adults (${guests.adults}), Children (${guests.children})`}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-60 grid gap-2 bg-white p-4 rounded-lg shadow-lg">

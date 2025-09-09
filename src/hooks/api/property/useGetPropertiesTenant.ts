@@ -8,8 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 interface GetPropertyQueries extends PaginationQueries {
   userId?: number;
   search?: string;
-  sortBy?: string;
-  sortOrder?: string;
 }
 
 export const useGetPropertiesTenant = (queries: GetPropertyQueries) => {
@@ -21,7 +19,7 @@ export const useGetPropertiesTenant = (queries: GetPropertyQueries) => {
       try {
         const { data } = await axiosInstance.get<PageableResponse<Property>>(
           "/properties/tenant",
-          { params: queries }
+          { params: queries },
         );
         return data;
       } catch (error) {

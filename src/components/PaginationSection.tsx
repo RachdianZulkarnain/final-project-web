@@ -8,12 +8,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { PaginationMeta } from "@/types/pagination";
 import { FC } from "react";
 
-interface PaginationSectionProps {
-  page: number;
-  take: number;
-  total: number;
+interface PaginationSectionProps extends PaginationMeta {
   onChangePage: (page: number) => void;
 }
 
@@ -23,18 +21,17 @@ const PaginationSection: FC<PaginationSectionProps> = ({
   total,
   onChangePage,
 }) => {
-  const totalPages = Math.ceil(total / take);
-
-  if (totalPages <= 1) return null; // hide pagination if only 1 page
-
   const handlePrev = () => {
-    if (page > 1) onChangePage(page - 1);
+    if (page > 1) {
+      onChangePage(page - 1);
+    }
   };
 
   const handleNext = () => {
-    if (page < totalPages) onChangePage(page + 1);
+    if (page < Math.ceil(total / take)) {
+      onChangePage(page + 1);
+    }
   };
-
   return (
     <Pagination className="mb-12 mt-12 hover:cursor-pointer">
       <PaginationContent>

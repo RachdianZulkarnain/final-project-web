@@ -11,6 +11,7 @@ import useDebounce from "../../hooks/useDebounce";
 import PropertyCard from "../property/components/PropertyCard";
 import { Property } from "@/types/property";
 import PropertyNavigation from "./components/PropertyNavigation";
+import CatalogPagination from "../CatalogPagination";
 
 export default function PropertyCatalogPage() {
   const searchParams = useSearchParams();
@@ -254,6 +255,18 @@ export default function PropertyCatalogPage() {
             >
               {propertyCards}
             </motion.div>
+
+            {/* Pagination */}
+            {data?.data?.data?.length > 0 && (
+              <div className="mt-10 flex justify-center">
+                <CatalogPagination
+                  page={data?.data?.meta?.page || 1}
+                  take={data?.data?.meta?.take || 10}
+                  totalCount={data?.data?.meta?.totalCount || 0}
+                  onChangePage={setPage}
+                />
+              </div>
+            )}
           </div>
         )}
       </main>

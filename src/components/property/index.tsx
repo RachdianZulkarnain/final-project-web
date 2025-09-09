@@ -72,7 +72,7 @@ export default function PropertyListPage() {
   return (
     <div className="my-16 flex flex-col gap-6">
       {/* Section Title */}
-      <div className="text-3xl font-bold">Featured Properties</div>
+      <div className="text-3xl font-bold text-[#0290d1]">Featured Properties</div>
 
       {isLoading ? (
         <div className="flex h-64 flex-col items-center justify-center">
@@ -129,7 +129,7 @@ export default function PropertyListPage() {
           </Carousel>
 
           {/* CTA Button */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center text-[#00A9FF]">
             <Button
               onClick={handleExploreMore}
               variant="outline"

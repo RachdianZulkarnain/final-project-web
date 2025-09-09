@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { PeakSeasonRateSchema } from "../schemas/PeakSeasonRateSchema";
 import { useUpdatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useUpdatePeakSeasonRate";
+import { Pencil } from "lucide-react";
 
 interface EditPeakSeasonButtonProps {
   id: number;
@@ -57,7 +58,7 @@ export const EditPeakSeasonButton: FC<EditPeakSeasonButtonProps> = ({ id }) => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setIsOpen(true)}>
-          Edit
+          <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

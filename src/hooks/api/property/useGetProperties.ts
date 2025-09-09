@@ -20,7 +20,7 @@ const useGetProperties = (queries: GetPropertiesQuery) => {
         "/properties",
         {
           params: queries,
-        }
+        },
       );
       return data;
     },

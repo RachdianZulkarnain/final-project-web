@@ -12,6 +12,7 @@ import { PropertyCategorySelect } from "./components/PropertyCategorySelect";
 import dynamic from "next/dynamic";
 import useCurrentLocation from "@/hooks/useCurrentLocation";
 import axios from "axios";
+import { Save } from "lucide-react";
 
 const DynamicMapComponent = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -178,8 +179,7 @@ const CreatePropertyPage = () => {
                 </Button>
               </div>
             )}
-            <div className="mx-auto max-w-xs">
-              <Label>Property Images</Label>
+            <div className="mx-auto ">
               <Input
                 type="file"
                 accept="image/*"
@@ -191,7 +191,7 @@ const CreatePropertyPage = () => {
           </div>
           <FormInput
             name="title"
-            label="Property Name"
+            label=""
             type="text"
             placeholder="Property Name"
             value={formik.values.title}
@@ -200,7 +200,7 @@ const CreatePropertyPage = () => {
             onBlur={formik.handleBlur}
             onChange={handleTitleChange}
           />
-          <FormInput
+          {/* <FormInput
             name="slug"
             label="Slug"
             placeholder="custom-url-slug"
@@ -210,11 +210,11 @@ const CreatePropertyPage = () => {
             error={formik.errors.slug}
             onBlur={formik.handleBlur}
             onChange={handleSlugChange}
-          />
+          /> */}
           <PropertyCategorySelect setFieldValue={formik.setFieldValue} />
           <FormTextarea
             name="description"
-            label="Description"
+            label=""
             placeholder="Description"
             value={formik.values.description}
             isError={
@@ -272,7 +272,8 @@ const CreatePropertyPage = () => {
           </div>
           <div className="flex justify-end">
             <Button disabled={isPending}>
-              {isPending ? "Loading..." : "Create"}
+              <Save size={16} />
+              {isPending ? "Creating Property..." : ""}
             </Button>
           </div>
         </form>

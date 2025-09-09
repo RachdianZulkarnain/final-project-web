@@ -40,7 +40,7 @@ export const BestDeals = () => {
 
   return (
     <div className="my-16 flex flex-col gap-6">
-      <div className="text-3xl font-bold">Best deals for you</div>
+      <div className="text-3xl font-bold text-[#0290d1]">Best deals for you</div>
       <div>
         <Carousel
           opts={{ align: "start", loop: true }}
@@ -61,7 +61,7 @@ export const BestDeals = () => {
       <Button
         variant="outline"
         size="lg"
-        className="rounded-full mx-auto text-lg font-semibold"
+        className="rounded-full mx-auto text-lg font-semibold text-[#0290d1]"
       >
         See more promos
         <ArrowRight className="ml-3" />

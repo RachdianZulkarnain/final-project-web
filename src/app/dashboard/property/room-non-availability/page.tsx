@@ -53,7 +53,7 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
         <div className="mb-8 overflow-hidden rounded-xl bg-white shadow-sm transition-all dark:bg-gray-800 mt-10">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
-              Block Room Availability
+              Room Availability
             </h2>
           </div>
 
@@ -88,7 +88,7 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
                   className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
-                  {isPending ? "Processing..." : "Block Room Availability"}
+                  {isPending ? "Processing..." : "Add Room Availability"}
                 </Button>
               </div>
             </form>
@@ -99,7 +99,7 @@ const RoomNonAvailabilityPage = ({ roomId }: RoomNonAvailabilityPageProps) => {
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <div className="flex items-center justify-between">
               <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
-                Blocked Availability Periods
+                Availability Periods
               </h2>
               <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
                 {roomId ? "Filtered by Room" : "All Rooms"}

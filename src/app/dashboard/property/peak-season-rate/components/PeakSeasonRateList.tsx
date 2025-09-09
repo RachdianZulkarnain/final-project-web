@@ -15,6 +15,7 @@ import { useGetPeakSeasons } from "@/hooks/api/peak-season-rate/useGetPeakSeason
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { EditPeakSeasonButton } from "./EditPeakSeasonRate";
+import { Trash2 } from "lucide-react";
 
 interface PeakSeasonsPageProps {
   roomId: number;
@@ -102,7 +103,8 @@ const PeakSeasonsRateList: FC<PeakSeasonsPageProps> = ({ roomId }) => {
                           disabled={pendingPeakSeason}
                           onClick={() => deletePeakSeason(peakSeasons.id)}
                         >
-                          {pendingPeakSeason ? "Deleting..." : "Delete"}
+                          {pendingPeakSeason ? "Deleting..." : ""}
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>
