@@ -79,7 +79,7 @@ const SearchPropertiesPage = () => {
               {data?.meta.total} properties found
               {startDate && endDate
                 ? ` from ${new Date(startDate).toLocaleDateString()} to ${new Date(
-                    endDate,
+                    endDate
                   ).toLocaleDateString()}`
                 : ""}
               {guest > 0 ? ` for ${guest} guest${guest > 1 ? "s" : ""}` : ""}

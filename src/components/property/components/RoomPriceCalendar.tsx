@@ -80,7 +80,7 @@ const DayButton = (
     calendarData?: any;
     basePrice?: number;
     isPeakSeason?: Record<string, boolean>;
-  },
+  }
 ) => {
   const {
     day,
@@ -114,7 +114,7 @@ const DayButton = (
         buttonProps.className,
         isPeak && "rounded-md border border-amber-400 bg-amber-50/50",
         isSoldOut && "cursor-not-allowed bg-rose-100 opacity-70",
-        "p-0 transition-all duration-300 hover:scale-105 hover:shadow-sm",
+        "p-0 transition-all duration-300 hover:scale-105 hover:shadow-sm"
       )}
       disabled={isSoldOut}
     >
@@ -122,7 +122,7 @@ const DayButton = (
         <span
           className={cn(
             "font-medium",
-            isSoldOut && "text-rose-700 line-through",
+            isSoldOut && "text-rose-700 line-through"
           )}
         >
           {props.children}
@@ -136,7 +136,7 @@ const DayButton = (
                 : price > basePrice * 1.1
                   ? "text-rose-600"
                   : "text-slate-600",
-              isSoldOut && "text-rose-700",
+              isSoldOut && "text-rose-700"
             )}
           >
             {formatCompactPrice(price)}
@@ -179,7 +179,7 @@ export function RoomPriceCalendar({
   const { data: calendarData, isLoading } = useRoomCalendar(
     selectedRoomId ? Number.parseInt(selectedRoomId) : 0,
     currentMonth,
-    { enabled: !!selectedRoomId },
+    { enabled: !!selectedRoomId }
   );
 
   React.useEffect(() => {
@@ -297,7 +297,7 @@ export function RoomPriceCalendar({
               onDateChange({ from, to: undefined });
             }
             alert(
-              `Sorry, the date ${format(currentDateCheck, "MM/dd/yyyy")} is not available for booking.`,
+              `Sorry, the date ${format(currentDateCheck, "MM/dd/yyyy")} is not available for booking.`
             );
             return;
           }
@@ -337,7 +337,7 @@ export function RoomPriceCalendar({
   };
 
   const selectedRoom = rooms.find(
-    (room) => room.id.toString() === selectedRoomId,
+    (room) => room.id.toString() === selectedRoomId
   );
 
   const formatIDR = (amount: number) => {
@@ -381,6 +381,9 @@ export function RoomPriceCalendar({
   return (
     <div className="mx-auto max-w-md space-y-6 rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
       <div className="space-y-2">
+        <label className="text-sm font-medium leading-none text-slate-700">
+          Select Room Type
+        </label>
         <Select onValueChange={onRoomSelect} value={selectedRoomId}>
           <SelectTrigger className="border-slate-200 bg-white shadow-sm transition-colors hover:border-slate-300 focus:ring-offset-0">
             <SelectValue placeholder="Select a room type" />
@@ -406,7 +409,7 @@ export function RoomPriceCalendar({
             <div className="flex w-full flex-col justify-between gap-2 transition-all sm:flex-row sm:gap-0">
               <div
                 className={`${buttonClasses(
-                  dateRange.from,
+                  dateRange.from
                 )} flex h-full cursor-pointer flex-col gap-1 rounded-lg border border-slate-200 p-3 transition-colors hover:bg-slate-50 sm:rounded-l-lg sm:rounded-r-none sm:border-r-0`}
                 onClick={() => setIsOpen(true)}
                 aria-label="Select check-in date"
@@ -430,7 +433,7 @@ export function RoomPriceCalendar({
 
               <div
                 className={`${buttonClasses(
-                  dateRange.to,
+                  dateRange.to
                 )} flex h-full cursor-pointer flex-col gap-1 rounded-lg border border-slate-200 p-3 transition-colors hover:bg-slate-50 sm:rounded-l-none sm:rounded-r-lg`}
                 onClick={() => setIsOpen(true)}
                 aria-label="Select check-out date"
@@ -464,12 +467,8 @@ export function RoomPriceCalendar({
                   <Info className="mr-2 h-4 w-4 text-blue-500" />
                   <div className="flex flex-wrap gap-4">
                     <div className="flex items-center">
-                      <div className="mr-1 h-3 w-3 rounded-sm bg-emerald-500 opacity-70"></div>
-                      <span className="text-slate-700">Lower price</span>
-                    </div>
-                    <div className="flex items-center">
                       <div className="mr-1 h-3 w-3 rounded-sm bg-rose-500 opacity-70"></div>
-                      <span className="text-slate-700">Higher price</span>
+                      <span className="text-slate-700">Non Available</span>
                     </div>
                     <div className="flex items-center">
                       <div className="mr-1 h-3 w-3 rounded-sm border border-amber-400 bg-amber-50"></div>

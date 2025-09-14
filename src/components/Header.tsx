@@ -183,20 +183,20 @@ export default function Header() {
         </div>
 
         {/* Burger menu (mobile) */}
-        <div className="md:hidden">
+        <div className="md:hidden  ">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X className="h-6 w-6 " /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
       </div>
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg rounded-b-2xl px-6 py-6 space-y-4">
+        <div className="md:hidden shadow-lg rounded-b-2xl px-6 py-6 space-y-4">
           {user ? (
             <>
               <nav className="flex flex-col space-y-3">

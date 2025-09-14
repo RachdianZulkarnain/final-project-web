@@ -15,6 +15,7 @@ import { ChangeEvent, FC, useRef, useState, useEffect } from "react";
 import { EditPropertyCategorySelect } from "../management/components/EditPropertyCategorySelect";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import { Save, Trash2 } from "lucide-react";
 
 const DynamicMapComponent = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -66,7 +67,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
   const fetchAddress = async (lat: string, lng: string) => {
     try {
       const { data } = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lng}&key=${process.env.NEXT_PUBLIC_OPENCAGE_API_KEY!}&language=id&pretty=1`,
+        `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lng}&key=${process.env.NEXT_PUBLIC_OPENCAGE_API_KEY!}&language=id&pretty=1`
       );
       const results = data.results[0]?.components || {};
 
@@ -234,7 +235,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
             onBlur={formik.handleBlur}
             onChange={handleTitleChange}
           />
-          <FormInput
+          {/* <FormInput
             name="slug"
             label="Slug"
             type="text"
@@ -244,7 +245,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
             error={formik.errors.slug}
             onBlur={formik.handleBlur}
             onChange={handleSlugChange}
-          />
+          /> */}
           <EditPropertyCategorySelect
             setFieldValue={formik.setFieldValue}
             initialValue={data.propertyCategory?.id}
@@ -314,7 +315,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
               onClick={async () => {
                 if (
                   window.confirm(
-                    "Are you sure you want to delete this property?",
+                    "Are you sure you want to delete this property?"
                   )
                 ) {
                   await deleteProperty(propertyId);
@@ -322,10 +323,12 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
               }}
               disabled={deletePending}
             >
-              {deletePending ? "Deleting..." : "Delete"}
+              <Trash2 className="h-4 w-4" />
+              {deletePending ? "Deleting..." : ""}
             </Button>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Updating..." : "Update"}
+              <Save />
+              {isPending ? "Updating..." : ""}
             </Button>
           </div>
         </form>

@@ -10,13 +10,24 @@ import {
   standardizeToCheckOutTime,
 } from "@/utils/date";
 import "leaflet/dist/leaflet.css";
-import { Building2, Heart, MapPin, Plane, Share, ShoppingCart, Umbrella, User, Utensils } from "lucide-react";
+import {
+  Building2,
+  Heart,
+  MapPin,
+  Plane,
+  Share,
+  ShoppingCart,
+  Umbrella,
+  User,
+  Utensils,
+} from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { RoomPriceCalendar } from "./components/RoomPriceCalendar";
 import PropertyDetailCard from "../PropertyDetailCard";
+import { useSession } from "next-auth/react";
 
 type DateRange = {
   from: Date | undefined;
@@ -90,6 +101,7 @@ export default function PropertyDetailPage({
   propertySlug: string;
 }) {
   const router = useRouter();
+  const { data: session } = useSession(); // ambil session
   const { data: property, isPending } = useGetProperty(propertySlug);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedRoomId, setSelectedRoomId] = useState<string>("");
@@ -254,81 +266,80 @@ export default function PropertyDetailPage({
             </div>
           </div>
 
+          {/* Booking Section */}
           <div>
             <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50">
-              <h3 className="mb-6 text-xl font-bold text-slate-900">
-                Book your stay
-              </h3>
+              {!session ? (
+                <h3 className="text-center text-slate-500 font-medium">
+                  Please login as Tenant to make a reservation
+                </h3>
+              ) : (
+                <>
+                  <h3 className="mb-6 text-xl font-bold text-slate-900">
+                    Book your stay
+                  </h3>
 
-              <style jsx global>{`
-                .date-input-placeholder {
-                  font-family: inherit;
-                  font-size: 0.875rem;
-                  color: #64748b;
-                }
+                  <RoomPriceCalendar
+                    rooms={availableRooms}
+                    onRoomSelect={setSelectedRoomId}
+                    selectedRoomId={selectedRoomId}
+                    onDateChange={setDateRange}
+                    dateRange={dateRange}
+                  />
 
-                input::placeholder {
-                  letter-spacing: normal;
-                  word-spacing: normal;
-                }
-              `}</style>
+                  <Button
+                    size="lg"
+                    className="mt-6 w-full bg-gradient-to-r from-[#0290d1] to-[#0290d1] font-semibold text-white shadow-lg transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-xl py-6"
+                    disabled={
+                      !selectedRoomId || !dateRange.from || !dateRange.to
+                    }
+                    onClick={handleBooking}
+                  >
+                    {selectedRoom ? `Book Now` : "Select Room & Dates"}
+                  </Button>
+                  {(!selectedRoomId || !dateRange.from || !dateRange.to) && (
+                    <p className="mt-3 text-center text-sm text-slate-500">
+                      Please select a room and your stay dates
+                    </p>
+                  )}
 
-              <RoomPriceCalendar
-                rooms={availableRooms}
-                onRoomSelect={setSelectedRoomId}
-                selectedRoomId={selectedRoomId}
-                onDateChange={setDateRange}
-                dateRange={dateRange}
-              />
+                  <div className="mt-6 grid grid-cols-3 gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    {/* Available rooms */}
+                    <div className="text-center">
+                      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                        Available rooms
+                      </p>
+                      <p className="mt-2 text-xl font-semibold text-slate-800">
+                        {availableRooms.length}
+                      </p>
+                    </div>
 
-              <Button
-                size="lg"
-                className="mt-6 w-full bg-gradient-to-r from-[#0290d1]  to-[#0290d1]  font-semibold text-white shadow-lg transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 rounded-xl py-6"
-                disabled={!selectedRoomId || !dateRange.from || !dateRange.to}
-                onClick={handleBooking}
-              >
-                {selectedRoom ? `Book Now` : "Select Room & Dates"}
-              </Button>
+                    {/* Max capacity */}
+                    <div className="text-center border-x border-slate-200 px-4">
+                      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                        Max capacity
+                      </p>
+                      <p className="mt-2 text-xl font-semibold text-slate-800">
+                        {Math.max(
+                          ...availableRooms.map((room) => room.guest)
+                        )}{" "}
+                      </p>
+                    </div>
 
-              {(!selectedRoomId || !dateRange.from || !dateRange.to) && (
-                <p className="mt-3 text-center text-sm text-slate-500">
-                  Please select a room and your stay dates
-                </p>
+                    {/* Price from */}
+                    <div className="text-center">
+                      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                        Start From / Night
+                      </p>
+                      <p className="mt-2 text-xl font-semibold text-slate-800">
+                        {formatPrice(
+                          Math.min(...availableRooms.map((room) => room.price))
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </>
               )}
-
-              <div className="mt-6 grid grid-cols-3 gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                {/* Available rooms */}
-                <div className="text-center">
-                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                    Available rooms
-                  </p>
-                  <p className="mt-2 text-xl font-semibold text-slate-800">
-                    {availableRooms.length}
-                  </p>
-                </div>
-
-                {/* Max capacity */}
-                <div className="text-center border-x border-slate-200 px-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                    Max capacity
-                  </p>
-                  <p className="mt-2 text-xl font-semibold text-slate-800">
-                    {Math.max(...availableRooms.map((room) => room.guest))}{" "}
-                  </p>
-                </div>
-
-                {/* Price from */}
-                <div className="text-center">
-                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                    Start From / Night
-                  </p>
-                  <p className="mt-2 text-xl font-semibold text-slate-800">
-                    {formatPrice(
-                      Math.min(...availableRooms.map((room) => room.price))
-                    )}
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -376,7 +387,7 @@ export default function PropertyDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3  text-slate-600">
-                  <span className="text-base">by</span>
+                  <span className="text-base">Hosted by</span>
                   <span className=" font-semibold text-slate-800">
                     {property.tenant.name}
                   </span>
@@ -425,7 +436,7 @@ export default function PropertyDetailPage({
 
                 <div className="space-y-6">
                   <div>
-                    <h3 className="mb-3 text-lg font-bold text-slate-900">
+                    <h3 className="mb-3 text-lg font-bold text-[#0290d1]">
                       About the area
                     </h3>
                     <p className="text-base text-slate-700 leading-relaxed">
@@ -433,76 +444,6 @@ export default function PropertyDetailPage({
                       is known for its beautiful scenery and accessibility to
                       local attractions.
                     </p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="text-base font-bold text-slate-900">
-                      Distances
-                    </h4>
-                    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-md divide-y divide-slate-100">
-                      {/* City center */}
-                      <div className="flex items-center justify-between py-3">
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <Building2 className="h-4 w-4 text-[#0290d1]" />
-                          <span className="text-sm font-medium">
-                            City center
-                          </span>
-                        </div>
-                        <span className="text-sm font-bold text-slate-800">
-                          2.5 km
-                        </span>
-                      </div>
-
-                      {/* Nearest airport */}
-                      <div className="flex items-center justify-between py-3">
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <Plane className="h-4 w-4 text-[#0290d1]" />
-                          <span className="text-sm font-medium">
-                            Nearest airport
-                          </span>
-                        </div>
-                        <span className="text-sm font-bold text-slate-800">
-                          15 km
-                        </span>
-                      </div>
-
-                      {/* Beach */}
-                      <div className="flex items-center justify-between py-3">
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <Umbrella className="h-4 w-4 text-[#0290d1]" />
-                          <span className="text-sm font-medium">Beach</span>
-                        </div>
-                        <span className="text-sm font-bold text-slate-800">
-                          3 km
-                        </span>
-                      </div>
-
-                      {/* Restaurant */}
-                      <div className="flex items-center justify-between py-3">
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <Utensils className="h-4 w-4 text-[#0290d1]" />
-                          <span className="text-sm font-medium">
-                            Restaurant
-                          </span>
-                        </div>
-                        <span className="text-sm font-bold text-slate-800">
-                          0.5 km
-                        </span>
-                      </div>
-
-                      {/* Supermarket */}
-                      <div className="flex items-center justify-between py-3">
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <ShoppingCart className="h-4 w-4 text-[#0290d1]" />
-                          <span className="text-sm font-medium">
-                            Supermarket
-                          </span>
-                        </div>
-                        <span className="text-sm font-bold text-slate-800">
-                          1 km
-                        </span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

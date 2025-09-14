@@ -164,7 +164,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
   const handleFacilityChange = (
     index: number,
     field: keyof Facility,
-    value: string,
+    value: string
   ) => {
     const facilities = [...formik.values.facilities];
 
@@ -181,7 +181,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
   const getNestedError = (
     errors: FormikErrors<FormValues> | undefined,
     index: number,
-    field: keyof Facility,
+    field: keyof Facility
   ): string | undefined => {
     if (!errors || !errors.facilities) return undefined;
 
@@ -201,7 +201,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
     touched: any,
     errors: FormikErrors<FormValues> | undefined,
     index: number,
-    field: keyof Facility,
+    field: keyof Facility
   ): boolean => {
     if (!touched || !errors) return false;
 
@@ -248,7 +248,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
   }
 
   const activeFacilities = formik.values.facilities.filter(
-    (facility) => !facility.isDeleted,
+    (facility) => !facility.isDeleted
   );
 
   return (
@@ -272,7 +272,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
                   className="flex items-center gap-2 self-start md:self-auto"
                 >
                   <Trash2 size={16} />
-                  {isDeleting ? "Deleting..." : "Delete Room"}
+                  {isDeleting ? "Deleting..." : ""}
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent className="max-w-md">
@@ -577,7 +577,7 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
                 className="flex items-center gap-2 px-6"
               >
                 <Save size={16} />
-                {isPending ? "Saving Changes..." : "Save Changes"}
+                {isPending ? "Saving Changes..." : ""}
               </Button>
             </div>
           </form>
