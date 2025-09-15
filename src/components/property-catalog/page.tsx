@@ -105,6 +105,8 @@ export default function PropertyCatalogPage() {
     setPage(1);
     setSortBy("title");
     setSortOrder("asc");
+    setSortBy("title");
+    setSortOrder("asc");
   };
 
   const propertyCards = useMemo(
@@ -350,6 +352,18 @@ export default function PropertyCatalogPage() {
             >
               {propertyCards}
             </motion.div>
+
+            {/* Pagination */}
+            {data?.data?.data?.length > 0 && (
+              <div className="mt-10 flex justify-center">
+                <CatalogPagination
+                  page={data?.data?.meta?.page || 1}
+                  take={data?.data?.meta?.take || 10}
+                  totalCount={data?.data?.meta?.totalCount || 0}
+                  onChangePage={setPage}
+                />
+              </div>
+            )}
 
             {/* Pagination */}
             {data?.data?.data?.length > 0 && (
