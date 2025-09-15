@@ -80,13 +80,9 @@ const data = {
       icon: IconSettings,
       children: [
         {
-          title: "Bank Details",
-          url: "/dashboard/settings/bank-details",
-        },
-        {
-          title: "Change Password",
-          url: "/dashboard/settings/change-password",
-        },
+          title: "Tenant Profile",
+          url: "/dashboard/account",
+        },  
       ],
     },
   ],

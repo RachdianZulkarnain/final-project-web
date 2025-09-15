@@ -79,14 +79,6 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <Link href="/dashboard/settings">
-                <DropdownMenuItem>
-                  <IconUserCircle />
-                  Settings
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={()=> signOut({ callbackUrl: "/sign-in"})} className="text-red-500">
               <IconLogout />
