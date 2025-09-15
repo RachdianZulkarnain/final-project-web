@@ -1,5 +1,6 @@
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import ReactQueryProvider from "@/provider/ReactQueryProvider";
+import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";

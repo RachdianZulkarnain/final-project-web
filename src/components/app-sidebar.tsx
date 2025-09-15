@@ -55,11 +55,11 @@ const data = {
         },
 
         {
-          title: "Room Non Availability",
+          title: "Room Availability",
           url: "/dashboard/property/room-non-availability",
         },
         {
-          title: "Peak Seasons",
+          title: "Peak Season Rate",
           url: "/dashboard/property/peak-season-rate",
         },
       ],

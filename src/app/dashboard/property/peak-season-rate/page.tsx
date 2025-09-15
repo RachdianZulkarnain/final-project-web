@@ -44,7 +44,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-semibold  text-[#0290d1]">
-                  Peak Season Rate Management
+                  Peak Season Management
                 </h2>
                 <p className="mt-1 text-sm text-gray-600">
                   Set special rates for high-demand periods to maximize revenue
@@ -91,7 +91,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
                   className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
-                  {isPending ? "Processing..." : "Add Peak Season Rate"}
+                  {isPending ? "Processing..." : "Add Peak Season "}
                 </Button>
               </div>
             </form>
@@ -101,7 +101,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <div className="flex items-center justify-between">
               <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
-                Current Peak Season Rates
+                Current Peak Season
               </h2>
               <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                 {roomId ? "Filtered by Room" : "All Rooms"}

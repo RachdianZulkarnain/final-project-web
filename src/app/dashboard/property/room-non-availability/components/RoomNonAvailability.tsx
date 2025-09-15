@@ -15,6 +15,7 @@ import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRo
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { EditRoomNonAvailabilityButton } from "./EditRoomNonAvailability";
+import { Trash2 } from "lucide-react";
 
 interface RoomNonAvailabilityPageProps {
   roomId: number;
@@ -87,6 +88,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                   >
                     <TableCell className="font-medium">
                       {roomNonAvailability.room.name}
+                      {roomNonAvailability.room.name}
                     </TableCell>
                     <TableCell>
                       <span className="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
@@ -113,9 +115,8 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
                             deleteRoomNonAvailability(roomNonAvailability.id)
                           }
                         >
-                          {pendingRoomNonAvailability
-                            ? "Deleting..."
-                            : "Delete"}
+                          {pendingRoomNonAvailability ? "Deleting..." : ""}
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>

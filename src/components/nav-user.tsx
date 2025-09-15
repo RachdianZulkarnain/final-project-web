@@ -88,7 +88,7 @@ export function NavUser({
               </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={()=> signOut({ callbackUrl: "/sign-in"})}>
+            <DropdownMenuItem onClick={()=> signOut({ callbackUrl: "/sign-in"})} className="text-red-500">
               <IconLogout />
               Log out
             </DropdownMenuItem>

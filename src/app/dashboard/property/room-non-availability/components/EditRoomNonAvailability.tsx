@@ -1,5 +1,5 @@
-import FormInput from '@/components/FormInput';
-import { Button } from '@/components/ui/button';
+import FormInput from "@/components/FormInput";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,13 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import useUpdateRoomNonAvailability from '@/hooks/api/room-non-availability/useUpdateRoomNonAvailability';
-import { useFormik } from 'formik';
-import { useSession } from 'next-auth/react';
-import { FC, useState } from 'react';
-import { RoomNonAvailabilitySchema } from '../schemas/RoomNonAvailabilitySchema';
-import useRoomNonAvailabilities from '@/hooks/api/room-non-availability/useGetRoomNonAvailability';
+} from "@/components/ui/dialog";
+import useUpdateRoomNonAvailability from "@/hooks/api/room-non-availability/useUpdateRoomNonAvailability";
+import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
+import { FC, useState } from "react";
+import { RoomNonAvailabilitySchema } from "../schemas/RoomNonAvailabilitySchema";
+import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRoomNonAvailability";
+import { Pencil } from "lucide-react";
 
 interface RoomNonAvailabilityButton {
   id: number;
@@ -34,7 +35,7 @@ export const EditRoomNonAvailabilityButton: FC<RoomNonAvailabilityButton> = ({
   const formik = useFormik({
     initialValues: {
       id,
-      reason: '',
+      reason: "",
     },
     validationSchema: RoomNonAvailabilitySchema,
     onSubmit: async (values) => {
@@ -49,7 +50,7 @@ export const EditRoomNonAvailabilityButton: FC<RoomNonAvailabilityButton> = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setIsOpen(true)}>
-          Edit
+          <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -78,7 +79,7 @@ export const EditRoomNonAvailabilityButton: FC<RoomNonAvailabilityButton> = ({
           </div>
           <DialogFooter>
             <Button type="submit" disabled={pendingUpdate}>
-              {pendingUpdate ? 'Updating...' : 'Save'}
+              {pendingUpdate ? "Updating..." : "Save"}
             </Button>
           </DialogFooter>
         </form>

@@ -11,6 +11,18 @@ import useDebounce from "../../hooks/useDebounce";
 import PropertyCard from "../property/components/PropertyCard";
 import { Property } from "@/types/property";
 import PropertyNavigation from "./components/PropertyNavigation";
+import CatalogPagination from "../CatalogPagination";
+
+// ⬇️ Tambahan import untuk Sort
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 
 export default function PropertyCatalogPage() {
   const searchParams = useSearchParams();
@@ -23,6 +35,10 @@ export default function PropertyCatalogPage() {
   const [search, setSearch] = useState<string>("");
   const [guest, setGuest] = useState<number>();
   const [page, setPage] = useState<number>(1);
+
+  // ⬇️ State Sort
+  const [sortBy, setSortBy] = useState("title");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     if (queryLocation) setLocation(queryLocation);
@@ -41,6 +57,8 @@ export default function PropertyCatalogPage() {
     endDate: formattedEndDate,
     search: debouncedSearch,
     guest,
+    sortBy, // ⬅️ Tambahkan ke query
+    sortOrder,
   });
 
   // 👉 Handler
@@ -52,6 +70,8 @@ export default function PropertyCatalogPage() {
     setGuest(undefined);
     setSearch("");
     setPage(1);
+    setSortBy("title");
+    setSortOrder("asc");
   };
 
   const propertyCards = useMemo(
@@ -128,6 +148,43 @@ export default function PropertyCatalogPage() {
               onCheckOut={(date) => setCheckOut(date)}
               onGuest={(guests) => setGuest(guests)}
             />
+          </div>
+
+          {/* ⬇️ Sort Section */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-gray-700">Sort by:</span>
+            <Select
+              onValueChange={(value) => {
+                if (value === "title") {
+                  setSortBy("title");
+                  setSortOrder("asc"); // Name A–Z
+                } else if (value === "price") {
+                  setSortBy("price");
+                  setSortOrder("asc"); // Price Low → High
+                } else if (value === "price_desc") {
+                  setSortBy("price");
+                  setSortOrder("desc"); // Price High → Low
+                } else if (value === "createdAt") {
+                  setSortBy("createdAt");
+                  setSortOrder("desc"); // Newest
+                }
+              }}
+              value={
+                sortBy === "price" && sortOrder === "desc"
+                  ? "price_desc"
+                  : sortBy
+              }
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="title">Name A–Z</SelectItem>
+                <SelectItem value="price">Price Low → High</SelectItem>
+                <SelectItem value="price_desc">Price High → Low</SelectItem>
+                <SelectItem value="createdAt">Newest</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
@@ -254,6 +311,18 @@ export default function PropertyCatalogPage() {
             >
               {propertyCards}
             </motion.div>
+
+            {/* Pagination */}
+            {data?.data?.data?.length > 0 && (
+              <div className="mt-10 flex justify-center">
+                <CatalogPagination
+                  page={data?.data?.meta?.page || 1}
+                  take={data?.data?.meta?.take || 10}
+                  totalCount={data?.data?.meta?.totalCount || 0}
+                  onChangePage={setPage}
+                />
+              </div>
+            )}
           </div>
         )}
       </main>

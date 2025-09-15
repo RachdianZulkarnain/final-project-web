@@ -22,8 +22,8 @@ interface NavigationProps {
 
 const categories = [
   { id: "hotel", name: "Hotel", icon: "🏨" },
-  { id: "villa", name: "Villa", icon: "🏡" },
   { id: "apartment", name: "Apartment", icon: "🏢" },
+  { id: "villa", name: "Villa", icon: "🏡" },
   { id: "resort", name: "Resort", icon: "🌴" },
 ];
 

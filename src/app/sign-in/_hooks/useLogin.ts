@@ -35,7 +35,7 @@ const useLogin = () => {
 
           const routes: Record<string, string> = {
             TENANT: "/dashboard",
-            USER: "/profile",
+            USER: "/",
           };
 
           setTimeout(() => {

@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { PlusCircle, X, ImagePlus, Save } from "lucide-react";
+import { PlusCircle, X, ImagePlus, Save, Trash2 } from "lucide-react";
 import validationSchema from "./schemas";
 
 interface Facility {
@@ -101,7 +101,7 @@ const CreateRoomPage = () => {
   const handleFacilityChange = (
     index: number,
     field: keyof Facility,
-    value: string,
+    value: string
   ) => {
     const facilities = [...formik.values.facilities];
 
@@ -118,7 +118,7 @@ const CreateRoomPage = () => {
   const getNestedError = (
     errors: FormikErrors<FormValues> | undefined,
     index: number,
-    field: keyof Facility,
+    field: keyof Facility
   ): string | undefined => {
     if (!errors || !errors.facilities) return undefined;
 
@@ -138,7 +138,7 @@ const CreateRoomPage = () => {
     touched: any,
     errors: FormikErrors<FormValues> | undefined,
     index: number,
-    field: keyof Facility,
+    field: keyof Facility
   ): boolean => {
     if (!touched || !errors) return false;
 
@@ -156,7 +156,7 @@ const CreateRoomPage = () => {
       <div className="bg-white shadow">
         <div className="container mx-auto max-w-5xl px-4 py-6 sm:px-6">
           <div>
-            <h1 className="mb-1 text-2xl font-bold text-gray-900">
+            <h1 className="mb-1 text-2xl font-bold text-[#0290d1]">
               Create New Room
             </h1>
             <p className="text-sm text-gray-500">
@@ -173,7 +173,7 @@ const CreateRoomPage = () => {
             className="divide-y divide-gray-100"
           >
             <div className="space-y-4 p-6">
-              <h2 className="mb-4 text-lg font-medium text-gray-900">
+              <h2 className="mb-4 text-lg font-medium text-[#0290d1]">
                 Room Image
               </h2>
 
@@ -222,8 +222,7 @@ const CreateRoomPage = () => {
                         size="sm"
                         className="flex w-full items-center justify-center gap-2 border-red-200 text-red-600 hover:bg-red-50"
                       >
-                        <X size={14} />
-                        Remove
+                        <Trash2 />
                       </Button>
                     )}
                   </div>
@@ -232,7 +231,7 @@ const CreateRoomPage = () => {
             </div>
 
             <div className="space-y-6 p-6">
-              <h2 className="mb-4 text-lg font-medium text-gray-900">
+              <h2 className="mb-4 text-lg font-medium text-[#0290d1]">
                 Room Details
               </h2>
 
@@ -321,7 +320,7 @@ const CreateRoomPage = () => {
 
             <div className="space-y-6 p-6">
               <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="text-lg font-medium text-[#0290d1]">
                   Room Facilities
                 </h2>
                 <Button
@@ -372,7 +371,7 @@ const CreateRoomPage = () => {
                           formik.touched,
                           formik.errors,
                           index,
-                          "title",
+                          "title"
                         )}
                         error={getNestedError(formik.errors, index, "title")}
                         onBlur={formik.handleBlur}
@@ -425,7 +424,7 @@ const CreateRoomPage = () => {
                 className="flex items-center gap-2 px-6"
               >
                 <Save size={16} />
-                {isPending ? "Creating Room..." : "Create Room"}
+                {isPending ? "Creating Room..." : ""}
               </Button>
             </div>
           </form>

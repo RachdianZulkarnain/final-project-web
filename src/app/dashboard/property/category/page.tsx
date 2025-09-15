@@ -66,7 +66,7 @@ const CategoryPage = ({ propertyCategoryId }: CreatePropertyPageProps) => {
                     className="mt-3 w-full bg-[#0290d1] hover:bg-[#70cefa]"
                     type="submit"
                   >
-                    {isPending ? "Loading..." : "Submit"}
+                    {isPending ? "Loading..." : "Add Category"}
                   </Button>
                 </div>
               </div>

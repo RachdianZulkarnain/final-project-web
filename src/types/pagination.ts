@@ -1,7 +1,8 @@
-export interface PaginationMeta {
-  page: number;
-  take: number;
-  total: number;
+export interface PaginationQueries {
+  take?: number;
+  page?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
 }
 
 export interface PageableResponse<T> {
@@ -25,7 +26,8 @@ export interface PageableResponse<T> {
   };
 }
 
-export interface PaginationQueries {
-  take?: number;
-  page?: number;
+export interface PaginationMeta {
+  page: number;
+  take: number;
+  total: number;
 }
