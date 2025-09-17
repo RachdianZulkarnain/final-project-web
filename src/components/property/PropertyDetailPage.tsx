@@ -271,11 +271,11 @@ export default function PropertyDetailPage({
             <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50">
               {!session ? (
                 <h3 className="text-center text-slate-500 font-medium">
-                  Please login as Tenant to make a reservation
+                  Please login to make a reservation
                 </h3>
               ) : (
                 <>
-                  <h3 className="mb-6 text-xl font-bold text-slate-900">
+                  <h3 className="mb-6 text-xl font-bold text-[#0290D1]">
                     Book your stay
                   </h3>
 
@@ -386,11 +386,20 @@ export default function PropertyDetailPage({
                   <span className="text-base">{property.location}</span>
                 </div>
 
-                <div className="flex items-center gap-3  text-slate-600">
+                <div className="flex items-center gap-3 text-slate-600">
                   <span className="text-base">Hosted by</span>
-                  <span className=" font-semibold text-slate-800">
-                    {property.tenant.name}
+                  {/* Nama tenant */}
+                  <span className="font-semibold text-slate-800">
+                    {property?.tenant?.name || "Unknown Tenant"}
                   </span>
+                  <div className="flex items-center gap-2">
+                    {/* Avatar */}
+                    <img
+                      src={property?.tenant?.imageUrl || "/default-avatar.png"}
+                      alt={property?.tenant?.name || "Tenant Avatar"}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="mt-5 prose prose-lg max-w-none text-slate-700 leading-relaxed">

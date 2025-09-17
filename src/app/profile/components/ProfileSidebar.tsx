@@ -4,13 +4,7 @@ import { FC, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Home,
-  Bell,
-  LogOut,
-  X,
-  Menu,
-} from "lucide-react";
+import { Home, Bell, LogOut, X, Menu, User } from "lucide-react";
 
 interface ProfileSidebarProps {
   activeIndex: number;
@@ -24,8 +18,8 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navbarItems = [
-    { name: "Personal info", icon: Home },
-    { name: "Notifications", icon: Bell },
+    { name: "My Profile", icon: User },
+    // { name: "Notifications", icon: Bell },
   ];
 
   const handleLogout = () => signOut({ callbackUrl: "/sign-in" });
@@ -76,8 +70,8 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
                     setActiveIndex(index);
                     setIsSidebarOpen(false);
                   }}
-                  className={`flex items-center w-full p-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors duration-200
-                    ${index === activeIndex ? "bg-primary text-white font-medium" : ""}`}
+                  className={`flex items-center w-full p-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-[#0290d1] transition-colors duration-200
+                    ${index === activeIndex ? "bg-[#0290d1] text-white font-medium" : ""}`}
                 >
                   <item.icon className="w-5 h-5 mr-3" />
                   <span className="text-sm font-medium">{item.name}</span>

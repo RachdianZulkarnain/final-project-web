@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import useGetNotificationUser from "../../_hooks/useGetNotificationUser";
-import useMarkAllNotif from "../../_hooks/useMarkNotification";
+import useGetNotificationUser from "../../../../hooks/api/profile-user/useGetNotificationUser";
+import useMarkAllNotif from "../../../../hooks/api/profile-user/useMarkNotification";
 dayjs.extend(relativeTime);
 
 const PAGE_SIZE = 5;

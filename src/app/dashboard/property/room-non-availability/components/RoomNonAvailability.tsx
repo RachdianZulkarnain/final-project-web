@@ -18,7 +18,7 @@ import { EditRoomNonAvailabilityButton } from "./EditRoomNonAvailability";
 import { Trash2 } from "lucide-react";
 
 interface RoomNonAvailabilityPageProps {
-  roomId: number;
+  roomId?: number;
 }
 
 const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({

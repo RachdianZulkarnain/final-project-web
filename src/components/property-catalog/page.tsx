@@ -1,20 +1,17 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { format } from "date-fns";
+import { Property } from "@/types/property";
+import { format, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { Loader2, Search } from "lucide-react";
-import { useMemo, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
+import { useMemo } from "react";
 import useGetProperties from "../../hooks/api/property/useGetProperties";
 import useDebounce from "../../hooks/useDebounce";
-import PropertyCard from "../property/components/PropertyCard";
-import { Property } from "@/types/property";
-import PropertyNavigation from "./components/PropertyNavigation";
 import CatalogPagination from "../CatalogPagination";
-
-// ⬇️ Tambahan import untuk Sort
-import { Button } from "@/components/ui/button";
+import PropertyCard from "../property/components/PropertyCard";
+import PropertyNavigation from "./components/PropertyNavigation";
 import {
   Select,
   SelectContent,
@@ -22,27 +19,63 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 
 export default function PropertyCatalogPage() {
-  const searchParams = useSearchParams();
-  const queryLocation = searchParams.get("location") || "";
+  // NuQS states
+  const [location, setLocation] = useQueryState<string>("location", {
+    defaultValue: "",
+    parse: (val) => val ?? "",
+  });
 
-  const [location, setLocation] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
-  const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
-  const [search, setSearch] = useState<string>("");
-  const [guest, setGuest] = useState<number>();
-  const [page, setPage] = useState<number>(1);
+  const [category, setCategory] = useQueryState<string>("category", {
+    defaultValue: "",
+    parse: (val) => val ?? "",
+  });
 
-  // ⬇️ State Sort
-  const [sortBy, setSortBy] = useState("title");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [checkInStr, setCheckInStr] = useQueryState<string>("checkIn", {
+    defaultValue: "",
+    parse: (val) => val ?? "",
+  });
 
-  useEffect(() => {
-    if (queryLocation) setLocation(queryLocation);
-  }, [queryLocation]);
+  const [checkOutStr, setCheckOutStr] = useQueryState<string>("checkOut", {
+    defaultValue: "",
+    parse: (val) => val ?? "",
+  });
+
+  const [search, setSearch] = useQueryState<string>("search", {
+    defaultValue: "",
+    parse: (val) => val ?? "",
+  });
+
+  const [guest, setGuest] = useQueryState<number | undefined>("guest", {
+    defaultValue: undefined,
+    parse: (val) => {
+      const n = parseInt(val, 10);
+      return isNaN(n) ? undefined : n;
+    },
+  });
+
+  const [page, setPage] = useQueryState<number>("page", {
+    defaultValue: 1,
+    parse: (val) => {
+      const n = parseInt(val, 10);
+      return isNaN(n) ? 1 : n;
+    },
+  });
+
+  const [sortBy, setSortBy] = useQueryState<string>("sortBy", {
+    defaultValue: "title",
+    parse: (val) => val ?? "title",
+  });
+
+  const [sortOrder, setSortOrder] = useQueryState<"asc" | "desc">("sortOrder", {
+    defaultValue: "asc",
+    parse: (val) => (val === "asc" || val === "desc" ? val : "asc"),
+  });
+
+  // Parse string ke Date
+  const checkIn = checkInStr ? parseISO(checkInStr) : undefined;
+  const checkOut = checkOutStr ? parseISO(checkOutStr) : undefined;
 
   const debouncedSearch = useDebounce(search, 500);
   const formattedStartDate = checkIn ? format(checkIn, "yyyy-MM-dd") : "";
@@ -50,26 +83,28 @@ export default function PropertyCatalogPage() {
   const hasActiveFilters = location || category || checkIn || checkOut || guest;
 
   const { data, isLoading, isError } = useGetProperties({
-    page,
+    page: page ?? 1, // fallback ke 1 jika null
     location,
     category,
     startDate: formattedStartDate,
     endDate: formattedEndDate,
     search: debouncedSearch,
-    guest,
-    sortBy, // ⬅️ Tambahkan ke query
+    guest: guest ?? undefined, // konversi null ke undefined
+    sortBy,
     sortOrder,
   });
 
-  // 👉 Handler
+  // Handler
   const clearAllFilters = () => {
     setLocation("");
     setCategory("");
-    setCheckIn(undefined);
-    setCheckOut(undefined);
-    setGuest(undefined);
+    setCheckInStr("");
+    setCheckOutStr("");
+    setGuest(null);
     setSearch("");
     setPage(1);
+    setSortBy("title");
+    setSortOrder("asc");
     setSortBy("title");
     setSortOrder("asc");
   };
@@ -94,7 +129,7 @@ export default function PropertyCatalogPage() {
     [data]
   );
 
-  // 👉 Error State
+  // Error State
   if (isError) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white to-[#F0F9FF]">
@@ -124,7 +159,7 @@ export default function PropertyCatalogPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 mt-13">
-      {/* 🔍 Search + Navigation */}
+      {/* Search + Navigation */}
       <div className="mx-auto w-full max-w-7xl px-4 pt-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-2">
           {/* Search Bar */}
@@ -142,31 +177,37 @@ export default function PropertyCatalogPage() {
           {/* Navigation */}
           <div className="w-full md:w-auto md:flex-shrink-0">
             <PropertyNavigation
-              onLocation={(loc) => setLocation(loc)}
-              onCategory={(cat) => setCategory(cat)}
-              onCheckIn={(date) => setCheckIn(date)}
-              onCheckOut={(date) => setCheckOut(date)}
-              onGuest={(guests) => setGuest(guests)}
+              onLocation={setLocation}
+              onCategory={setCategory}
+              onCheckIn={(date: Date | undefined) => {
+                setCheckInStr(date ? format(date, "yyyy-MM-dd") : null);
+              }}
+              onCheckOut={(date: Date | undefined) => {
+                setCheckOutStr(date ? format(date, "yyyy-MM-dd") : null);
+              }}
+              onGuest={(value: number | undefined) => {
+                setGuest(value ?? null); // NuQS number expects null to reset
+              }}
             />
           </div>
 
-          {/* ⬇️ Sort Section */}
+          {/* Sort Section */}
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-700">Sort by:</span>
             <Select
               onValueChange={(value) => {
                 if (value === "title") {
                   setSortBy("title");
-                  setSortOrder("asc"); // Name A–Z
+                  setSortOrder("asc");
                 } else if (value === "price") {
                   setSortBy("price");
-                  setSortOrder("asc"); // Price Low → High
+                  setSortOrder("asc");
                 } else if (value === "price_desc") {
                   setSortBy("price");
-                  setSortOrder("desc"); // Price High → Low
+                  setSortOrder("desc");
                 } else if (value === "createdAt") {
                   setSortBy("createdAt");
-                  setSortOrder("desc"); // Newest
+                  setSortOrder("desc");
                 }
               }}
               value={
@@ -189,7 +230,7 @@ export default function PropertyCatalogPage() {
         </div>
       </div>
 
-      {/* 🏷 Active Filters */}
+      {/*Active Filters */}
       {hasActiveFilters && (
         <div className="container mx-auto px-6 pb-6 pt-4">
           <div className="mx-auto max-w-7xl flex flex-wrap gap-3">
@@ -219,7 +260,7 @@ export default function PropertyCatalogPage() {
               <span className="flex items-center rounded-full bg-blue-100 px-5 py-2 text-base text-blue-700">
                 Check-in: {format(checkIn, "MMM dd, yyyy")}
                 <button
-                  onClick={() => setCheckIn(undefined)}
+                  onClick={() => setCheckInStr("")}
                   className="ml-3 text-blue-400 hover:text-blue-700"
                 >
                   ×
@@ -230,7 +271,7 @@ export default function PropertyCatalogPage() {
               <span className="flex items-center rounded-full bg-blue-100 px-5 py-2 text-base text-blue-700">
                 Check-out: {format(checkOut, "MMM dd, yyyy")}
                 <button
-                  onClick={() => setCheckOut(undefined)}
+                  onClick={() => setCheckOutStr("")}
                   className="ml-3 text-blue-400 hover:text-blue-700"
                 >
                   ×
@@ -241,7 +282,7 @@ export default function PropertyCatalogPage() {
               <span className="flex items-center rounded-full bg-blue-100 px-5 py-2 text-base text-blue-700">
                 {guest} Guest{guest > 1 ? "s" : ""}
                 <button
-                  onClick={() => setGuest(undefined)}
+                  onClick={() => setGuest(null)}
                   className="ml-3 text-blue-400 hover:text-blue-700"
                 >
                   ×
@@ -258,7 +299,7 @@ export default function PropertyCatalogPage() {
         </div>
       )}
 
-      {/* 🏡 Property Cards */}
+      {/* Property Cards */}
       <main className="container mx-auto flex-1 px-6 pb-16 mt-8">
         {isLoading ? (
           <motion.div
@@ -282,7 +323,7 @@ export default function PropertyCatalogPage() {
             <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-blue-100">
               <Search className="h-16 w-16 text-blue-500" />
             </div>
-            <h3 className="mb-4 text-3xl font-medium text-gray-800">
+            <h3 className="mb-4 text-3xl font-medium text-[#0290D1]">
               No properties found
             </h3>
             <p className="max-w-xl text-xl text-gray-600">
@@ -299,7 +340,7 @@ export default function PropertyCatalogPage() {
         ) : (
           <div>
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-3xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-[#0290D1]">
                 {data?.data?.meta?.totalCount || ""} Properties Found
               </h2>
             </div>
@@ -314,7 +355,7 @@ export default function PropertyCatalogPage() {
 
             {/* Pagination */}
             {data?.data?.data?.length > 0 && (
-              <div className="mt-10 flex justify-center">
+              <div className="mt-10 flex justify-center text-[#0290D1]">
                 <CatalogPagination
                   page={data?.data?.meta?.page || 1}
                   take={data?.data?.meta?.take || 10}

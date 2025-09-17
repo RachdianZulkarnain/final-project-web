@@ -2,11 +2,11 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import PropertyTenantCard from "@/components/PropertyTenantCard";
-import PaginationSection from "@/components/PaginationSection";
+import Pagination from "@/components/PaginationSection";
 
 // Tipe data API-safe
 interface PropertyTenant {
@@ -17,6 +17,7 @@ interface PropertyTenant {
 
 const PropertyTenantList = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
 
   const { data, isPending, error } = useGetPropertiesTenant({
@@ -25,6 +26,13 @@ const PropertyTenantList = () => {
     sortBy: "createdAt",
     sortOrder: "desc",
   });
+
+  // Sync page dengan URL
+  useEffect(() => {
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
+    params.set("page", page.toString());
+    router.replace(`?${params.toString()}`);
+  }, [page, searchParams, router]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -54,7 +62,7 @@ const PropertyTenantList = () => {
     );
   }
 
-  if (!data?.data || (Array.isArray(data.data) && data.data.length === 0)) {
+  if (!data?.data || data.data.length === 0) {
     return (
       <div className="container mx-auto max-w-7xl py-8">
         <div className="text-center">
@@ -76,14 +84,16 @@ const PropertyTenantList = () => {
           <PropertyTenantCard
             key={property.id}
             id={property.id}
-            imageUrl={property.propertyImage[0]?.imageUrl || ""}
+            imageUrl={property.propertyImage?.[0]?.imageUrl || ""}
             title={property.title}
           />
         ))}
       </div>
-      {data.meta.total > data.meta.take && (
-        <div className="flex justify-center">
-          <PaginationSection
+
+      {/* Pagination */}
+      {data.meta && data.meta.total > data.meta.take && (
+        <div className="flex justify-center mt-4">
+          <Pagination
             page={page}
             take={data.meta.take}
             total={data.meta.total}

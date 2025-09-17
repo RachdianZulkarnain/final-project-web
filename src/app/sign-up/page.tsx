@@ -1,13 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { Hotel } from "lucide-react";
+import { ArrowBigRight, ArrowRight, Hotel } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import useRegister from "./_hooks/useRegister";
+import useRegister from "../../hooks/api/sign-up/useRegister";
 import { SignupSchema } from "./schema";
 
 const RegisterPage = () => {
@@ -43,7 +43,7 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-white flex justify-center px-4 lg:px-8 py-32 lg:py-36">
       <div className="max-w-2xl w-full space-y-10 bg-white px-10 rounded-lg">
         <div className="text-center">
-          <h2 className="text-3xl md:text-3xl font-extrabold text-[#0290d1]">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#0290d1]">
             Create Your Account
           </h2>
         </div>
@@ -53,7 +53,7 @@ const RegisterPage = () => {
               <input
                 id="firstName"
                 type="text"
-                placeholder="First name"
+                placeholder="Enter Your First Name"
                 required
                 className="appearance-none rounded-md w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("firstName")}
@@ -68,7 +68,7 @@ const RegisterPage = () => {
               <input
                 id="lastName"
                 type="text"
-                placeholder="Last name"
+                placeholder="Enter Your Last Name"
                 required
                 className="appearance-none rounded-md w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("lastName")}
@@ -84,7 +84,7 @@ const RegisterPage = () => {
             <input
               id="email"
               type="email"
-              placeholder="Email"
+              placeholder="Enter Your Email"
               required
               className="appearance-none rounded-md w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
               {...formik.getFieldProps("email")}
@@ -99,22 +99,13 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}
-              className="w-full flex justify-center py-2 px-4 text-md font-medium rounded-md text-white bg-primary hover:bg-[#0290d1] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 py-2 px-4 text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Continue
+              <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </form>
-
-        <div className="text-center text-md text-gray-600">
-          Already have an account?{" "}
-          <Link
-            href="/sign-in"
-            className="font-medium text-primary hover:text-blue-500"
-          >
-            Log in.
-          </Link>
-        </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
           <Button
@@ -150,6 +141,17 @@ const RegisterPage = () => {
           </Button>
         </div>
 
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="bg-gradient-to-br from-white to-blue-50 px-3 text-gray-500">
+              Or
+            </span>
+          </div>
+        </div>
+
         <Link href="/sign-up/tenant">
           {" "}
           <div className="flex flex-col sm:flex-row gap-4">
@@ -160,6 +162,16 @@ const RegisterPage = () => {
             </Button>{" "}
           </div>{" "}
         </Link>
+
+        <div className="text-center text-md text-gray-600 mt-10">
+          Already have an account?{" "}
+          <Link
+            href="/sign-in"
+            className="font-medium text-primary hover:text-blue-500"
+          >
+            Sign in.
+          </Link>
+        </div>
       </div>
     </div>
   );

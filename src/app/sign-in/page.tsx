@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { LoginSchema } from "./schema";
 import { SessionProvider } from "next-auth/react";
-import useLogin from "./_hooks/useLogin";
+import useLogin from "../../hooks/api/sign-in/useLogin";
 import { Button } from "@/components/ui/button";
+import { LogIn, LogInIcon } from "lucide-react";
 
 const LoginPage = () => {
   const { mutate: login } = useLogin();
@@ -48,7 +49,7 @@ const LoginPage = () => {
                   autoComplete="email"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Email"
+                  placeholder="Enter Your Email"
                   {...formik.getFieldProps("email")}
                 />
                 {formik.touched.email && formik.errors.email && (
@@ -68,7 +69,7 @@ const LoginPage = () => {
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm pr-12"
-                  placeholder="Password"
+                  placeholder="Enter Your Password"
                   {...formik.getFieldProps("password")}
                 />
                 <button
@@ -136,21 +137,13 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   disabled={!formik.isValid || !formik.dirty}
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-primary hover:cursor-pointer hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="gap-2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:cursor-not-allowed"
                 >
-                  Log in
+                  Sign in
+                  <LogInIcon className="w-6 h-6" />
                 </button>
               </div>
             </form>
-            <div className="text-center text-md text-gray-600">
-              Don't have an account?{" "}
-              <Link
-                href="/sign-up"
-                className="font-medium text-primary hover:text-blue-500"
-              >
-                Sign up.
-              </Link>
-            </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -194,6 +187,15 @@ const LoginPage = () => {
                 </svg>
                 Continue with Google
               </Button>
+            </div>
+            <div className="text-center text-md text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                href="/sign-up"
+                className="font-medium text-primary hover:text-blue-500"
+              >
+                Sign up.
+              </Link>
             </div>
           </div>
         </div>

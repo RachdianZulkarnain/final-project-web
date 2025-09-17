@@ -12,6 +12,8 @@ import {
   IconCalendarCheck,
   IconHome,
   IconBuilding,
+  IconUser,
+  IconCalendarWeek,
 } from "@tabler/icons-react";
 import * as React from "react";
 
@@ -33,10 +35,11 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Transactions",
-      url: "/dashboard/transactions",
-      icon: IconReceipt2,
+      title: "My Profile",
+      url: "/dashboard/account",
+      icon: IconUser,
     },
+
     {
       title: "My Properties",
       icon: IconBuilding,
@@ -58,11 +61,12 @@ const data = {
           title: "Room Availability",
           url: "/dashboard/property/room-non-availability",
         },
-        {
-          title: "Peak Season Rate",
-          url: "/dashboard/property/peak-season-rate",
-        },
       ],
+    },
+    {
+      title: "Peak Season Rate",
+      url: "/dashboard/property/peak-season-rate",
+      icon: IconCalendarWeek,
     },
     {
       title: "Sales Report",
@@ -70,24 +74,9 @@ const data = {
       icon: IconClipboardList,
     },
     {
-      title: "Guest Reviews",
-      url: "/dashboard/reviews",
-      icon: IconPencil,
-    },
-    {
-      title: "Settings",
-      url: "/dashboard/settings",
-      icon: IconSettings,
-      children: [
-        {
-          title: "Bank Details",
-          url: "/dashboard/settings/bank-details",
-        },
-        {
-          title: "Change Password",
-          url: "/dashboard/settings/change-password",
-        },
-      ],
+      title: "My Order",
+      url: "/dashboard/transactions",
+      icon: IconReceipt2,
     },
   ],
 };
@@ -120,13 +109,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </div>
 
       {/* Navigation */}
-      <SidebarContent className="px-3 py-4">
+      <SidebarContent className="px-3 py-10">
         <NavMain items={data.navMain} />
       </SidebarContent>
 
       {/* Footer with User Info */}
       <SidebarFooter className="border-t border-border px-3 py-4 bg-card/30">
-        <NavUser user={user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );

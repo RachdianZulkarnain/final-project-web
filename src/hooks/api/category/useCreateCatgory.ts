@@ -22,7 +22,7 @@ const useCreateCategory = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categorylist"] });
-      toast.success("✅ Create Category success");
+      toast.success("Create Category success");
     },
     onError: (error: AxiosError<any>) => {
       console.error("❌ Backend error:", error.response?.data);

@@ -46,15 +46,15 @@ export function ChartAreaInteractive() {
   }, [currentYear]);
 
   return (
-    <Card className="border-4 border-gray-900 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] @container/card">
+    <Card className="border-4 border-[#0290d1] bg-white shadow-[8px_8px_0px_0px_rgba(2,144,209,1)] @container/card">
       <CardHeader className="px-6 pt-6 pb-2">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
-          <CardTitle className="text-xl font-black text-gray-900 tracking-wide">
+          <CardTitle className="text-xl font-black text-[#0290D1] tracking-wide">
             Revenue Overview
           </CardTitle>
           <CardAction>
             <Select value={selectedYear} onValueChange={setSelectedYear}>
-              <SelectTrigger className="w-32 h-10 border-2 border-gray-900 rounded-none bg-white text-sm font-bold text-gray-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100">
+              <SelectTrigger className="w-32 h-10 border-2 border-[#0290D1] rounded-none bg-white text-sm font-bold text-[#0290D1] shadow-[2px_2px_0px_0px_rgba(2,144,209,1)] hover:bg-gray-100">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>

@@ -1,8 +1,8 @@
 import { User } from "@/types/user";
 import { FC, useState } from "react";
-import { arrowRightIcon } from "../icon";
+import { arrowRightIcon } from "../../../../components/icon/icon";
 import { EditPasswordForm } from "../password/EditPasswordForm";
-import useUpdateUser from "../../_hooks/useUpdateUser";
+import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
 import ProfilePicSection from "./ProfilePicSection";
 import { EditForm } from "./EditForm";
 
@@ -34,9 +34,11 @@ const BasicInfoSection: FC<BasicInfoSectionProps> = ({ user }) => {
         <EditPasswordForm onClose={handleClosePasswordForm} />
       )}
 
-      <div className="bg-white w-full mt-8">
+      <div className="bg-white w-full mt-8 rounded-2xl">
         <div className="px-6 py-5 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-primary">Profile</h2>
+          <h2 className="text-xl font-semibold text-[#0290d1]">
+            Profile & Contact Info
+          </h2>
         </div>
         <ProfilePicSection user={user} />
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -63,7 +65,7 @@ const BasicInfoSection: FC<BasicInfoSectionProps> = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 rounded-2xl">
           <span className="text-gray-600 font-semibold">Last Name</span>
           <div className="flex items-center">
             <span className="text-gray-800 mr-2">{user?.lastName}</span>
@@ -89,9 +91,9 @@ const BasicInfoSection: FC<BasicInfoSectionProps> = ({ user }) => {
         </div>
       </div>
 
-      <div className="bg-white w-full mt-8">
+      <div className="bg-white w-full mt-8 rounded-2xl">
         <div className="px-6 py-5 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-primary">
+          <h2 className="text-xl font-semibold text-[#0290d1]">
             Contact info & Privacy
           </h2>
         </div>
@@ -121,7 +123,7 @@ const BasicInfoSection: FC<BasicInfoSectionProps> = ({ user }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 rounded-2xl">
           <span className="text-gray-600 font-semibold">Password</span>
           <div className="flex items-center">
             <span className="text-gray-800 mr-2">******</span>

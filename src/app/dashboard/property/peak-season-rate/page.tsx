@@ -3,20 +3,19 @@
 import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { useSession } from "next-auth/react";
 import { DatePickerWithRangeForPeakSeason } from "./components/DateRangePickerPeakSeason";
 import PeakSeasonsRateList from "./components/PeakSeasonRateList";
 import { RoomIdSelect } from "./components/RoomIdSelect";
 import { PeakSeasonRateSchema } from "./schemas/PeakSeasonRateSchema";
 import { useCreatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useCreatePeakSeasonRate";
 
-interface PeakSeasonsPageProps {
-  roomId: number;
-}
-
-const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
+export default function PeakSeasonRatePage(props: any) {
   const { mutateAsync: createPeakSeasonRate, isPending } =
     useCreatePeakSeasonRate();
+
+  // Ambil roomId dari searchParams (Next.js inject otomatis)
+  const roomIdParam = props?.searchParams?.roomId;
+  const roomId = roomIdParam ? Number(roomIdParam) : undefined;
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +52,7 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
             </div>
           </div>
         </header>
+
         <div className="mb-8 overflow-hidden rounded-xl bg-white shadow-sm transition-all dark:bg-gray-800">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <h2 className="font-medium text-[#0290d1] dark:text-gray-300">
@@ -91,12 +91,13 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
                   className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
-                  {isPending ? "Processing..." : "Add Peak Season "}
+                  {isPending ? "Processing..." : "Add Peak Season"}
                 </Button>
               </div>
             </form>
           </div>
         </div>
+
         <div className="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-800">
           <div className="border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-gray-700 dark:bg-gray-800/50">
             <div className="flex items-center justify-between">
@@ -116,6 +117,4 @@ const PeakSeasonRatePage = ({ roomId }: PeakSeasonsPageProps) => {
       </div>
     </div>
   );
-};
-
-export default PeakSeasonRatePage;
+}

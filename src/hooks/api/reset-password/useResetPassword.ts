@@ -3,12 +3,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const useResetPassword = (token: string) => {
+const useResetPassword = (token: string | null) => {
   const router = useRouter();
+
   return useMutation({
     mutationFn: async (newPassword: string) => {
       if (!token) throw new Error("Reset token is missing");
 
+      // Kirim token lewat query parameter, bukan header
       const { data } = await axiosInstance.post(
         `/auth/reset-password?token=${token}`,
         { newPassword }
@@ -28,6 +30,5 @@ const useResetPassword = (token: string) => {
     },
   });
 };
-
 
 export default useResetPassword;

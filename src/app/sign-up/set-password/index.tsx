@@ -7,8 +7,8 @@ import InvalidToken from "./components/InvalidToken";
 import { PasswordSchema } from "./schema";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import useSetPassword from "./_hooks/useSetPassword";
 import { Eye, EyeOff } from "lucide-react";
+import useSetPassword from "@/hooks/api/set-password/useSetPassword";
 yupPassword(Yup);
 
 interface SetPasswordPageProps {
@@ -19,7 +19,8 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
   const router = useRouter();
   const { status } = useSession();
   const { mutate: setPassword } = useSetPassword(token);
-  const [showPasswords, setShowPasswords] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -39,10 +40,6 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
       setPassword(password);
     },
   });
-
-  const handlePasswordVisibility = () => {
-    setShowPasswords(!showPasswords);
-  };
 
   if (!token) {
     return <InvalidToken />;
@@ -66,13 +63,23 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
             </label>
             <input
               id="password"
-              type={showPasswords ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               required
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm pr-12"
               placeholder="Password"
               {...formik.getFieldProps("password")}
             />
+
+            {/* Eye toggle */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+            </button>
+
             {formik.touched.password && formik.errors.password && (
               <div className="absolute top-full left-0 text-red-500 text-sm mt-1">
                 {formik.errors.password}
@@ -85,32 +92,31 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
             </label>
             <input
               id="confirmPassword"
-              type={showPasswords ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               autoComplete="new-password"
               placeholder="Confirm New Password"
               required
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm pr-12"
               {...formik.getFieldProps("confirmPassword")}
             />
+
+            {/* Eye toggle */}
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+            </button>
+
             {formik.touched.confirmPassword &&
               formik.errors.confirmPassword && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="absolute top-full left-0 text-red-500 text-sm mt-1">
                   {formik.errors.confirmPassword}
                 </div>
               )}
           </div>
           <div>
-            <button
-              type="button"
-              onClick={handlePasswordVisibility}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-primary bg-secondary hover:cursor-pointer hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary mb-4"
-            >
-              {showPasswords ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
-            </button>
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}

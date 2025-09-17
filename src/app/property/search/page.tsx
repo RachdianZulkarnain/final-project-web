@@ -1,5 +1,6 @@
 import LandingPageLayout from "@/components/LandingPageLayout";
 import SearchPropertiesPage from "@/components/search";
+import NuqsProvider from "@/provider/NuqsProvider";
 import { divIcon } from "leaflet";
 import React from "react";
 

@@ -1,11 +1,10 @@
 import UpdatePropertyPage from "../../update/page";
 
-const UpdateProperty = ({ params }: { params: { id: number } }) => {
+// pakai any biar aman, karena Next.js generate types-nya kadang bikin konflik
+export default function UpdateProperty({ params }: any) {
   return (
     <div>
-      <UpdatePropertyPage propertyId={params.id} />
+      <UpdatePropertyPage propertyId={Number(params.id)} />
     </div>
   );
-};
-
-export default UpdateProperty;
+}
