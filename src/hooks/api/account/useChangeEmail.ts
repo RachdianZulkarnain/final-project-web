@@ -12,7 +12,7 @@ export const useChangeEmail = () => {
     mutationFn: async (payload: ChangeEmailPayload) => {
       const { data } = await axiosInstance.post(
         "/account/change-email",
-        payload,
+        payload
       );
       return data;
     },

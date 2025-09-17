@@ -5,7 +5,7 @@ import { toast } from "sonner";
 interface ChangePasswordPayload {
   oldPassword: string;
   newPassword: string;
-  confirmPassword: string; // wajib sesuai DTO backend
+  confirmPassword: string;
 }
 
 const useChangePassword = () => {

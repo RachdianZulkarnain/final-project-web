@@ -13,7 +13,7 @@ const PasswordFieldInput: FC<PasswordFieldInputProps> = ({ name, label }) => {
   return (
     <div className="mb-6 relative group">
       <Field
-        id={name} // penting untuk label floating
+        id={name}
         name={name}
         type={visible ? "text" : "password"}
         placeholder=" "

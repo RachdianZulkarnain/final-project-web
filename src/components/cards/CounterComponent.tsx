@@ -1,5 +1,5 @@
-import { Tent, Minus, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { Minus, Plus, Tent } from "lucide-react";
 
 export const CounterComponent = ({
   count,

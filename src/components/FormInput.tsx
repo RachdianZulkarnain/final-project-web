@@ -1,9 +1,9 @@
 "use client";
 
 import { FormikHandlers } from "formik";
+import { FC } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { FC } from "react";
 
 interface FormInputProps {
   name: string;

@@ -1,9 +1,9 @@
 "use client";
 
-import { FC, useEffect, useMemo, useState } from "react";
 import { User } from "@/types/user";
-import { checkCircleIcon } from "../../../components/icon/icon";
 import { Menu } from "lucide-react";
+import { FC, useEffect, useState } from "react";
+import { checkCircleIcon } from "../../../components/icon/icon";
 import useResendEmailVerif from "../../../hooks/api/profile-user/useResendEmailVerif";
 
 interface HeadSectionProps {

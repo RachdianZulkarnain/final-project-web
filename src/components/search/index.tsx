@@ -17,9 +17,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { GoStarFill } from "react-icons/go";
-import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import { IoArrowForward } from "react-icons/io5";
+import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 
 const SearchPropertiesPage = () => {
   const searchParams = useSearchParams();

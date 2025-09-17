@@ -1,5 +1,5 @@
-import axiosInstance from '@/lib/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axiosInstance from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
 
 export const useDeleteListingMutation = ({ onSuccess, onError }: any) => {
   const { mutate } = useMutation({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormik } from "formik";
+import { Eye, EyeOff } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
@@ -8,7 +9,6 @@ import * as Yup from "yup";
 import yupPassword from "yup-password";
 import useResetPassword from "../../hooks/api/reset-password/useResetPassword";
 import InvalidToken from "../sign-up/set-password/components/InvalidToken";
-import { Eye, EyeOff } from "lucide-react";
 
 yupPassword(Yup);
 

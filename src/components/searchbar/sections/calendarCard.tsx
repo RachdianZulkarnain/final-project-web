@@ -1,20 +1,20 @@
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/form";
+import { cn } from "@/lib/utils";
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
-} from '@radix-ui/react-popover';
-import { format } from 'date-fns';
-import { Calendar } from '@/components/ui/calendar';
-import { CalendarIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 
 export function CalendarCard({ date, form, dateChangeHandler }: any) {
   return (
@@ -28,20 +28,20 @@ export function CalendarCard({ date, form, dateChangeHandler }: any) {
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  variant={'outline'}
+                  variant={"outline"}
                   className={cn(
-                    'rounded-none p-3 justify-start lg:w-80 align-center text-left font-medium',
+                    "rounded-none p-3 justify-start lg:w-80 align-center text-left font-medium"
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {date?.from ? (
                     date.to ? (
                       <>
-                        {format(date.from, 'LLL dd, y')} -{' '}
-                        {format(date.to, 'LLL dd, y')}
+                        {format(date.from, "LLL dd, y")} -{" "}
+                        {format(date.to, "LLL dd, y")}
                       </>
                     ) : (
-                      format(date.from, 'LLL dd, y')
+                      format(date.from, "LLL dd, y")
                     )
                   ) : (
                     <span className="text-stone-500">Pick a date</span>

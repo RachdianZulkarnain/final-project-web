@@ -9,11 +9,10 @@ const useGetAllCategoryList = () => {
   return useQuery({
     queryKey: ["categorylist"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get<
-        PageableResponse<PropertyCategory>
-      >(
-        "/categories/list" // ✅ sesuaikan dengan router backend
-      );
+      const { data } =
+        await axiosInstance.get<PageableResponse<PropertyCategory>>(
+          "/categories/list"
+        );
       return data;
     },
   });

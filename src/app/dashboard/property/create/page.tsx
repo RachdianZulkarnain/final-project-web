@@ -3,16 +3,15 @@ import FormInput from "@/components/FormInput";
 import FormTextarea from "@/components/FormTextArea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import useCreateProperty from "@/hooks/api/property/useCreateProperty";
+import useCurrentLocation from "@/hooks/useCurrentLocation";
+import axios from "axios";
 import { useFormik } from "formik";
+import { Save } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { PropertyCategorySelect } from "./components/PropertyCategorySelect";
-import dynamic from "next/dynamic";
-import useCurrentLocation from "@/hooks/useCurrentLocation";
-import axios from "axios";
-import { Save } from "lucide-react";
 
 const DynamicMapComponent = dynamic(() => import("@/components/Map"), {
   ssr: false,

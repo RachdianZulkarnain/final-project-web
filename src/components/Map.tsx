@@ -1,23 +1,21 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useState } from "react";
 import {
   MapContainer,
   Marker,
   Popup,
   TileLayer,
-  useMapEvent,
   useMap,
+  useMapEvent,
 } from "react-leaflet";
-import { useState } from "react";
-
 
 const pointerIcon = new L.Icon({
-  iconUrl: "/assets/location.png", 
-  iconSize: [32, 32], 
-  iconAnchor: [16, 32], 
+  iconUrl: "/assets/location.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
   popupAnchor: [0, -32],
 });
-
 
 interface MapProps {
   selectedPosition: [string, string];
@@ -88,7 +86,7 @@ const MyLocationButton: React.FC<{
         (error) => {
           console.error("Error getting location:", error);
           setLoading(false);
-        },
+        }
       );
     } else {
       console.error("Geolocation is not supported by this browser.");

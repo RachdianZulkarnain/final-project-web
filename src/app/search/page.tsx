@@ -1,10 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import Loading from "../loading";
+import { SearchListingCard } from "@/components/cards/SearchLisingCard";
+import {
+  useGetListingsBySearch,
+  useGetListingsCategory,
+  useGetListingsFacilities,
+} from "@/components/listings/hooks/useGetListings";
+import SearchBarVariant from "@/components/searchbar/searchBarVariant";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -12,18 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { SortSearch } from "./sections/sortSelect";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import {
-  useGetListingsBySearch,
-  useGetListingsCategory,
-  useGetListingsFacilities,
-} from "@/components/listings/hooks/useGetListings";
-import SearchBarVariant from "@/components/searchbar/searchBarVariant";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Slider } from "@/components/ui/slider";
-import { SearchListingCard } from "@/components/cards/SearchLisingCard";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import Loading from "../loading";
+import { SortSearch } from "./sections/sortSelect";
 
 // ==================== TO CURRENCY FUNCTION ====================
 function toCurrency(val: number | undefined) {

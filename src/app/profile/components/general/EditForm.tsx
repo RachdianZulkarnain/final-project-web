@@ -1,10 +1,10 @@
-import { validationSchema } from "../../schema";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
 import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
+import { validationSchema } from "../../schema";
 
 interface EditFormProps {
   onClose: () => void;

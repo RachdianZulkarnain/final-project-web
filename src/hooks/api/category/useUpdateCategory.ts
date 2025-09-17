@@ -11,15 +11,14 @@ interface UpdateCategoryPayload {
 }
 
 const useUpdateCategory = () => {
-  const axiosInstance = useAxios(); // jangan destructuring
+  const axiosInstance = useAxios();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (payload: UpdateCategoryPayload) => {
-      const { data } = await axiosInstance.put(
-        `/categories/${payload.id}`, // ✅ sesuaikan dengan router backend
-        { name: payload.name } // hanya kirim field name
-      );
+      const { data } = await axiosInstance.put(`/categories/${payload.id}`, {
+        name: payload.name,
+      });
       return data;
     },
     onSuccess: () => {

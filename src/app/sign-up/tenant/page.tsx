@@ -1,13 +1,13 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
+import { UserRoundCheck } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useRegisterTenant from "../../../hooks/api/register-tenant/useRegisterTenant";
 import { TenantSignupSchema } from "./schema";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, HotelIcon, User, UserRoundCheck } from "lucide-react";
 
 const RegisterTenant = () => {
   const router = useRouter();

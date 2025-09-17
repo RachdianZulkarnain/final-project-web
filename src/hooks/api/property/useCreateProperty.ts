@@ -36,7 +36,7 @@ const useCreateProperty = () => {
 
       if (payload.imageUrl && payload.imageUrl.length > 0) {
         payload.imageUrl.forEach((file) => {
-          formData.append("imageUrl", file); // field name HARUS "imageUrl"
+          formData.append("imageUrl", file);
         });
       }
 

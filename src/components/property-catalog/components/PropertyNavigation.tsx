@@ -6,11 +6,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { addDays, differenceInDays, format } from "date-fns";
-import { CalendarDays, Filter, ListFilter, MapPin, X } from "lucide-react";
+import { CalendarDays, ListFilter, MapPin, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import GuestSelector from "../../property/components/Guest";
 import { locations } from "./Const";
-import { useSearchParams } from "next/navigation";
 
 interface NavigationProps {
   onLocation: (location: string) => void;

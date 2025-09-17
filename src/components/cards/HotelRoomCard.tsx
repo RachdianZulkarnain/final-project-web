@@ -1,6 +1,6 @@
-import { BedSingle, SunMedium, UserRound } from 'lucide-react';
-import Image from 'next/image';
-import { Card } from '../ui/card';
+import { BedSingle, SunMedium, UserRound } from "lucide-react";
+import Image from "next/image";
+import { Card } from "../ui/card";
 export default function HotelRoomCard({ roomData }: { roomData: any }) {
   return (
     <Card className="flex justify-between p-4 border mb-3">
@@ -30,10 +30,10 @@ export default function HotelRoomCard({ roomData }: { roomData: any }) {
                 <SunMedium className="w-4" />
                 <div className="flex flex-wrap">
                   {roomData.breakfast_price && roomData.has_breakfast_option
-                    ? 'Breakfast option available'
+                    ? "Breakfast option available"
                     : roomData.has_breakfast_option
-                      ? 'Breakfast already included'
-                      : 'Breakfast not included'}
+                      ? "Breakfast already included"
+                      : "Breakfast not included"}
                 </div>
               </div>
             </div>

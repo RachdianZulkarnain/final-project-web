@@ -1,12 +1,12 @@
 "use client";
 
+import Pagination from "@/components/PaginationSection";
+import PropertyTenantCard from "@/components/PropertyTenantCard";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
-import { useState, useEffect } from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useSearchParams, useRouter } from "next/navigation";
-import PropertyTenantCard from "@/components/PropertyTenantCard";
-import Pagination from "@/components/PaginationSection";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // Tipe data API-safe
 interface PropertyTenant {

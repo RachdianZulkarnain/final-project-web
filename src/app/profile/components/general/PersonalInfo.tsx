@@ -1,5 +1,5 @@
-import { FC } from "react";
 import { User } from "@/types/user";
+import { FC } from "react";
 import { arrowRightIcon } from "../../../../components/icon/icon";
 
 interface ProfileContactInfoProps {

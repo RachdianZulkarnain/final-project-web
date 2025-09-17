@@ -1,8 +1,8 @@
-import * as Lucide from 'lucide-react';
-import { Badge } from './ui/badge';
+import * as Lucide from "lucide-react";
+import { Badge } from "./ui/badge";
 
 const TextOnly = ({ children }: { children: any }) => {
-  return <Badge variant={'secondary'}>{children}</Badge>;
+  return <Badge variant={"secondary"}>{children}</Badge>;
 };
 export const FacilityBadge = ({
   icon,
@@ -12,7 +12,7 @@ export const FacilityBadge = ({
   text: string;
 }) => {
   switch (text) {
-    case 'Wifi':
+    case "Wifi":
       return (
         <div>
           {icon ? (
@@ -24,12 +24,12 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Workspace':
+    case "Workspace":
       return (
         <div>
           {icon ? (
             <div className="flex items-center font-medium text-stone-600">
-              <Lucide.MonitorSpeaker className="p-1"></Lucide.MonitorSpeaker>{' '}
+              <Lucide.MonitorSpeaker className="p-1"></Lucide.MonitorSpeaker>{" "}
               {text}
             </div>
           ) : (
@@ -38,7 +38,7 @@ export const FacilityBadge = ({
         </div>
       );
 
-    case 'Eating utensils':
+    case "Eating utensils":
       return (
         <div>
           {icon ? (
@@ -50,7 +50,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Kitchen':
+    case "Kitchen":
       return (
         <div>
           {icon ? (
@@ -62,7 +62,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Fridge':
+    case "Fridge":
       return (
         <div>
           {icon ? (
@@ -75,7 +75,7 @@ export const FacilityBadge = ({
         </div>
       );
 
-    case 'Microwave':
+    case "Microwave":
       return (
         <div>
           {icon ? (
@@ -87,7 +87,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Pool':
+    case "Pool":
       return (
         <div>
           {icon ? (
@@ -99,7 +99,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Gym':
+    case "Gym":
       return (
         <div>
           {icon ? (
@@ -111,7 +111,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Parking area':
+    case "Parking area":
       return (
         <div>
           {icon ? (
@@ -123,7 +123,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'TV':
+    case "TV":
       return (
         <div>
           {icon ? (
@@ -135,7 +135,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Room services':
+    case "Room services":
       return (
         <div>
           {icon ? (
@@ -147,12 +147,12 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Washing machine':
+    case "Washing machine":
       return (
         <div>
           {icon ? (
             <div className="flex items-center font-medium text-stone-600">
-              <Lucide.WashingMachine className="p-1"></Lucide.WashingMachine>{' '}
+              <Lucide.WashingMachine className="p-1"></Lucide.WashingMachine>{" "}
               {text}
             </div>
           ) : (
@@ -160,7 +160,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Air Conditioner':
+    case "Air Conditioner":
       return (
         <div>
           {icon ? (
@@ -172,7 +172,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Bathtub':
+    case "Bathtub":
       return (
         <div>
           {icon ? (
@@ -184,7 +184,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'Hot water':
+    case "Hot water":
       return (
         <div>
           {icon ? (
@@ -197,7 +197,7 @@ export const FacilityBadge = ({
         </div>
       );
 
-    case 'Drinking water':
+    case "Drinking water":
       return (
         <div>
           {icon ? (
@@ -210,7 +210,7 @@ export const FacilityBadge = ({
         </div>
       );
 
-    case 'Outdoor area':
+    case "Outdoor area":
       return (
         <div>
           {icon ? (
@@ -222,7 +222,7 @@ export const FacilityBadge = ({
           )}
         </div>
       );
-    case 'CCTV camera':
+    case "CCTV camera":
       return (
         <div>
           {icon ? (
@@ -235,7 +235,7 @@ export const FacilityBadge = ({
         </div>
       );
 
-    case 'Safebox':
+    case "Safebox":
       return (
         <div>
           {icon ? (

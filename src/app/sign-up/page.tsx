@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { ArrowBigRight, ArrowRight, Hotel } from "lucide-react";
+import { ArrowRight, Hotel } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

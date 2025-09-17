@@ -1,6 +1,5 @@
 "use client";
 
-import { type Icon } from "@tabler/icons-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -8,9 +7,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
+import { type Icon } from "@tabler/icons-react";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 type NavItem = {
   title: string;
@@ -87,7 +87,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </Link>
-            ),
+            )
           )}
         </SidebarMenu>
       </SidebarGroupContent>

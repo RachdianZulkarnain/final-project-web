@@ -1,30 +1,45 @@
+// useCreateRoomNonAvailability.ts
 "use client";
 import useAxios from "@/hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
 interface CreateRoomNonAvailabilityPayload {
   reason: string;
   startDate: Date;
   endDate: Date;
   roomId: number;
 }
+
 const useCreateRoomNonAvailability = () => {
-  const router = useRouter();
   const axiosInstance = useAxios();
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Unauthorized: token not found");
+
+      const payloadToSend = {
+        ...payload,
+        startDate: payload.startDate.toISOString(),
+        endDate: payload.endDate.toISOString(),
+      };
+
       const { data } = await axiosInstance.post(
-        "/room-non-availabilities/room",
-        payload
+        "/room-non-availabilities",
+        payloadToSend,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
+
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["roomNonAvailabilities"] });
-      toast.success("Create Room Non Availability Success");
+      toast.success("Room Non Availability created successfully");
     },
     onError: (error: AxiosError<any>) => {
       const message =
@@ -35,4 +50,5 @@ const useCreateRoomNonAvailability = () => {
     },
   });
 };
+
 export default useCreateRoomNonAvailability;

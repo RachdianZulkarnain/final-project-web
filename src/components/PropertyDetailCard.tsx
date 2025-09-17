@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import { Card, CardHeader } from "./ui/card";
 import { RoomFacility } from "@/types/property";
+import Image from "next/image";
 import { FaSquareCheck } from "react-icons/fa6";
+import { Card, CardHeader } from "./ui/card";
 
 interface PropertyDetailCardProps {
   roomId: number;

@@ -12,12 +12,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { useFormik, FormikHelpers } from "formik";
+import { useUpdatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useUpdatePeakSeasonRate";
+import { FormikHelpers, useFormik } from "formik";
+import { Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { PeakSeasonRateSchema } from "../schemas/PeakSeasonRateSchema";
-import { useUpdatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useUpdatePeakSeasonRate";
-import { Pencil } from "lucide-react";
 
 interface EditPeakSeasonButtonProps {
   id: number;

@@ -1,10 +1,10 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Property } from "@/types/property";
+import { formatRupiah } from "@/utils/formatrupiah";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { formatRupiah } from "@/utils/formatrupiah";
 
 const LocationIcon = () => (
   <svg

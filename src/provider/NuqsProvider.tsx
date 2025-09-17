@@ -1,7 +1,7 @@
 "use client";
 
-import { FC, PropsWithChildren, Suspense } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { FC, PropsWithChildren, Suspense } from "react";
 
 const NuqsProvider: FC<PropsWithChildren> = ({ children }) => {
   return (

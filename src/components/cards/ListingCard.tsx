@@ -1,6 +1,6 @@
-import { Card } from '@/components/ui/card';
-import { MapPin } from 'lucide-react';
-import Image from 'next/image';
+import { Card } from "@/components/ui/card";
+import { MapPin } from "lucide-react";
+import Image from "next/image";
 interface IListingCard {
   imageUrl: string;
   title: string;
@@ -51,31 +51,31 @@ export const ListingCard = ({
       <div className="mt-2">
         {seasonalPrice && price < seasonalPrice ? (
           <div className="font-bold">
-            {seasonalPrice.toLocaleString('id-ID', {
-              style: 'currency',
-              currency: 'IDR',
+            {seasonalPrice.toLocaleString("id-ID", {
+              style: "currency",
+              currency: "IDR",
             })}
           </div>
         ) : seasonalPrice && price > seasonalPrice ? (
           <div className="flex gap-2">
             <div className="text-sm line-through">
-              {price.toLocaleString('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
+              {price.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
               })}
             </div>
             <div className="font-bold text-rose-600">
-              {seasonalPrice.toLocaleString('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
+              {seasonalPrice.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
               })}
             </div>
           </div>
         ) : (
           <div className="font-bold">
-            {price.toLocaleString('id-ID', {
-              style: 'currency',
-              currency: 'IDR',
+            {price.toLocaleString("id-ID", {
+              style: "currency",
+              currency: "IDR",
             })}
           </div>
         )}

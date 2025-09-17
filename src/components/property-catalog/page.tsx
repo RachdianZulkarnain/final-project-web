@@ -1,6 +1,13 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Property } from "@/types/property";
 import { format, parseISO } from "date-fns";
 import { motion } from "framer-motion";
@@ -12,13 +19,6 @@ import useDebounce from "../../hooks/useDebounce";
 import CatalogPagination from "../CatalogPagination";
 import PropertyCard from "../property/components/PropertyCard";
 import PropertyNavigation from "./components/PropertyNavigation";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export default function PropertyCatalogPage() {
   // NuQS states

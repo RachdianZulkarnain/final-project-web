@@ -1,9 +1,5 @@
-'use client';
-import { Search } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,17 +7,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { DateRange } from 'react-day-picker';
-import { addDays, format } from 'date-fns';
-import PlacesAutocomplete from './PlacesSuggestion';
-import { useRouter, usePathname } from 'next/navigation';
-import { useQueryClient } from '@tanstack/react-query';
-import { GuestCard } from './sections/guestsCard';
-import { CalendarCard } from './sections/calendarCard';
-import { useSearchParams } from 'next/navigation';
+} from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { addDays, format } from "date-fns";
+import { Search } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { DateRange } from "react-day-picker";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import PlacesAutocomplete from "./PlacesSuggestion";
+import { CalendarCard } from "./sections/calendarCard";
+import { GuestCard } from "./sections/guestsCard";
 export default function SearchBarVariant({
   onSubmitCallback,
   dateParam,
@@ -42,14 +41,14 @@ export default function SearchBarVariant({
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', pageResized);
+    window.addEventListener("resize", pageResized);
     return () => {
-      window.removeEventListener('resize', pageResized);
+      window.removeEventListener("resize", pageResized);
     };
   }, []);
 
   const formSchema = z.object({
-    location: z.string({ required_error: 'Must be filled' }),
+    location: z.string({ required_error: "Must be filled" }),
     duration: z.object({
       from: z.date(),
       to: z.date(),
@@ -62,20 +61,20 @@ export default function SearchBarVariant({
   });
 
   function decodeAsciiAndSpaces(encodedString: string) {
-    if (!encodedString || encodedString == '') return '';
-    let result = '';
+    if (!encodedString || encodedString == "") return "";
+    let result = "";
     let i = 0;
 
     while (i < encodedString.length) {
       if (
-        encodedString[i] === '%' &&
-        encodedString[i + 1] === '2' &&
-        encodedString[i + 2] === '0'
+        encodedString[i] === "%" &&
+        encodedString[i + 1] === "2" &&
+        encodedString[i + 2] === "0"
       ) {
-        result += ' ';
+        result += " ";
         i += 3; // Skip over the "%20"
       } else if (!/[a-zA-Z]/.test(encodedString[i])) {
-        let asciiValue = '';
+        let asciiValue = "";
         while (i < encodedString.length && !/[a-zA-Z]/.test(encodedString[i])) {
           asciiValue += encodedString[i];
           i++;
@@ -93,7 +92,7 @@ export default function SearchBarVariant({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      location: `${searchParams.get('lat')},${searchParams.get('lng')},,${searchParams.get('country')},${decodeAsciiAndSpaces(locationParam)}`,
+      location: `${searchParams.get("lat")},${searchParams.get("lng")},,${searchParams.get("country")},${decodeAsciiAndSpaces(locationParam)}`,
       duration: {
         from: new Date(),
         to: addDays(new Date(), 2),
@@ -109,22 +108,22 @@ export default function SearchBarVariant({
   const handleDateChange = (selectedDate: DateRange | undefined) => {
     setDate(selectedDate);
     if (selectedDate?.from && selectedDate?.to) {
-      setValue('duration', selectedDate as { from: Date; to: Date });
+      setValue("duration", selectedDate as { from: Date; to: Date });
     }
   };
   const queryClient = useQueryClient();
   const pathname = usePathname();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const location = values.location.split(',');
-    const paramsString = `lat=${location[0]}&lng=${location[1]}&country=${location[3]}&start_date=${format(values.duration.from, 'yyyy-MM-dd')}&end_date=${format(values.duration.to, 'yyyy-MM-dd')}&adults=${values.guests.adults}&children=${values.guests.children}&loc_term=${location[4]}`;
-    window.history.replaceState(null, '', '?' + paramsString.toString());
+    const location = values.location.split(",");
+    const paramsString = `lat=${location[0]}&lng=${location[1]}&country=${location[3]}&start_date=${format(values.duration.from, "yyyy-MM-dd")}&end_date=${format(values.duration.to, "yyyy-MM-dd")}&adults=${values.guests.adults}&children=${values.guests.children}&loc_term=${location[4]}`;
+    window.history.replaceState(null, "", "?" + paramsString.toString());
     onSubmitCallback(paramsString);
   }
 
   const { setValue } = form;
 
-  const guests = form.watch('guests');
+  const guests = form.watch("guests");
 
   return (
     <div className="">
@@ -138,9 +137,7 @@ export default function SearchBarVariant({
             name="location"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel className=" font-semibold ml-4">
-                  Location
-                </FormLabel>
+                <FormLabel className=" font-semibold ml-4">Location</FormLabel>
                 <FormControl>
                   <PlacesAutocomplete
                     initialValue={decodeAsciiAndSpaces(locationParam)}
@@ -159,8 +156,8 @@ export default function SearchBarVariant({
           <GuestCard form={form} />
           <Button
             className={cn(
-              'rounded-full lg:ml-3',
-              windowWidth < 1000 && 'w-[40px] ml-3 h-[40px]',
+              "rounded-full lg:ml-3",
+              windowWidth < 1000 && "w-[40px] ml-3 h-[40px]"
             )}
             type="submit"
           >

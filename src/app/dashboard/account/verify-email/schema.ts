@@ -9,7 +9,7 @@ const verifySchema = Yup.object().shape({
     .matches(/[0-9]/, "Password must contain at least one number")
     .matches(
       /[^a-zA-Z0-9]/,
-      "Password must contain at least one special character",
+      "Password must contain at least one special character"
     )
     .required("Password is required"),
   confirmPassword: Yup.string()

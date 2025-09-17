@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
+import { LogOut, Menu, User, X } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Home, Bell, LogOut, X, Menu, User } from "lucide-react";
+import { FC, useState } from "react";
 
 interface ProfileSidebarProps {
   activeIndex: number;

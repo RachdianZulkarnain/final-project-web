@@ -1,15 +1,15 @@
+import { Footer } from "@/components/Footer";
+import Header from "@/components/Header";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import NuqsProvider from "@/provider/NuqsProvider";
 import ReactQueryProvider from "@/provider/ReactQueryProvider";
 import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { Suspense } from "react";
 import Loading from "./loading";
-import { Footer } from "@/components/Footer";
-import Header from "@/components/Header";
-import NuqsProvider from "@/provider/NuqsProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

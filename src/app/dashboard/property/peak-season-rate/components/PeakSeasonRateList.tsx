@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/table";
 import { useDeletePeakSeasonRate } from "@/hooks/api/peak-season-rate/useDeletePeakSeasonRate";
 import { useGetPeakSeasons } from "@/hooks/api/peak-season-rate/useGetPeakSeasonRate";
+import { Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { EditPeakSeasonButton } from "./EditPeakSeasonRate";
-import { Trash2 } from "lucide-react";
 
 interface PeakSeasonsPageProps {
   roomId?: number;

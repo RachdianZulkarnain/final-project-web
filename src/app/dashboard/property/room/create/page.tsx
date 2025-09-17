@@ -1,15 +1,9 @@
 "use client";
 
 import FormInput from "@/components/FormInput";
-import FormTextarea from "@/components/FormTextArea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useCreateRoom from "@/hooks/api/room/useCreateRoom";
-import { useFormik, FormikErrors } from "formik";
-import Image from "next/image";
-import { ChangeEvent, useRef, useState } from "react";
-import { PropertyIdSelect } from "./components/PropertyIdSelect";
 import {
   Select,
   SelectContent,
@@ -17,8 +11,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useCreateRoom from "@/hooks/api/room/useCreateRoom";
+import { FormikErrors, useFormik } from "formik";
+import Image from "next/image";
+import { ChangeEvent, useRef, useState } from "react";
+import { PropertyIdSelect } from "./components/PropertyIdSelect";
 
-import { PlusCircle, X, ImagePlus, Save, Trash2 } from "lucide-react";
+import { ImagePlus, PlusCircle, Save, Trash2, X } from "lucide-react";
 import validationSchema from "./schemas";
 
 interface Facility {

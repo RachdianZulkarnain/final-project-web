@@ -3,9 +3,7 @@
 import useAxios from "@/hooks/useAxios";
 import { PageableResponse, PaginationQueries } from "@/types/pagination";
 import { Property } from "@/types/property";
-import { PropertyCategory } from "@/types/propertyCategory";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 export interface GetPropertiesByQueries extends PaginationQueries {
   search?: string;
@@ -33,4 +31,3 @@ export const useGetPropertiesByQuery = (queries: GetPropertiesByQueries) => {
     },
   });
 };
-//

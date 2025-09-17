@@ -1,4 +1,4 @@
-import { Loader2, User, Mail, Lock } from "lucide-react";
+import { Loader2, Lock, Mail, User } from "lucide-react";
 
 export const Icons = {
   spinner: Loader2,

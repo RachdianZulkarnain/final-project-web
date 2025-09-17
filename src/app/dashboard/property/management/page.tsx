@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { FiCalendar, FiList, FiPlus, FiSettings } from "react-icons/fi";
 import PropertyTenantList from "./components/PropertyTenantList";

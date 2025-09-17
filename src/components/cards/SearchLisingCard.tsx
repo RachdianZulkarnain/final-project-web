@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
 import { FacilityBadge } from "../FacilityBadge";
+import { Badge } from "../ui/badge";
 
 interface IListingCard {
   imageUrl: string;

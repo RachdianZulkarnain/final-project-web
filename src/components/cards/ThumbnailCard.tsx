@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 interface IThumbnailCard {
   redirectUrl: string;
@@ -8,7 +8,7 @@ interface IThumbnailCard {
   text?: string | undefined;
 }
 
-export const  ThumbnailCard = ({
+export const ThumbnailCard = ({
   redirectUrl,
   imageUrl,
   hoverAnim,
@@ -26,7 +26,7 @@ export const  ThumbnailCard = ({
             unoptimized
             className={
               hoverAnim
-                ? 'group-hover:scale-110 h-full w-full object-cover rounded-lg transition-transform duration-500 ease-in-out transform hover:scale-110'
+                ? "group-hover:scale-110 h-full w-full object-cover rounded-lg transition-transform duration-500 ease-in-out transform hover:scale-110"
                 : `h-full w-full object-cover rounded-lg`
             }
           />

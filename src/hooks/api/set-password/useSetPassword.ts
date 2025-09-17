@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/axios";
-import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const useSetPassword = (token: string) => {
   const router = useRouter();

@@ -10,24 +10,14 @@ import {
   standardizeToCheckOutTime,
 } from "@/utils/date";
 import "leaflet/dist/leaflet.css";
-import {
-  Building2,
-  Heart,
-  MapPin,
-  Plane,
-  Share,
-  ShoppingCart,
-  Umbrella,
-  User,
-  Utensils,
-} from "lucide-react";
+import { MapPin } from "lucide-react";
+import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { RoomPriceCalendar } from "./components/RoomPriceCalendar";
 import PropertyDetailCard from "../PropertyDetailCard";
-import { useSession } from "next-auth/react";
+import { RoomPriceCalendar } from "./components/RoomPriceCalendar";
 
 type DateRange = {
   from: Date | undefined;
