@@ -1,8 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { Tenant } from "@/types/property";
 import useAxios from "@/hooks/useAxios";
+import { Tenant } from "@/types/property";
+import { useQuery } from "@tanstack/react-query";
 
 const useGetTenant = () => {
   const axiosInstance = useAxios();

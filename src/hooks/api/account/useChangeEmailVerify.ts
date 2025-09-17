@@ -16,7 +16,7 @@ export const useVerifyChangeEmail = () => {
     mutationFn: async ({ token, password }: VerifyChangeEmailPayload) => {
       const { data } = await axiosInstance.post(
         "/account/verify-change-email",
-        { token, password } // token dikirim di body
+        { token, password }
       );
       return data;
     },

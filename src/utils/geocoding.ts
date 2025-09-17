@@ -2,7 +2,7 @@ import opencage from "opencage-api-client";
 
 export async function getCoordinates(
   province: string,
-  city: string,
+  city: string
 ): Promise<[number, number] | null> {
   const apiKey = process.env.NEXT_PUBLIC_OPENCAGE_API_KEY;
 

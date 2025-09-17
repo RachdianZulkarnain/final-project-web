@@ -1,14 +1,14 @@
 "use client";
 
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useGetAnalytics } from "@/app/dashboard/_hooks/useGetAnalytics";
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { useGetAnalytics } from "@/app/dashboard/_hooks/useGetAnalytics";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export function SectionCards() {
   const [showRevenue, setShowRevenue] = useState(false);

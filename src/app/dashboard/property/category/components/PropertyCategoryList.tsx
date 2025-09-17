@@ -13,10 +13,10 @@ import {
 import useDeleteCategory from "@/hooks/api/category/useDeleteCategory";
 import useGetCategory from "@/hooks/api/category/useGetCategory";
 import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
+import { Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { EditPropertyCategory } from "./EditPropertyCategory";
-import { Trash, Trash2 } from "lucide-react";
 
 interface Category {
   id: number;

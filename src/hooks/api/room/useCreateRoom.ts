@@ -39,7 +39,7 @@ const useCreateRoom = () => {
       createRoomForm.append("propertyId", String(payload.propertyId));
 
       if (payload.imageUrl) {
-        createRoomForm.append("image", payload.imageUrl); // <-- sesuaikan dengan backend
+        createRoomForm.append("image", payload.imageUrl);
       }
 
       createRoomForm.append("facilities", JSON.stringify(payload.facilities));

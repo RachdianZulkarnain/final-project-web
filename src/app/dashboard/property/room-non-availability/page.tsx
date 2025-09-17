@@ -1,10 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useFormik } from "formik";
 import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
 import useCreateRoomNonAvailability from "@/hooks/api/room-non-availability/useCreateRoomNonAvailability";
+import { useFormik } from "formik";
+import { useSearchParams } from "next/navigation";
 import { RoomIdSelect } from "../peak-season-rate/components/RoomIdSelect";
 import { DatePickerWithRangeForRoomNonAvailability } from "./components/DateRoomNonAvailability";
 import RoomNonAvailabilityList from "./components/RoomNonAvailability";
@@ -14,7 +14,6 @@ export default function RoomNonAvailabilityPage() {
   const { mutateAsync: createRoomNonAvailability, isPending } =
     useCreateRoomNonAvailability();
 
-  // gunakan useSearchParams
   const searchParams = useSearchParams();
   const roomIdParam = searchParams?.get("roomId");
   const roomId = roomIdParam ? Number(roomIdParam) : undefined;
@@ -24,7 +23,7 @@ export default function RoomNonAvailabilityPage() {
       reason: "",
       startDate: new Date(),
       endDate: new Date(),
-      roomId: roomId || 0, // set default dari searchParams kalau ada
+      roomId: roomId || 0,
     },
     validationSchema: RoomNonAvailabilitySchema,
     onSubmit: async (values) => {

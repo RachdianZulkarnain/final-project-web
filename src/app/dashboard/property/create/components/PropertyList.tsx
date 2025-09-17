@@ -13,15 +13,13 @@ import {
 import useDeleteProperty from "@/hooks/api/property/useDeleteProperty";
 import { useSession } from "next-auth/react";
 
-import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
+import Image from "next/image";
 import { useState } from "react";
 import { EditPropertyCategory } from "../../category/components/EditPropertyCategory";
-import PaginationSection from "@/components/PaginationSection";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
 
-// Tipe data API-safe
 interface PropertyItem {
   id: number;
   title: string;
@@ -45,7 +43,7 @@ const PropertyList = () => {
   const { data, isPending } = useGetPropertiesTenant({
     take: 10,
     page,
-    userId, // sekarang pasti number
+    userId,
   });
 
   const { mutateAsync: deleteProperty, isPending: isDeleting } =

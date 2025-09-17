@@ -12,7 +12,9 @@ export const ExploreCity = () => {
 
   return (
     <div>
-      <div className="text-3xl text-[#0290d1] font-bold pb-8">Explore Indonesia</div>
+      <div className="text-3xl text-[#0290d1] font-bold pb-8">
+        Explore Indonesia
+      </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         {cities.map((x, i) => (
           <ThumbnailCard

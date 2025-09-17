@@ -1,20 +1,20 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
+import { useState } from "react";
 
-import { useVerifyChangeEmail } from "@/hooks/api/account/useChangeEmailVerify";
-import { motion } from "framer-motion";
-import { Eye, EyeOff, Check, X } from "lucide-react";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
+import { useVerifyChangeEmail } from "@/hooks/api/account/useChangeEmailVerify";
+import { motion } from "framer-motion";
+import { Check, Eye, EyeOff, X } from "lucide-react";
 import verifySchema from "../schema";
 
 export default function VerifyEmailForm({ token }: { token: string }) {

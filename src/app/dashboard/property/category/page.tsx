@@ -5,15 +5,14 @@ import { Input } from "@/components/ui/input";
 import useCreateCategory from "@/hooks/api/category/useCreateCatgory";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
+import { parseAsInteger, useQueryState } from "nuqs";
 import PropertyCategoryList from "./components/PropertyCategoryList";
 import { PropertyCategorySchema } from "./schemas/PropertyCategoryScema";
-import { parseAsInteger, useQueryState } from "nuqs";
 
 export default function CategoryPage() {
   const session = useSession();
   const { mutateAsync: createCategory, isPending } = useCreateCategory();
 
-  // ✅ ambil query param dari URL secara reactive, default 0
   const [propertyCategoryId] = useQueryState(
     "propertyCategoryId",
     parseAsInteger.withDefault(0)
@@ -65,7 +64,6 @@ export default function CategoryPage() {
             </div>
           </form>
 
-          {/* ✅ render PropertyCategoryList selalu */}
           <PropertyCategoryList propertyCategoryId={propertyCategoryId} />
         </section>
       </div>

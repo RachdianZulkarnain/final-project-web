@@ -22,10 +22,7 @@ export const useCreatePeakSeasonRate = () => {
       return data;
     },
     onSuccess: () => {
-      // ✅ Gunakan object syntax atau string
       queryClient.invalidateQueries({ queryKey: ["peakSeasonRate"] as const });
-      // atau
-      // queryClient.invalidateQueries("peakSeasonRate");
 
       toast.success("Peak Season Rate created successfully");
     },

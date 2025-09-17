@@ -1,29 +1,22 @@
 "use client";
 
 import {
-  IconDashboard,
-  IconListDetails,
-  IconReceipt2,
-  IconSettings,
-  IconClipboardList,
-  IconPencil,
-  IconCalendar,
-  IconCalendarBolt,
-  IconCalendarCheck,
-  IconHome,
   IconBuilding,
-  IconUser,
   IconCalendarWeek,
+  IconClipboardList,
+  IconDashboard,
+  IconReceipt2,
+  IconUser
 } from "@tabler/icons-react";
 import * as React from "react";
 
+import { useGetDashboardProfile } from "@/app/dashboard/settings/_hooks/useGetDashboardProfile";
 import { NavMain } from "@/components/nav-main";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { useGetDashboardProfile } from "@/app/dashboard/settings/_hooks/useGetDashboardProfile";
 import Image from "next/image";
 import { NavUser } from "./nav-user";
 

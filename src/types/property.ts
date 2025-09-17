@@ -1,4 +1,3 @@
-
 import { ReactNode } from "react";
 
 export interface Property {
@@ -15,16 +14,15 @@ export interface Property {
   isDeleted: boolean;
   propertyCategoryId: number;
   tenantId: number;
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
   location: string;
   propertyImage: PropertyImage[];
   propertyFacility: PropertyFacility[];
   tenant: Tenant;
   room: Room[];
-  PropertyCategory?: PropertyCategory[]; 
+  PropertyCategory?: PropertyCategory[];
 }
-
 
 export interface PropertyImage {
   isDeleted: any;
@@ -82,7 +80,7 @@ export interface Room {
     title: string;
     description: string;
     location: string;
-  }; 
+  };
 }
 
 export interface RoomImage {

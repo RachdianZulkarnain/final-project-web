@@ -6,7 +6,7 @@ export const formatDate = (date: Date): string => {
 };
 
 export const getOccupancyStatusClasses = (
-  occupancyRate: number,
+  occupancyRate: number
 ): {
   bgColorClass: string;
   statusText: string;
@@ -33,13 +33,13 @@ export const getOccupancyStatusClasses = (
 export const getDayCellHtml = (
   args: { date: Date; dayNumberText: string },
   reportData: any,
-  roomIdParam: string | null,
+  roomIdParam: string | null
 ): { html: string } => {
   if (!reportData) return { html: args.dayNumberText };
 
   const dateStr = formatDate(args.date);
   const dayData = reportData.calendarData.find(
-    (day: any) => day.date === dateStr,
+    (day: any) => day.date === dateStr
   );
 
   if (!dayData) return { html: args.dayNumberText };
@@ -49,7 +49,7 @@ export const getDayCellHtml = (
 
   if (roomIdParam) {
     const selectedRoom = dayData.rooms.find(
-      (room: any) => room.roomId === parseInt(roomIdParam),
+      (room: any) => room.roomId === parseInt(roomIdParam)
     );
 
     if (selectedRoom) {
@@ -96,7 +96,7 @@ export const getDayCellHtml = (
 
   if (roomIdParam) {
     const selectedRoom = dayData.rooms.find(
-      (room: any) => room.roomId === parseInt(roomIdParam),
+      (room: any) => room.roomId === parseInt(roomIdParam)
     );
     occupancyRate = selectedRoom ? selectedRoom.occupancyRate : 0;
   } else {
@@ -122,7 +122,7 @@ export const getDayCellHtml = (
 };
 
 export const getCalendarOptions = (
-  handleMonthChange: (direction: "prev" | "next") => void,
+  handleMonthChange: (direction: "prev" | "next") => void
 ) => {
   return {
     height: "auto",

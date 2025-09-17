@@ -2,12 +2,12 @@
 
 import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
+import { useCreatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useCreatePeakSeasonRate";
 import { useFormik } from "formik";
 import { DatePickerWithRangeForPeakSeason } from "./components/DateRangePickerPeakSeason";
 import PeakSeasonsRateList from "./components/PeakSeasonRateList";
 import { RoomIdSelect } from "./components/RoomIdSelect";
 import { PeakSeasonRateSchema } from "./schemas/PeakSeasonRateSchema";
-import { useCreatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useCreatePeakSeasonRate";
 
 export default function PeakSeasonRatePage(props: any) {
   const { mutateAsync: createPeakSeasonRate, isPending } =

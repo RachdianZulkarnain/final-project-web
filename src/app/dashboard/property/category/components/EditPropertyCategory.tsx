@@ -12,9 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
 import { useFormik } from "formik";
+import { Pencil } from "lucide-react";
 import { FC, useState } from "react";
 import { PropertyCategorySchema } from "../schemas/PropertyCategoryScema";
-import { Pencil } from "lucide-react";
 
 interface EditPropertyCategory {
   id: number;

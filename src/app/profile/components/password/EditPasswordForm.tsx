@@ -1,13 +1,13 @@
 "use client";
 
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
-import PasswordFieldInput from "./PasswordFieldInput";
+import useChangePassword from "../../../../hooks/api/change-password/useChangePassword";
 import { validationSchema } from "../../schema";
-import useChangePassword from "../../../change-password/_hooks/useChangePassword";
+import PasswordFieldInput from "./PasswordFieldInput";
 
 interface EditPasswordFormProps {
   onClose: () => void;

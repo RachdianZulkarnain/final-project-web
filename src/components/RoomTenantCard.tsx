@@ -1,8 +1,8 @@
+import { Building2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { Card, CardHeader } from "./ui/card";
-import { Pencil, Building2, UserPen } from "lucide-react";
 
 interface RoomCardProps {
   id: number;

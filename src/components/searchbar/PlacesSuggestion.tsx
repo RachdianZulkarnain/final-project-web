@@ -1,26 +1,26 @@
-'use client';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
-import useOnclickOutside from 'react-cool-onclickoutside';
-import { useState, useEffect } from 'react';
-import { useLoadScript, Libraries } from '@react-google-maps/api';
+"use client";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import { Input } from '@/components/ui/input';
-import { usePathname } from 'next/navigation';
+} from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
+import { Libraries, useLoadScript } from "@react-google-maps/api";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import useOnclickOutside from "react-cool-onclickoutside";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 export default function PlacesAutocomplete({
   width,
   setValue,
   initialValue,
   className,
 }: any) {
-  const libraries: Libraries = ['places'];
+  const libraries: Libraries = ["places"];
   const pathname = usePathname();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
@@ -28,7 +28,7 @@ export default function PlacesAutocomplete({
   });
 
   if (loadError) {
-    console.error('Error loading Google Maps API:', loadError);
+    console.error("Error loading Google Maps API:", loadError);
   }
 
   const {
@@ -39,12 +39,10 @@ export default function PlacesAutocomplete({
     clearSuggestions,
   } = usePlacesAutocomplete({
     debounce: 300,
-    callbackName: 'initAutocomplete',
+    callbackName: "initAutocomplete",
   });
 
-  useEffect(() => {
-
-  }, [isLoaded, ready, value]);
+  useEffect(() => {}, [isLoaded, ready, value]);
 
   const ref = useOnclickOutside(() => {
     clearSuggestions();
@@ -62,24 +60,24 @@ export default function PlacesAutocomplete({
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
         const { main_text, secondary_text } = structured_formatting;
-        let city = '';
-        let country = '';
+        let city = "";
+        let country = "";
         results[0].address_components.forEach((component) => {
-          if (component.types.includes('locality')) {
+          if (component.types.includes("locality")) {
             city = component.long_name;
           }
-          if (component.types.includes('country')) {
+          if (component.types.includes("country")) {
             country = component.long_name;
           }
         });
 
         function convertNonAlphaToAscii(inputString: string) {
-          let result = '';
+          let result = "";
 
           for (let i = 0; i < inputString.length; i++) {
             let char = inputString[i];
-            if (char === ' ') {
-              result += '%20';
+            if (char === " ") {
+              result += "%20";
             } else if (!/[a-zA-Z]/.test(char)) {
               result += char.charCodeAt(0);
             } else {
@@ -91,8 +89,8 @@ export default function PlacesAutocomplete({
         }
 
         setValue(
-          'location',
-          `${lat},${lng},${city},${country},${convertNonAlphaToAscii(`${main_text}, ${secondary_text ? secondary_text : ''}`)}`,
+          "location",
+          `${lat},${lng},${city},${country},${convertNonAlphaToAscii(`${main_text}, ${secondary_text ? secondary_text : ""}`)}`
         );
       });
     };
@@ -100,7 +98,7 @@ export default function PlacesAutocomplete({
   const renderSuggestions = () => {
     return (
       <Command
-        className={`absolute shadow-md mt-1 z-20 rounded-lg h-auto ${width ? width : 'w-80'}`}
+        className={`absolute shadow-md mt-1 z-20 rounded-lg h-auto ${width ? width : "w-80"}`}
       >
         <CommandList>
           <CommandGroup>
@@ -117,7 +115,7 @@ export default function PlacesAutocomplete({
                   key={place_id}
                 >
                   <div className="text-stone-600 hover:text-stone-900">
-                    <span className="font-semibold">{main_text}</span>{' '}
+                    <span className="font-semibold">{main_text}</span>{" "}
                     {secondary_text}
                   </div>
                 </CommandItem>
@@ -136,13 +134,13 @@ export default function PlacesAutocomplete({
           value={value}
           onChange={handleInput}
           disabled={!isLoaded || !ready}
-          placeholder={initialValue ? initialValue : 'Where are you going?'}
+          placeholder={initialValue ? initialValue : "Where are you going?"}
           className={
             className +
-            `truncate text-black focus:outline-none ${pathname === '/' ? 'rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8' : 'rounded-none rounded-l-full p-3 lg:w-80'}`
+            `truncate text-black focus:outline-none ${pathname === "/" ? "rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8" : "rounded-none rounded-l-full p-3 lg:w-80"}`
           }
         />
-        {status === 'OK' && value && <ul>{renderSuggestions()}</ul>}
+        {status === "OK" && value && <ul>{renderSuggestions()}</ul>}
       </div>
     </>
   );

@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/table";
 import useDeleteRoomNonAvailability from "@/hooks/api/room-non-availability/useDeleteRoomNonAvailability";
 import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRoomNonAvailability";
+import { Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { EditRoomNonAvailabilityButton } from "./EditRoomNonAvailability";
-import { Trash2 } from "lucide-react";
 
 interface RoomNonAvailabilityPageProps {
   roomId?: number;

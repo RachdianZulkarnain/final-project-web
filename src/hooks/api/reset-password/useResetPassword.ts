@@ -10,7 +10,6 @@ const useResetPassword = (token: string | null) => {
     mutationFn: async (newPassword: string) => {
       if (!token) throw new Error("Reset token is missing");
 
-      // Kirim token lewat query parameter, bukan header
       const { data } = await axiosInstance.post(
         `/auth/reset-password?token=${token}`,
         { newPassword }

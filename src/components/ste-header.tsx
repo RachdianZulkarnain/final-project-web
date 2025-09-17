@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { usePathname } from "next/navigation";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import useGetTenant from "@/hooks/api/account/useGetTenant";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
   const pathname = usePathname() || "/";

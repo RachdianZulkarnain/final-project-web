@@ -1,10 +1,10 @@
 import {
-  useGetListingsQuery,
   useGetListingByIdQuery,
+  useGetListingsBySearchQuery,
   useGetListingsCategoryQuery,
   useGetListingsFacilitiesQuery,
-  useGetListingsBySearchQuery,
-} from '../api/useGetListingsQuery';
+  useGetListingsQuery,
+} from "../api/useGetListingsQuery";
 
 export const useGetListings = () => {
   const { data: listings, isSuccess, isError } = useGetListingsQuery();
@@ -26,7 +26,7 @@ export const useGetListingsBySearch = (params: string) => {
     isSuccess,
     isError,
   } = useGetListingsBySearchQuery(params);
-  console.log('nih ape', searchResult?.data);
+  console.log("nih ape", searchResult?.data);
   return {
     searchResult: searchResult?.data,
   };

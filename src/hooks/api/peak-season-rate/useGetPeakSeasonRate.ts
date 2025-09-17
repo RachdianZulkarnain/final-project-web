@@ -11,7 +11,7 @@ interface GetPeakSeasonsQueries extends PaginationQueries {
   startDate?: Date;
   endDate?: Date;
   roomId?: number;
-  userId?: number; // dibuat optional
+  userId?: number;
 }
 
 export const useGetPeakSeasons = (
@@ -29,7 +29,7 @@ export const useGetPeakSeasons = (
       return data;
     },
     staleTime: 1000 * 60 * 5,
-    enabled: !!queries.userId, // query hanya jalan kalau ada userId
+    enabled: !!queries.userId,
     ...options,
   });
 };

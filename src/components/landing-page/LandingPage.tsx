@@ -1,10 +1,10 @@
 "use client";
+import Loading from "@/app/loading";
 import Image from "next/image";
+import SearchBar from "../searchbar/SearchBar";
 import { ExploreCity } from "./sections/sections/ExploreSection";
 import { FeaturedRooms } from "./sections/sections/FeaturedSection";
 import { BestDeals } from "./sections/sections/PromoSection";
-import Loading from "@/app/loading";
-import SearchBar from "../searchbar/SearchBar";
 import { useGetHeroImage } from "./unsplash/hooks/useGetHeroImage";
 
 export default function LandingPage() {

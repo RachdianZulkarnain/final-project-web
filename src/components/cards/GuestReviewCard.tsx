@@ -3,26 +3,24 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form';
-import { isDirty, z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-// import { usePostReply } from '@/features/tenant/review/hooks/useReview';
-import { format } from 'date-fns';
+} from "@/components/ui/form";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { isDirty, z } from "zod";
 
 export function GuestReviewCard({ review, id, isTenant }: any) {
-  // const { mutationPostReply } = usePostReply();
   const reviewed = review.review_replies.length;
   const ReplySchema = z.object({
     reply: z.string(),
@@ -32,7 +30,7 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
   const form = useForm<z.infer<typeof ReplySchema>>({
     resolver: zodResolver(ReplySchema),
     defaultValues: {
-      reply: '',
+      reply: "",
       reviewsId: String(id),
     },
   });
@@ -43,7 +41,7 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
         <div className="flex justify-between text-sm font-semibold text-foreground-muted">
           <div>{review?.user?.display_name}</div>
           <div className="text-stone-500">
-            {format(new Date(review?.created_at), 'yyyy-MM-dd HH:mm')}
+            {format(new Date(review?.created_at), "yyyy-MM-dd HH:mm")}
           </div>
         </div>
         <div>{review.review}</div>
@@ -72,7 +70,7 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
             <AccordionContent className="mt-2 p-0 ">
               {reviewed ? (
                 <p className="text-xs font-medium text-foreground-muted">
-                  <span className="font-semibold">Your reply:</span>{' '}
+                  <span className="font-semibold">Your reply:</span>{" "}
                   {review?.review_replies[0].reply}
                 </p>
               ) : (
@@ -81,10 +79,9 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
                     onSubmit={form.handleSubmit(
                       async (values: z.infer<typeof ReplySchema>) => {
                         try {
-                          // await mutationPostReply(values);
                           form.reset();
                         } catch (error) {}
-                      },
+                      }
                     )}
                     className="w-full flex flex-col items-end gap-3"
                   >
@@ -100,7 +97,7 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" size={'sm'} disabled={!isDirty}>
+                    <Button type="submit" size={"sm"} disabled={!isDirty}>
                       Send reply
                     </Button>
                   </form>

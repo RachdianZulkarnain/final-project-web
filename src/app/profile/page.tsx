@@ -1,16 +1,16 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
+import useGetUser from "../../hooks/api/profile-user/useGetUser";
 import ConfirmDialog from "./components/ConfirmDialog";
+import BasicInfoSection from "./components/general/BasicInfoSection";
 import HeadSection from "./components/HeadSection";
 import Loading from "./components/Loading";
+import LoadingSpinner from "./components/LoadingSpinner";
 import NotifListSection from "./components/notification/NotifList";
 import ProfileSidebar from "./components/ProfileSidebar";
-import LoadingSpinner from "./components/LoadingSpinner";
-import { useQueryState } from "nuqs";
-import BasicInfoSection from "./components/general/BasicInfoSection";
-import useGetUser from "../../hooks/api/profile-user/useGetUser";
 
 const ProfilePage = () => {
   const searchParams = useSearchParams();

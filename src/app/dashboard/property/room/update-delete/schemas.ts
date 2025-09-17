@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
       Yup.object().shape({
         title: Yup.string().required("Facility name is required"),
         description: Yup.string().notRequired(),
-      }),
+      })
     )
     .min(1, "At least one facility is required"),
 });

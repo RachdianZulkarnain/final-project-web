@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 interface TextLinkProps {
   children: React.ReactNode;
@@ -14,8 +14,8 @@ export const Footer: React.FC = () => {
   const pathname = usePathname();
 
   // 🚀 jika di halaman profile dan dashboard, jangan tampilkan footer
-if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
-  return null;
+  if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
+    return null;
 
   return (
     <div className="bg-[#0290d1] sticky rounded-t-[40px] z-10 -mt-[50px] grid grid-cols-2 md:grid-cols-5 gap-8 py-16 px-16 sm:px-8 lg:px-40 md:justify-items-center">

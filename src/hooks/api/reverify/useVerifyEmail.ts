@@ -25,7 +25,7 @@ const useVerifyEmail = () => {
     },
     onSuccess: () => {
       toast.success("Your email has been verified.");
-      router.push("/profile"); // redirect otomatis
+      router.push("/profile");
     },
     onError: (error: any) => {
       toast.error(

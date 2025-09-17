@@ -1,10 +1,10 @@
 import { User } from "@/types/user";
 import { FC, useState } from "react";
 import { arrowRightIcon } from "../../../../components/icon/icon";
-import { EditPasswordForm } from "../password/EditPasswordForm";
 import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
-import ProfilePicSection from "./ProfilePicSection";
+import { EditPasswordForm } from "../password/EditPasswordForm";
 import { EditForm } from "./EditForm";
+import ProfilePicSection from "./ProfilePicSection";
 
 interface BasicInfoSectionProps {
   user: User;

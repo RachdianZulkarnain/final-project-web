@@ -1,14 +1,14 @@
 "use client";
+import useSetPassword from "@/hooks/api/set-password/useSetPassword";
 import { useFormik } from "formik";
+import { Eye, EyeOff } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import yupPassword from "yup-password";
 import InvalidToken from "./components/InvalidToken";
 import { PasswordSchema } from "./schema";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { Eye, EyeOff } from "lucide-react";
-import useSetPassword from "@/hooks/api/set-password/useSetPassword";
 yupPassword(Yup);
 
 interface SetPasswordPageProps {

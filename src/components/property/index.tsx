@@ -1,22 +1,22 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import useGetProperties from "@/hooks/api/property/useGetProperties";
+import useDebounce from "@/hooks/useDebounce";
+import { Property as ImportedProperty } from "@/types/property";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { ArrowRight, Loader2, Search } from "lucide-react";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import useDebounce from "@/hooks/useDebounce";
-import useGetProperties from "@/hooks/api/property/useGetProperties";
-import { Property as ImportedProperty } from "@/types/property";
+import { useState } from "react";
 import PropertyCard from "./components/PropertyCard";
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
   CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 const formatDate = (date: Date): string => date.toISOString().split("T")[0];

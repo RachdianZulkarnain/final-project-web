@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Notification } from "@/types/notification";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

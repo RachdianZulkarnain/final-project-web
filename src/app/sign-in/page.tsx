@@ -1,13 +1,12 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { signIn } from "next-auth/react";
+import { LogInIcon } from "lucide-react";
+import { SessionProvider, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { LoginSchema } from "./schema";
-import { SessionProvider } from "next-auth/react";
 import useLogin from "../../hooks/api/sign-in/useLogin";
-import { Button } from "@/components/ui/button";
-import { LogIn, LogInIcon } from "lucide-react";
+import { LoginSchema } from "./schema";
 
 const LoginPage = () => {
   const { mutate: login } = useLogin();

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Trash } from 'lucide-react';
-import Image from 'next/image';
+import { Trash } from "lucide-react";
+import Image from "next/image";
 
 export const CreatedRoomTypeCard = ({ item, index, handleDelete }: any) => {
   return (
@@ -15,8 +15,8 @@ export const CreatedRoomTypeCard = ({ item, index, handleDelete }: any) => {
               className="rounded-xl object-cover"
               fill
               style={{
-                width: '100%',
-                height: '100%',
+                width: "100%",
+                height: "100%",
               }}
             />
           </div>
@@ -24,10 +24,10 @@ export const CreatedRoomTypeCard = ({ item, index, handleDelete }: any) => {
             <div className="text-lg text-pretty font-bold">{item.name}</div>
             <div className="text-xs text-pretty">{item.bed_details}</div>
             <div className="text-base font-semibold pt-3">
-              {item.price?.toLocaleString('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-              })}{' '}
+              {item.price?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}{" "}
               / night
             </div>
           </div>

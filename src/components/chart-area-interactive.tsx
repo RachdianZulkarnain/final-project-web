@@ -1,8 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useGetMonthlyAnalytics } from "@/app/dashboard/_hooks/useGetMonthlyChart";
 import {
   Card,
   CardAction,
@@ -23,7 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetMonthlyAnalytics } from "@/app/dashboard/_hooks/useGetMonthlyChart";
+import { useIsMobile } from "@/hooks/use-mobile";
+import * as React from "react";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   revenue: {
@@ -37,7 +37,8 @@ export function ChartAreaInteractive() {
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = React.useState(`${currentYear}`);
 
-  const { data: chartData = [], isLoading } = useGetMonthlyAnalytics(selectedYear);
+  const { data: chartData = [], isLoading } =
+    useGetMonthlyAnalytics(selectedYear);
 
   const years = React.useMemo(() => {
     return Array.from({ length: currentYear - 2000 + 1 }, (_, i) =>

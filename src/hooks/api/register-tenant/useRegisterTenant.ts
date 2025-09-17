@@ -18,7 +18,6 @@ const useRegisterTenant = () => {
 
   return useMutation({
     mutationFn: async (payload: RegisterPayload) => {
-      // Pastikan frontend sudah validasi password === confirmPassword sebelum kirim
       const { data } = await axiosInstance.post(
         "/auth/register-tenant",
         payload

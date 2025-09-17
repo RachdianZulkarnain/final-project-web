@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -6,6 +5,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Users } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 interface GuestSelectorProps {
   onGuestChange: (guests: number) => void;

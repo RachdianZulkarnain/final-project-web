@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import RoomTenantList from "./components/RoomTenantList";
 import { FiPlus } from "react-icons/fi";
+import RoomTenantList from "./components/RoomTenantList";
 
 const RoomManagementPage = () => {
   return (

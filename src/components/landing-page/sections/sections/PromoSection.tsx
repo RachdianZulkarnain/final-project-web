@@ -1,9 +1,7 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ThumbnailCard } from "@/components/cards/ThumbnailCard";
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const BestDeals = () => {

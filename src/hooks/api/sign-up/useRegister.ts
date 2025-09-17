@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
 import { axiosInstance } from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface RegisterPayload {

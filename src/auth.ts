@@ -1,4 +1,3 @@
-// auth.ts
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
@@ -17,7 +16,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials?.email || !credentials.password) return null;
 
         try {
-          // Panggil backend login
           const response = await axios.post(
             `${process.env.BACKEND_URL}/auth/login`,
             {

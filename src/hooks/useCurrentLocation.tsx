@@ -19,7 +19,7 @@ const useCurrentLocation = () => {
         (error) => {
           console.error("Gagal mendapatkan lokasi: ", error);
           setError("Tidak bisa mendapatkan lokasi.");
-        },
+        }
       );
     } else {
       setError("Geolocation tidak didukung oleh browser ini.");
