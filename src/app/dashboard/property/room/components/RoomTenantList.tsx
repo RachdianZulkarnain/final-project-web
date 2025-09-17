@@ -56,7 +56,7 @@ const RoomTenantList = () => {
           );
         })}
       </section>
-      <div className="container mx-auto mt-10 flex max-w-7xl justify-center">
+      <div className="container mx-auto mt-10 flex max-w-7xl justify-center text-[#0290d1]">
         <Pagination
           take={data.meta.take}
           total={data.meta.total}

@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { ArrowRight, Hotel } from "lucide-react";
+import { ArrowRight, Hotel, Loader2 } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import { SignupSchema } from "./schema";
 const RegisterPage = () => {
   const router = useRouter();
   const { status } = useSession();
-  const { mutate: register } = useRegister();
+  const { mutateAsync: register } = useRegister();
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -35,6 +35,8 @@ const RegisterPage = () => {
       } catch (error) {
         toast.error("Something went wrong", { position: "top-right" });
         actions.resetForm();
+      } finally {
+        actions.setSubmitting(false);
       }
     },
   });
@@ -101,8 +103,17 @@ const RegisterPage = () => {
               disabled={!formik.isValid || formik.isSubmitting}
               className="w-full flex items-center justify-center gap-2 py-2 px-4 text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Continue
-              <ArrowRight className="w-5 h-5" />
+              {formik.isSubmitting ? (
+                <>
+                  Processing...
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                </>
+              ) : (
+                <>
+                  Continue
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -112,10 +123,9 @@ const RegisterPage = () => {
             onClick={() => signIn("google", { callbackUrl: "/" })}
             className="flex-1 flex justify-center items-center py-2 px-4 border border-primary rounded-md shadow-sm text-md font-medium text-primary bg-white hover:bg-gray-50"
           >
+            {/* Google icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
               width="20"
               height="20"
               viewBox="0 0 48 48"
@@ -153,14 +163,11 @@ const RegisterPage = () => {
         </div>
 
         <Link href="/sign-up/tenant">
-          {" "}
           <div className="flex flex-col sm:flex-row gap-4">
-            {" "}
             <Button className="flex-1 flex justify-center items-center py-2 px-4 border border-primary rounded-md shadow-sm text-md font-medium text-primary bg-white hover:cursor-pointer hover:bg-gray-50">
-              {" "}
-              <Hotel /> Register as Tenant{" "}
-            </Button>{" "}
-          </div>{" "}
+              <Hotel /> Register as Tenant
+            </Button>
+          </div>
         </Link>
 
         <div className="text-center text-md text-gray-600 mt-10">

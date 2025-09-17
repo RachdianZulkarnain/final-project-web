@@ -172,7 +172,7 @@ export default function SearchBarResponsive() {
         {/* Search Button */}
         <Button
           type="submit"
-          className="flex items-center justify-center bg-black text-white rounded-full w-14 h-14 mr-2 hover:bg-gray-800"
+          className="flex items-center justify-center bg-[#0290d1] text-white rounded-full w-14 h-14 mr-2 hover:bg-[#70cefa]"
         >
           <Search className="h-5 w-5" />
         </Button>

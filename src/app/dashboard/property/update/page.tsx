@@ -313,19 +313,14 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
               type="button"
               variant="destructive"
               onClick={async () => {
-                if (
-                  window.confirm(
-                    "Are you sure you want to delete this property?"
-                  )
-                ) {
-                  await deleteProperty(propertyId);
-                }
+                await deleteProperty(propertyId);
               }}
               disabled={deletePending}
             >
               <Trash2 className="h-4 w-4" />
               {deletePending ? "Deleting..." : ""}
             </Button>
+
             <Button type="submit" disabled={isPending}>
               <Save />
               {isPending ? "Updating..." : ""}

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const useDeleteProperty = () => {
   const router = useRouter();
-  const axiosInstance = useAxios(); 
+  const axiosInstance = useAxios();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -16,13 +16,13 @@ const useDeleteProperty = () => {
       const { data } = await axiosInstance.delete(`/properties/${id}`);
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["property"] });
       toast.success("Delete Property success");
       router.push("/dashboard/property/management");
     },
     onError: (error: AxiosError<any>) => {
-      toast.error(error.response?.data);
+      toast.error(error.response?.data || "Delete Property failed");
     },
   });
 };

@@ -139,7 +139,7 @@ const RoomNonAvailabilityList: FC<RoomNonAvailabilityPageProps> = ({
       </div>
 
       {data.data.length > 0 && (
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center text-[#0290d1]">
           <Pagination
             take={data.meta.take}
             total={data.meta.total}

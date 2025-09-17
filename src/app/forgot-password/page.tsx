@@ -1,5 +1,6 @@
 "use client";
 import { useFormik } from "formik";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,8 +10,9 @@ import useForgotPassword from "./_hooks/useForgotPassword";
 
 const ForgotPasswordPage = () => {
   const router = useRouter();
-  const { mutate: forgotPassword } = useForgotPassword();
+  const { mutate: forgotPassword, isPending } = useForgotPassword();
   const { status } = useSession();
+
   useEffect(() => {
     if (status === "authenticated") {
       router.replace("/user/profile");
@@ -60,11 +62,20 @@ const ForgotPasswordPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary text-white py-3 rounded-md font-semibold text-lg hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 hover:cursor-pointer"
+            disabled={!formik.isValid || !formik.dirty || isPending}
+            className="gap-2 group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-semibold rounded-md text-white bg-primary hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
           >
-            Continue
+            {isPending ? (
+              <>
+                Processing...
+                <Loader2 className="w-6 h-6 animate-spin" />
+              </>
+            ) : (
+              <>Continue</>
+            )}
           </button>
         </form>
+
         <div className="relative mt-12">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
@@ -75,6 +86,7 @@ const ForgotPasswordPage = () => {
             </span>
           </div>
         </div>
+
         <div className="mt-8 text-center">
           <Link href="/sign-up" className="text-[#0290d1] hover:underline">
             Create an account

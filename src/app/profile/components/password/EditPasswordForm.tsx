@@ -8,6 +8,7 @@ import { FC, useEffect } from "react";
 import useChangePassword from "../../../../hooks/api/change-password/useChangePassword";
 import { validationSchema } from "../../schema";
 import PasswordFieldInput from "./PasswordFieldInput";
+import { Save } from "lucide-react";
 
 interface EditPasswordFormProps {
   onClose: () => void;
@@ -48,9 +49,8 @@ export const EditPasswordForm: FC<EditPasswordFormProps> = ({
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="bg-white rounded-lg shadow-xl p-6 sm:p-8 lg:p-10 max-w-2xl w-full"
       >
-        <h1 className="text-xl sm:text-2xl font-medium text-gray-800 mb-6">
-          Changes to your information will be reflected across your Homigo
-          Account.
+        <h1 className="text-xl sm:text-2xl font-medium text-[#0290d1] mb-6 ">
+          Change Password
         </h1>
 
         <Formik
@@ -102,7 +102,7 @@ export const EditPasswordForm: FC<EditPasswordFormProps> = ({
         >
           {() => (
             <Form>
-              <PasswordFieldInput name="oldPassword" label="Current Password" />
+              <PasswordFieldInput name="oldPassword" label="Current Password"  />
               <PasswordFieldInput name="newPassword" label="New Password" />
               <PasswordFieldInput
                 name="confirmPassword"
@@ -118,9 +118,9 @@ export const EditPasswordForm: FC<EditPasswordFormProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-primary text-white rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-md disabled:opacity-50"
+                  className="px-6 py-2 bg-[#0290d1] text-white rounded-md font-medium hover:bg-[#3a9bc9] focus:outline-none focus:ring-2 focus:ring-primary shadow-md disabled:opacity-50"
                 >
-                  Save
+                  <Save />
                 </button>
               </div>
             </Form>
