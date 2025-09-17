@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { LogInIcon } from "lucide-react";
+import { Loader2, LogInIcon } from "lucide-react";
 import { SessionProvider, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -135,11 +135,22 @@ const LoginPage = () => {
               <div>
                 <button
                   type="submit"
-                  disabled={!formik.isValid || !formik.dirty}
+                  disabled={
+                    !formik.isValid || !formik.dirty || formik.isSubmitting
+                  }
                   className="gap-2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:cursor-not-allowed"
                 >
-                  Sign in
-                  <LogInIcon className="w-6 h-6" />
+                  {formik.isSubmitting ? (
+                    <>
+                      Signing in...
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Sign in
+                      <LogInIcon className="w-6 h-6" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>

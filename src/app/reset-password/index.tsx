@@ -135,7 +135,7 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = ({ token }) => {
               <button
                 type="submit"
                 disabled={!formik.isValid || loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary hover:cursor-pointer hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-[#0290d1] hover:cursor-pointer hover:bg-[#407a94] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Setting Password..." : "Submit"}
               </button>

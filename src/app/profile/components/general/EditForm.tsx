@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
 import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
 import { validationSchema } from "../../schema";
+import { Save } from "lucide-react";
 
 interface EditFormProps {
   onClose: () => void;
@@ -50,9 +51,8 @@ export const EditForm: FC<EditFormProps> = ({
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="bg-white rounded-lg shadow-xl p-6 sm:p-8 lg:p-10 max-w-2xl w-full"
       >
-        <h1 className="text-xl sm:text-2xl font-medium text-gray-800 mb-6">
-          Changes to your information will be reflected across your Homigo
-          Account.
+        <h1 className="text-xl sm:text-2xl font-medium text-[#0290d1] mb-6">
+          Changes Name & Email
         </h1>
 
         <Formik
@@ -115,9 +115,9 @@ export const EditForm: FC<EditFormProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-primary text-white rounded-md font-medium hover:bg-[#0290d1] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition duration-150 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-[#0290d1] text-white rounded-md font-medium hover:bg-[#3a9bc9] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition duration-150 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Save
+                  <Save />
                 </button>
               </div>
             </Form>

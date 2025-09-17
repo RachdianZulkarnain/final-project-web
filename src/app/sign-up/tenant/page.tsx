@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
-import { UserRoundCheck } from "lucide-react";
+import { Loader2, UserRoundCheck } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ import { TenantSignupSchema } from "./schema";
 const RegisterTenant = () => {
   const router = useRouter();
   const { status } = useSession();
-  const { mutate: register } = useRegisterTenant();
+  const { mutate: register, isPending } = useRegisterTenant(); // <-- pakai isPending
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -30,7 +30,7 @@ const RegisterTenant = () => {
       bankNumber: "",
     },
     validationSchema: TenantSignupSchema,
-    onSubmit: async (values, actions) => {
+    onSubmit: (values, actions) => {
       register(values, {
         onSuccess: () => actions.resetForm(),
         onError: () => actions.setSubmitting(false),
@@ -58,7 +58,7 @@ const RegisterTenant = () => {
                 id="firstName"
                 type="text"
                 placeholder="Enter Your First Name"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("firstName")}
               />
               {formik.touched.firstName && formik.errors.firstName && (
@@ -74,7 +74,7 @@ const RegisterTenant = () => {
                 id="lastName"
                 type="text"
                 placeholder="Enter Your Last Name"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("lastName")}
               />
               {formik.touched.lastName && formik.errors.lastName && (
@@ -91,7 +91,7 @@ const RegisterTenant = () => {
               id="phone"
               type="text"
               placeholder="Enter Your Phone Number"
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+              className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
               {...formik.getFieldProps("phone")}
             />
             {formik.touched.phone && formik.errors.phone && (
@@ -101,14 +101,14 @@ const RegisterTenant = () => {
             )}
           </div>
 
-          {/* Bank Name */}
+          {/* Bank Name & Number */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <input
                 id="bankName"
                 type="text"
                 placeholder="Enter Your Bank Name"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("bankName")}
               />
               {formik.touched.bankName && formik.errors.bankName && (
@@ -118,13 +118,12 @@ const RegisterTenant = () => {
               )}
             </div>
 
-            {/* Bank Number */}
             <div className="flex-1">
               <input
                 id="bankNumber"
                 type="text"
                 placeholder="Enter Your Bank account Number"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 {...formik.getFieldProps("bankNumber")}
               />
               {formik.touched.bankNumber && formik.errors.bankNumber && (
@@ -141,7 +140,7 @@ const RegisterTenant = () => {
               id="email"
               type="email"
               placeholder="Enter Your Email"
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+              className="appearance-none rounded-md block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
               {...formik.getFieldProps("email")}
             />
             {formik.touched.email && formik.errors.email && (
@@ -155,33 +154,40 @@ const RegisterTenant = () => {
           <div>
             <button
               type="submit"
-              disabled={!formik.isValid || formik.isSubmitting}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!formik.isValid || isPending}
+              className="gap-2 group relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Continue
+              {isPending ? (
+                <>
+                  Creating Tenant Account...
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                </>
+              ) : (
+                <>
+                  Continue
+                  <UserRoundCheck className="w-5 h-5" />
+                </>
+              )}
             </button>
           </div>
         </form>
+
+        {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-gradient-to-br from-white to-blue-50 px-3 text-gray-500">
-              Or
-            </span>
+            <span className="bg-white px-3 text-gray-500">Or</span>
           </div>
         </div>
 
         <Link href="/sign-up">
-          {" "}
           <div className="flex flex-col sm:flex-row gap-4">
-            {" "}
             <Button className="flex-1 flex justify-center items-center py-2 px-4 border border-primary rounded-md shadow-sm text-md font-medium text-primary bg-white hover:cursor-pointer hover:bg-gray-50">
-              {" "}
-              <UserRoundCheck /> Register as Regular User{" "}
-            </Button>{" "}
-          </div>{" "}
+              <UserRoundCheck /> Register as Regular User
+            </Button>
+          </div>
         </Link>
 
         {/* Link to Sign In */}

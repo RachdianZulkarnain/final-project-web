@@ -13,7 +13,7 @@ export default function VerifyEmailPage() {
 
   return (
     <div className="container mx-auto mt-10 max-w-md p-6">
-      <h1 className="mb-6 text-2xl font-bold">Set Your Password</h1>
+      <h1 className="mb-6 text-2xl font-bold text-[#0290d1]">Set Your Password</h1>
       <VerifyEmailForm token={token} />
     </div>
   );

@@ -92,7 +92,7 @@ const PropertyTenantList = () => {
 
       {/* Pagination */}
       {data.meta && data.meta.total > data.meta.take && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 text-[#0290d1]">
           <Pagination
             page={page}
             take={data.meta.take}

@@ -59,7 +59,7 @@ export default function VerifyEmailForm({ token }: { token: string }) {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-center text-2xl font-bold">
+        <CardTitle className="text-center text-2xl font-bold text-[#0290d1]">
           Verify Your Account
         </CardTitle>
       </CardHeader>
@@ -188,7 +188,7 @@ export default function VerifyEmailForm({ token }: { token: string }) {
       <CardFooter>
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-[#0290d1] hover:bg-[#4b9bc1] text-white"
           disabled={isPending || !formik.isValid}
           onClick={() => formik.handleSubmit()}
         >
