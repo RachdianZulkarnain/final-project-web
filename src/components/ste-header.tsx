@@ -4,10 +4,12 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import useGetTenant from "@/hooks/api/account/useGetTenant";
+import { useSession } from "next-auth/react";
 
 export function SiteHeader() {
-  const pathname = usePathname();
-
+  const pathname = usePathname() || "/";
   const pathSegments = pathname.split("/").filter(Boolean);
 
   const breadcrumbs = pathSegments.map((segment, index) => {
@@ -15,9 +17,16 @@ export function SiteHeader() {
     const label = segment
       .replace(/-/g, " ")
       .replace(/\b\w/g, (char) => char.toUpperCase());
-
     return { label, href };
   });
+
+  // Ambil data tenant
+  const { data: tenant } = useGetTenant();
+  const { data: session } = useSession();
+
+  const tenantName = tenant?.name || "User";
+  const tenantEmail = session?.user?.email || "user@example.com";
+  const tenantImage = tenant?.imageUrl || "/assets/avatar.png";
 
   return (
     <header
@@ -29,19 +38,13 @@ export function SiteHeader() {
       <div className="flex w-full items-center justify-between gap-2">
         {/* Left side: sidebar trigger and breadcrumbs */}
         <div className="flex items-center gap-3">
-          <SidebarTrigger className="-ml-1" />
+          <SidebarTrigger className="-ml-1 text-[#0290d1]" />
           <Separator
             orientation="vertical"
             className="h-6 bg-muted-foreground/40"
           />
 
-          <nav className="flex items-center gap-2 text-sm font-medium text-foreground">
-            <Link
-              href="/dashboard"
-              className="transition-colors hover:text-primary hover:underline"
-            >
-              Home
-            </Link>
+          <nav className="flex items-center gap-2 text-sm font-medium text-[#0290d1]">
             {breadcrumbs.map((crumb) => (
               <span key={crumb.href} className="flex items-center gap-2">
                 <span className="text-muted-foreground">›</span>
@@ -54,6 +57,25 @@ export function SiteHeader() {
               </span>
             ))}
           </nav>
+        </div>
+
+        {/* Right side: avatar profile */}
+        <div className="flex items-center gap-3">
+          <Avatar className="w-8 h-8 border border-[#0290d1]">
+            <AvatarImage src={tenantImage} alt={tenantName} />
+            <AvatarFallback className="bg-primary text-white text-sm">
+              {tenantName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-slate-700">
+              Hi, {tenantName}
+            </span>
+            <span className="text-xs text-muted-foreground">{tenantEmail}</span>
+          </div>
         </div>
       </div>
     </header>

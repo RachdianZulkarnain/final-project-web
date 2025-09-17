@@ -25,6 +25,9 @@ const categories = [
   { id: "apartment", name: "Apartment", icon: "🏢" },
   { id: "villa", name: "Villa", icon: "🏡" },
   { id: "resort", name: "Resort", icon: "🌴" },
+  { id: "guesthouse", name: "Guest house", icon: "🏠" },
+  { id: "homestay", name: "Homestay", icon: "🏠" },
+  { id: "kost", name: "Kost", icon: "🏠" },
 ];
 
 const PropertyNavigation: React.FC<NavigationProps> = ({
@@ -98,7 +101,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
         {showFilters && (
           <div className="absolute right-0 top-full z-50 mt-3 w-80 origin-top-right rounded-xl bg-white p-5 shadow-xl ring-1 ring-black/5 focus:outline-none md:w-[520px]">
             <div className="flex items-center justify-between border-b pb-3">
-              <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
+              <h3 className="text-lg font-semibold text-[#0290D1]">Filters</h3>
               <button
                 onClick={() => setShowFilters(false)}
                 className="rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500"
@@ -109,7 +112,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
 
             <div className="space-y-5 pt-4">
               <div>
-                <label className="mb-2.5 block text-sm font-medium text-gray-700">
+                <label className="mb-2.5 block text-sm font-medium text-[#0290D1]">
                   Property Type
                 </label>
                 <div className="grid grid-cols-3 gap-2.5">
@@ -130,7 +133,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
                 </div>
               </div>
               <div>
-                <label className="mb-2.5 block text-sm font-medium text-gray-700">
+                <label className="mb-2.5 block text-sm font-medium text-[#0290D1]">
                   Enter City or Location
                 </label>
                 <div className="relative">
@@ -164,7 +167,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-2.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-2.5 block text-sm font-medium text-[#0290D1]">
                     Check In
                   </label>
                   <Popover>
@@ -184,7 +187,6 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
                         mode="single"
                         selected={checkIn}
                         onSelect={(date) => setCheckIn(date ?? undefined)}
-                        initialFocus
                         disabled={(date) => date < new Date()}
                         className="rounded-lg border shadow-lg"
                       />
@@ -193,7 +195,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
                 </div>
 
                 <div>
-                  <label className="mb-2.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-2.5 block text-sm font-medium text-[#0290D1]">
                     Check Out
                   </label>
                   <Popover>
@@ -224,7 +226,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
                 </div>
               </div>
               <div>
-                <label className="mb-2.5 block text-sm font-medium text-gray-700">
+                <label className="mb-2.5 block text-sm font-medium text-[#0290D1]">
                   Guests
                 </label>
                 <GuestSelector onGuestChange={onGuest} />
@@ -239,7 +241,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
               <div className="flex gap-3 pt-2">
                 <Button
                   onClick={handleSearch}
-                  className="flex-1 bg-primary font-medium text-primary-foreground shadow-sm hover:bg-primary/90"
+                  className="flex-1 bg-primary font-medium text-primary-foreground shadow-sm hover:bg-[#0290D1]"
                 >
                   Apply Filters
                 </Button>

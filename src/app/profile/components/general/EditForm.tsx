@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
-import useUpdateUser from "../../_hooks/useUpdateUser";
+import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
 
 interface EditFormProps {
   onClose: () => void;

@@ -1,6 +1,6 @@
 import { User } from "@/types/user";
 import { FC, useRef } from "react";
-import useUploadProfilePic from "../../_hooks/useUploadProfilePic";
+import useUploadProfilePic from "../../../../hooks/api/profile-user/useUploadProfilePic";
 
 interface ProfilePicSectionProps {
   user: User;

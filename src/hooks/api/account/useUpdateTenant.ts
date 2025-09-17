@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 interface UpdateTenantPayload {
   name?: string;
-  phoneNumber?: string;
+  phone?: string;
   bankName?: string;
   bankNumber?: string;
   imageFile?: File | null;
@@ -24,8 +24,7 @@ export const useUpdateTenant = () => {
       const updateTenantForm = new FormData();
 
       if (payload.name) updateTenantForm.append("name", payload.name);
-      if (payload.phoneNumber)
-        updateTenantForm.append("phoneNumber", payload.phoneNumber);
+      if (payload.phone) updateTenantForm.append("phone", payload.phone);
       if (payload.bankName)
         updateTenantForm.append("bankName", payload.bankName);
       if (payload.bankNumber)

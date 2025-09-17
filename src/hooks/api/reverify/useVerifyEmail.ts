@@ -10,6 +10,8 @@ const useVerifyEmail = () => {
 
   return useMutation({
     mutationFn: async (token: string) => {
+      if (!token) throw new Error("Verification token is missing");
+
       const { data } = await axiosInstance.post(
         "/auth/verify-email",
         {},
@@ -23,12 +25,11 @@ const useVerifyEmail = () => {
     },
     onSuccess: () => {
       toast.success("Your email has been verified.");
-      router.push("/profile");
+      router.push("/profile"); // redirect otomatis
     },
     onError: (error: any) => {
       toast.error(
-        error.response?.data?.message ||
-          "Failed to set password. Please try again."
+        error.response?.data?.message || error.message || "Verification failed."
       );
       console.error("Verify email error:", error);
     },

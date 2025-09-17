@@ -43,14 +43,13 @@ export default function RootLayout({
               <Suspense fallback={<Loading />}>
                 <div className="min-h-screen">
                   {children}
-                  <Toaster />
+                  <Toaster position="top-right" />
                 </div>
               </Suspense>
               <Footer />
             </NextAuthProvider>
           </NuqsProvider>
         </ReactQueryProvider>
-        <Toaster position="top-right" duration={2000} />
       </body>
     </html>
   );

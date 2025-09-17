@@ -179,7 +179,7 @@ const SearchPropertiesPage = () => {
                           <span className="text-sm text-gray-500">
                             Starting from
                           </span>
-                          <span className="text-xl font-semibold text-blue-600">
+                          <span className="text-xl font-semibold text-[#0290D1]">
                             {new Intl.NumberFormat("id-ID", {
                               style: "currency",
                               currency: "IDR",
@@ -192,7 +192,7 @@ const SearchPropertiesPage = () => {
                             </span>
                           </span>
                         </div>
-                        <Button className="bg-blue-600 transition-colors hover:bg-blue-700">
+                        <Button className="bg-[#0290D1] transition-colors hover:bg-blue-400">
                           View Details
                         </Button>
                       </div>
@@ -221,7 +221,7 @@ const SearchPropertiesPage = () => {
               <Button
                 onClick={exploreCatalog}
                 variant="outline"
-                className="flex items-center gap-2 px-6 py-2 text-blue-600 hover:bg-blue-50"
+                className="flex items-center gap-2 px-6 py-2 text-[#0290D1] hover:bg-blue-50"
               >
                 Explore More Properties
                 <IoArrowForward className="h-4 w-4" />

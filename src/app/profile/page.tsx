@@ -10,7 +10,7 @@ import ProfileSidebar from "./components/ProfileSidebar";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { useQueryState } from "nuqs";
 import BasicInfoSection from "./components/general/BasicInfoSection";
-import useGetUser from "./_hooks/useGetUser";
+import useGetUser from "../../hooks/api/profile-user/useGetUser";
 
 const ProfilePage = () => {
   const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ const ProfilePage = () => {
 
   return (
     <main>
-      <div className="min-h-screen flex bg-white text-gray-800 overflow-hidden">
+      <div className="min-h-screen flex bg-[#0290d1] text-gray-800 overflow-hidden">
         <ProfileSidebar
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
@@ -87,10 +87,7 @@ const ProfilePage = () => {
               )}{" "}
             </>
           )}
-          {activeIndex === 2 && userId && (
-            <div className="w-full py-12">
-            </div>
-          )}
+          {activeIndex === 2 && userId && <div className="w-full py-12"></div>}
           {activeIndex === 3 && userId && (
             <div className="w-full py-12">
               <NotifListSection />

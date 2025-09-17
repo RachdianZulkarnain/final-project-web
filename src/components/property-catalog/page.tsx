@@ -323,7 +323,7 @@ export default function PropertyCatalogPage() {
             <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-blue-100">
               <Search className="h-16 w-16 text-blue-500" />
             </div>
-            <h3 className="mb-4 text-3xl font-medium text-gray-800">
+            <h3 className="mb-4 text-3xl font-medium text-[#0290D1]">
               No properties found
             </h3>
             <p className="max-w-xl text-xl text-gray-600">
@@ -340,7 +340,7 @@ export default function PropertyCatalogPage() {
         ) : (
           <div>
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-3xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-[#0290D1]">
                 {data?.data?.meta?.totalCount || ""} Properties Found
               </h2>
             </div>
@@ -355,19 +355,7 @@ export default function PropertyCatalogPage() {
 
             {/* Pagination */}
             {data?.data?.data?.length > 0 && (
-              <div className="mt-10 flex justify-center">
-                <CatalogPagination
-                  page={data?.data?.meta?.page || 1}
-                  take={data?.data?.meta?.take || 10}
-                  totalCount={data?.data?.meta?.totalCount || 0}
-                  onChangePage={setPage}
-                />
-              </div>
-            )}
-
-            {/* Pagination */}
-            {data?.data?.data?.length > 0 && (
-              <div className="mt-10 flex justify-center">
+              <div className="mt-10 flex justify-center text-[#0290D1]">
                 <CatalogPagination
                   page={data?.data?.meta?.page || 1}
                   take={data?.data?.meta?.take || 10}

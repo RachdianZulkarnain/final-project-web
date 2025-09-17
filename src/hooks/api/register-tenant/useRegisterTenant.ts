@@ -9,6 +9,8 @@ export interface RegisterPayload {
   firstName: string;
   lastName: string;
   phone: string;
+  bankName: string;
+  bankNumber: string;
 }
 
 const useRegisterTenant = () => {

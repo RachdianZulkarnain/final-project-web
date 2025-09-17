@@ -49,7 +49,7 @@ export interface Tenant {
   id: number;
   name: string;
   imageUrl?: string | null;
-  phoneNumber?: string;
+  phone?: string;
   userId: number;
   bankName: string;
   bankNumber: string;

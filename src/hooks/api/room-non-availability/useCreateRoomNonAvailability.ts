@@ -1,28 +1,24 @@
 "use client";
-
 import useAxios from "@/hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
 interface CreateRoomNonAvailabilityPayload {
   reason: string;
   startDate: Date;
   endDate: Date;
   roomId: number;
 }
-
 const useCreateRoomNonAvailability = () => {
   const router = useRouter();
-  const axiosInstance = useAxios(); 
+  const axiosInstance = useAxios();
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
       const { data } = await axiosInstance.post(
-        `/room-non-availabilities/room`,
-        payload,
+        "/room-non-availabilities/room",
+        payload
       );
       return data;
     },
@@ -31,9 +27,12 @@ const useCreateRoomNonAvailability = () => {
       toast.success("Create Room Non Availability Success");
     },
     onError: (error: AxiosError<any>) => {
-      toast.error(error.response?.data);
+      const message =
+        typeof error.response?.data === "string"
+          ? error.response.data
+          : error.response?.data?.message || "Something went wrong";
+      toast.error(message);
     },
   });
 };
-
 export default useCreateRoomNonAvailability;

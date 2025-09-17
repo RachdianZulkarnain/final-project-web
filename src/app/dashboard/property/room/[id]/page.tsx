@@ -1,11 +1,11 @@
 import UpdateRoomPage from "../update-delete/page";
 
-const UpdateRoom = ({ params }: { params: { id: number } }) => {
+export default function UpdateRoom(props: any) {
+  const roomId = Number(props.params.id); // params.id selalu string
+
   return (
     <div>
-      <UpdateRoomPage roomId={params.id} />
+      <UpdateRoomPage roomId={roomId} />
     </div>
   );
-};
-
-export default UpdateRoom;
+}

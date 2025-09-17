@@ -26,7 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
           );
 
-          const user = response.data; // asumsikan { id, email, role, accessToken }
+          const user = response.data;
 
           if (!user || !user.accessToken) return null;
 

@@ -21,7 +21,7 @@ type NavItem = {
 
 export function NavMain({ items }: { items: NavItem[] }) {
   return (
-    <SidebarGroup className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] p-4">
+    <SidebarGroup className="rounded-xl border-2 border-[#0290D1] bg-white shadow-[4px_4px_0_0_rgba(2,144,209,1)] p-4">
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) =>
@@ -30,7 +30,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 {({ open }) => (
                   <div>
                     {/* Parent with toggle */}
-                    <SidebarMenuItem className="bg-gray-100 rounded-md border border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
+                    <SidebarMenuItem className="bg-gray-100 rounded-md border border-[#0290D1] shadow-[2px_2px_0_0_rgba(2,144,209,1)]">
                       <div className="flex w-full items-center justify-between">
                         <Link href={item.url || "#"} className="flex-1">
                           <SidebarMenuButton
@@ -55,7 +55,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                     </SidebarMenuItem>
 
                     {/* Children */}
-                    <Disclosure.Panel className="ml-4 mt-1 border-l-2 border-black pl-3 space-y-1">
+                    <Disclosure.Panel className="ml-4 mt-1 border-l-2 border-[#0290D1] pl-3 space-y-1">
                       {item.children?.map((child) => (
                         <SidebarMenuItem
                           key={child.title}
@@ -77,7 +77,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
               </Disclosure>
             ) : (
               <Link href={item.url!} key={item.title}>
-                <SidebarMenuItem className="rounded-md border border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:bg-orange-100 transition-colors">
+                <SidebarMenuItem className="rounded-md border border-[#0290D1] shadow-[2px_2px_0_0_rgba(2,144,209,1)] hover:bg-orange-100 transition-colors">
                   <SidebarMenuButton
                     tooltip={item.title}
                     className="flex items-center gap-2 px-2 py-1 text-sm font-medium text-black"

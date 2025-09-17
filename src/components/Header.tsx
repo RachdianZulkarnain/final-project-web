@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, User, X } from "lucide-react";
 
 export default function Header() {
   const { data: session, update } = useSession();
@@ -135,10 +135,10 @@ export default function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/order">Order History</Link>
+                  <Link href="/profile">
+                    Profile
+                    <User className="mr-2 h-4 w-4" />
+                  </Link>
                 </DropdownMenuItem>
                 {user?.role === "tenant" && (
                   <DropdownMenuItem asChild>
@@ -150,7 +150,8 @@ export default function Header() {
                   onClick={handleSignOut}
                   className="text-red-500"
                 >
-                  <LogOut className="mr-2 h-4 w-4" /> Sign Out
+                  Sign Out
+                  <LogOut className="mr-2 h-4 w-4" />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -183,20 +184,24 @@ export default function Header() {
         </div>
 
         {/* Burger menu (mobile) */}
-        <div className="md:hidden  ">
+        <div className="md:hidden   ">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X className="h-6 w-6 " /> : <Menu className="h-6 w-6" />}
+            {isOpen ? (
+              <X className="h-10 w-10 " />
+            ) : (
+              <Menu className="h-20 w-20" />
+            )}
           </Button>
         </div>
       </div>
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden shadow-lg rounded-b-2xl px-6 py-6 space-y-4">
+        <div className="md:hidden shadow-lg rounded-b-2xl px-6 py-6 space-y-4 bg-white">
           {user ? (
             <>
               <nav className="flex flex-col space-y-3">
@@ -206,13 +211,6 @@ export default function Header() {
                   className="text-gray-700 hover:text-[#0290d1] transition-colors"
                 >
                   Profile
-                </Link>
-                <Link
-                  href="/order"
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-700 hover:text-[#0290d1] transition-colors"
-                >
-                  Order History
                 </Link>
                 {user?.role === "tenant" && (
                   <Link

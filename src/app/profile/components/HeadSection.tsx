@@ -2,9 +2,9 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { User } from "@/types/user";
-import { checkCircleIcon } from "./icon";
+import { checkCircleIcon } from "../../../components/icon/icon";
 import { Menu } from "lucide-react";
-import useResendEmailVerif from "../_hooks/useResendEmailVerif";
+import useResendEmailVerif from "../../../hooks/api/profile-user/useResendEmailVerif";
 
 interface HeadSectionProps {
   user: User;
@@ -56,11 +56,11 @@ const HeadSection: FC<HeadSectionProps> = ({ user, onOpenSidebar }) => {
         id="top-element"
         className="flex flex-col items-center space-y-6 max-w-xl w-full text-center p-8 transform transition-all duration-300 ease-in-out"
       >
-        <div className="relative w-36 h-36 rounded-full overflow-hidden bg-gradient-to-br from-primary to-secondary flex items-center justify-center p-1.5 shadow-lg">
+        <div className="relative w-50 h-50 rounded-full bg-gray-800 overflow-hidden flex items-center justify-center p-1.5 shadow-lg">
           <img
             src={user.imageUrl || defaultProfileImgUrl}
             alt="Profile Picture"
-            className="w-full h-full object-cover rounded-full border-4 border-white"
+            className="w-full h-full object-cover rounded-full border-4 border-white bg-gray-300"
           />
           {user.isVerified && (
             <div className="absolute bottom-0 right-0 p-1 bg-white rounded-full shadow-md text-green-500 transform translate-x-1 translate-y-1">
@@ -69,16 +69,15 @@ const HeadSection: FC<HeadSectionProps> = ({ user, onOpenSidebar }) => {
           )}
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-extrabold text-primary leading-tight tracking-tight gradient-text">
-          Welcome, {user.firstName} {user.lastName}
+        <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight gradient-text">
+          {user.firstName} {user.lastName}
+          <p className="text-lg text-gray-200 leading-relaxed max-w-md">
+            {user.email && ` ${user.email}`}
+          </p>
         </h1>
 
-        <p className="text-lg text-gray-600 leading-relaxed max-w-md">
-          Manage your profile, privacy and security{" "}
-        </p>
-
         {user.isVerified ? (
-          <div className="flex items-center bg-green-50 text-green-700 px-5 py-2.5 rounded-full text-base font-medium border border-green-200 cursor-default">
+          <div className="flex items-center bg-green-50 text-green-700 px-5 py-2.5 rounded-full text-sm font-medium border border-green-200 cursor-default">
             {checkCircleIcon}
             <span className="ml-2">Account Verified</span>
           </div>

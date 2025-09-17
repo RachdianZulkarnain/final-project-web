@@ -6,17 +6,17 @@ import { toast } from "sonner";
 
 interface VerifyChangeEmailPayload {
   token: string;
-  password: string;
+  password?: string;
 }
 
 export const useVerifyChangeEmail = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (payload: VerifyChangeEmailPayload) => {
+    mutationFn: async ({ token, password }: VerifyChangeEmailPayload) => {
       const { data } = await axiosInstance.post(
         "/account/verify-change-email",
-        payload,
+        { token, password } // token dikirim di body
       );
       return data;
     },
@@ -26,7 +26,7 @@ export const useVerifyChangeEmail = () => {
     },
     onError: (error: AxiosError<any>) => {
       toast.error(
-        error.response?.data?.message || "Failed to verify email change",
+        error.response?.data?.message || "Failed to verify email change"
       );
     },
   });

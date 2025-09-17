@@ -42,7 +42,11 @@ import {
   Building,
   Phone,
   CreditCard,
+  Save,
+  Banknote,
+  Building2,
 } from "lucide-react";
+import Image from "next/image";
 
 const EditProfileForm = () => {
   const { data: session, status } = useSession();
@@ -83,7 +87,7 @@ const EditProfileForm = () => {
     if (tenant) {
       setTenantName(tenant.name || "");
       setDisplayName(tenant.name || "");
-      setPhoneNumber(tenant.phoneNumber || "");
+      setPhoneNumber(tenant.phone || "");
       setBankName(tenant.bankName || "");
       setBankNumber(tenant.bankNumber || "");
       setTenantImage(tenant.imageUrl || "/images/placeholder.png");
@@ -183,7 +187,7 @@ const EditProfileForm = () => {
       await updateTenant(
         {
           name: tenantName,
-          phoneNumber,
+          phone: phoneNumber,
           bankName,
           bankNumber,
           imageFile: tenantImageFile,
@@ -208,7 +212,14 @@ const EditProfileForm = () => {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <Card className="overflow-hidden border-none shadow-md">
-        <div className="relative h-32 bg-[#f1f1f1] sm:h-48">
+        <div className="relative h-32 bg-[#0290d1] sm:h-48">
+          <Image
+            src="/assets/Homigo Logo2.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          />
           <div className="absolute -bottom-16 left-6 sm:-bottom-20 sm:left-8">
             <div className="relative">
               <Avatar className="h-32 w-32 border-4 border-white shadow-md sm:h-40 sm:w-40">
@@ -243,10 +254,12 @@ const EditProfileForm = () => {
 
         <CardContent className="mt-16 pt-4 sm:mt-20">
           <div className="mb-2 flex items-center">
-            <h2 className="text-xl font-bold sm:text-2xl">{displayName}</h2>
+            <h2 className="text-xl font-bold sm:text-2xl text-[#0290d1]">
+              {displayName}
+            </h2>
             {isEmailVerified ? (
               <span className="ml-2 inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
-                <CheckCircle className="mr-1 h-3 w-3" /> Verified
+                <CheckCircle className="mr-2 h-5 w-5" /> Verified
               </span>
             ) : null}
           </div>
@@ -260,24 +273,24 @@ const EditProfileForm = () => {
             value="tenant"
             className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm"
           >
-            <Building size={16} />
-            <span className="hidden sm:inline">Tenant Info</span>
-            <span className="sm:hidden">Tenant</span>
+            <Building size={16} className="text-[#0290d1]" />
+            <span className="hidden sm:inline text-[#0290d1]">Tenant Info</span>
+            <span className="sm:hidden text-[#0290d1]">Tenant</span>
           </TabsTrigger>
           <TabsTrigger
             value="security"
             className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm"
           >
-            <Lock size={16} />
-            <span className="hidden sm:inline">Security</span>
-            <span className="sm:hidden">Password</span>
+            <Lock size={16} className="text-[#0290d1]" />
+            <span className="hidden sm:inline text-[#0290d1]">Security</span>
+            <span className="sm:hidden text-[#0290d1]">Password</span>
           </TabsTrigger>
           <TabsTrigger
             value="email"
             className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm"
           >
-            <Mail size={16} />
-            <span>Email</span>
+            <Mail size={16} className="text-[#0290d1]" />
+            <span className="text-[#0290d1]">Email</span>
           </TabsTrigger>
         </TabsList>
 
@@ -285,18 +298,22 @@ const EditProfileForm = () => {
           <TabsContent value="tenant">
             <Card className="border-none bg-white shadow-sm">
               <CardHeader>
-                <CardTitle className="text-xl">Tenant Information</CardTitle>
-                <CardDescription>
-                  Update your tenant profile and business details
-                </CardDescription>
+                <CardTitle className="text-xl text-[#0290d1]">
+                  Tenant Information
+                </CardTitle>
+                <CardDescription>Update your tenant profile</CardDescription>
               </CardHeader>
               <CardContent>
                 <form
                   className="space-y-4"
                   onSubmit={(e) => e.preventDefault()}
                 >
-                  <div className="space-y-2">
-                    <Label htmlFor="tenantName" className="text-sm font-medium">
+                  <div className="space-y-2 ">
+                    <Label
+                      htmlFor="tenantName"
+                      className="text-sm font-medium text-[#0290d1]"
+                    >
+                      <Building2 size={16} className="mr-1 inline" />
                       Business Name
                     </Label>
                     <Input
@@ -307,16 +324,16 @@ const EditProfileForm = () => {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 ">
                     <Label
                       htmlFor="phoneNumber"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-[#0290d1]"
                     >
                       <Phone size={16} className="mr-1 inline" />
                       Phone Number
                     </Label>
                     <Input
-                      id="phoneNumber"
+                      id="phone"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       className="border-gray-200 focus-visible:ring-primary"
@@ -325,8 +342,11 @@ const EditProfileForm = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="bankName" className="text-sm font-medium">
-                      <Building size={16} className="mr-1 inline" />
+                    <Label
+                      htmlFor="bankName"
+                      className="text-sm font-medium text-[#0290d1]"
+                    >
+                      <Banknote size={16} className="mr-1 inline" />
                       Bank Name
                     </Label>
                     <Input
@@ -338,8 +358,11 @@ const EditProfileForm = () => {
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="bankNumber" className="text-sm font-medium">
+                  <div className="space-y-2 ">
+                    <Label
+                      htmlFor="bankNumber"
+                      className="text-sm font-medium text-[#0290d1]"
+                    >
                       <CreditCard size={16} className="mr-1 inline" />
                       Bank Account Number
                     </Label>
@@ -356,12 +379,12 @@ const EditProfileForm = () => {
                       <AlertDialogTrigger asChild>
                         <Button
                           disabled={isUpdateTenantPending}
-                          className="mt-2 px-6"
+                          className="mt-2 px-6 bg-[#0290d1] hover:bg-[#60a4c4]"
                         >
                           {isUpdateTenantPending && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                           )}
-                          Save Tenant Information
+                          <Save className="h-5 w-5 " />
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="rounded-lg">
@@ -396,7 +419,9 @@ const EditProfileForm = () => {
           <TabsContent value="security">
             <Card className="border-none bg-white shadow-sm">
               <CardHeader>
-                <CardTitle className="text-xl">Security Settings</CardTitle>
+                <CardTitle className="text-xl text-[#0290d1]">
+                  Security Settings
+                </CardTitle>
                 <CardDescription>
                   Update your password to keep your account secure
                 </CardDescription>
@@ -409,7 +434,7 @@ const EditProfileForm = () => {
                   <div className="space-y-2">
                     <Label
                       htmlFor="currentPassword"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-[#0290d1]"
                     >
                       Current Password
                     </Label>
@@ -425,7 +450,7 @@ const EditProfileForm = () => {
                   <div className="space-y-2">
                     <Label
                       htmlFor="newPassword"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-[#0290d1]"
                     >
                       New Password
                     </Label>
@@ -441,7 +466,7 @@ const EditProfileForm = () => {
                   <div className="space-y-2">
                     <Label
                       htmlFor="confirmPassword"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-[#0290d1]"
                     >
                       Confirm New Password
                     </Label>
@@ -454,16 +479,17 @@ const EditProfileForm = () => {
                       className="border-gray-200 focus-visible:ring-primary"
                     />
                   </div>
-                  <div className="pt-2">
+                  <div className="pt-2 ">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
-                          className="px-6"
+                          className="px-6 bg-[#0290d1] hover:bg-[#60a4c4]"
                           disabled={changePasswordMutation.isPending}
                         >
                           {changePasswordMutation.isPending && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                           )}
+                          <Save className="h-5 w-5" />
                           Update Password
                         </Button>
                       </AlertDialogTrigger>
@@ -498,7 +524,9 @@ const EditProfileForm = () => {
           <TabsContent value="email">
             <Card className="border-none bg-white shadow-sm">
               <CardHeader>
-                <CardTitle className="text-xl">Email Settings</CardTitle>
+                <CardTitle className="text-xl text-[#0290d1]">
+                  Email Settings
+                </CardTitle>
                 <CardDescription>
                   Update or verify your email address
                 </CardDescription>
@@ -510,7 +538,10 @@ const EditProfileForm = () => {
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="email" className="text-sm font-medium">
+                      <Label
+                        htmlFor="email"
+                        className="text-sm font-medium text-[#0290d1]"
+                      >
                         Email Address
                       </Label>
                       {isEmailVerified ? (
@@ -536,10 +567,14 @@ const EditProfileForm = () => {
                   <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button className="flex-1" disabled={isPending}>
+                        <Button
+                          className="flex-1 bg-[#0290d1] hover:bg-[#60a4c4]"
+                          disabled={isPending}
+                        >
                           {isPending && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                           )}
+                          <Save className="h-5 w-5" />
                           Update Email
                         </Button>
                       </AlertDialogTrigger>

@@ -18,7 +18,7 @@ import { EditPeakSeasonButton } from "./EditPeakSeasonRate";
 import { Trash2 } from "lucide-react";
 
 interface PeakSeasonsPageProps {
-  roomId: number;
+  roomId?: number;
 }
 
 const PeakSeasonsRateList: FC<PeakSeasonsPageProps> = ({ roomId }) => {

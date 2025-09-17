@@ -50,7 +50,7 @@ const useCreateProperty = () => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["property"] });
-      toast.success("✅ Create property success");
+      toast.success("Create property success");
       router.push("/dashboard/property/management");
     },
     onError: (error: AxiosError<any>) => {
