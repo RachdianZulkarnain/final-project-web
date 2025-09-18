@@ -9,6 +9,7 @@ import { RoomIdSelect } from "../peak-season-rate/components/RoomIdSelect";
 import { DatePickerWithRangeForRoomNonAvailability } from "./components/DateRoomNonAvailability";
 import RoomNonAvailabilityList from "./components/RoomNonAvailability";
 import { RoomNonAvailabilitySchema } from "./schemas/RoomNonAvailabilitySchema";
+import { FiPlus } from "react-icons/fi";
 
 export default function RoomNonAvailabilityPage() {
   const { mutateAsync: createRoomNonAvailability, isPending } =
@@ -89,7 +90,8 @@ export default function RoomNonAvailabilityPage() {
                   className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
                   disabled={isPending}
                 >
-                  {isPending ? "Processing..." : "Add Room Availability"}
+                  <FiPlus className="h-5 w-5" />
+                  {isPending ? "Processing..." : "Add"}
                 </Button>
               </div>
             </form>

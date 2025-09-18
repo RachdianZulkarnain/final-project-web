@@ -21,7 +21,7 @@ const RoomManagementPage = () => {
               <Link href="/dashboard/property/room/create">
                 <Button className="flex items-center gap-2 shadow-sm transition-shadow hover:shadow bg-[#0290d1] hover:bg-[#70cefa]">
                   <FiPlus className="h-5 w-5" />
-                  Create Room
+                  Add
                 </Button>
               </Link>
             </div>

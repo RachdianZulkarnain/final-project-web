@@ -238,7 +238,7 @@ export default function PropertyDetailPage({
               {property.propertyImage.slice(0, 6).map((image, index) => (
                 <button
                   key={image.id}
-                  className={`relative aspect-[4/3] w-full overflow-hidden rounded-xl transition-all duration-300 hover:scale-105 ${
+                  className={`relative aspect-[4/3] w-full overflow-hidden rounded-sm transition-all duration-300 hover:scale-105 ${
                     index === activeImageIndex
                       ? "ring-3 ring-[#0290d1]  ring-offset-2 shadow-lg"
                       : "opacity-70 hover:opacity-100 shadow-md"
@@ -340,23 +340,62 @@ export default function PropertyDetailPage({
             onValueChange={setActiveTab}
             className="p-6 lg:p-8"
           >
-            <TabsList className="w-full justify-start gap-8 border-b bg-transparent p-0 h-auto">
+            <TabsList
+              className="
+    w-full 
+    flex flex-wrap sm:flex-nowrap 
+    justify-start 
+    gap-2 sm:gap-8 
+    border-b 
+    bg-transparent 
+    p-0 
+    h-auto
+  "
+            >
               <TabsTrigger
                 value="description"
-                className="rounded-none border-b-3 border-transparent px-2 py-4 text-base font-semibold data-[state=active]:border-[#0290d1]  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#0290d1]  transition-all"
+                className="
+      rounded-none border-b-2 border-transparent 
+      px-2 sm:px-3 py-2 sm:py-4 
+      text-sm sm:text-base font-semibold 
+      data-[state=active]:border-[#0290d1]  
+      data-[state=active]:bg-transparent 
+      data-[state=active]:shadow-none 
+      data-[state=active]:text-[#0290d1]  
+      transition-all
+    "
               >
                 Description
               </TabsTrigger>
+
               <TabsTrigger
                 value="rooms"
-                className="rounded-none border-b-3 border-transparent px-2 py-4 text-base font-semibold data-[state=active]:border-[#0290d1]  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#0290d1]  transition-all"
+                className="
+      rounded-none border-b-2 border-transparent 
+      px-2 sm:px-3 py-2 sm:py-4 
+      text-sm sm:text-base font-semibold 
+      data-[state=active]:border-[#0290d1]  
+      data-[state=active]:bg-transparent 
+      data-[state=active]:shadow-none 
+      data-[state=active]:text-[#0290d1]  
+      transition-all
+    "
               >
                 Rooms Availability
               </TabsTrigger>
 
               <TabsTrigger
                 value="location"
-                className="rounded-none border-b-3 border-transparent px-2 py-4 text-base font-semibold data-[state=active]:border-[#0290d1]  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#0290d1]  transition-all"
+                className="
+      rounded-none border-b-2 border-transparent 
+      px-2 sm:px-3 py-2 sm:py-4 
+      text-sm sm:text-base font-semibold 
+      data-[state=active]:border-[#0290d1]  
+      data-[state=active]:bg-transparent 
+      data-[state=active]:shadow-none 
+      data-[state=active]:text-[#0290d1]  
+      transition-all
+    "
               >
                 Location
               </TabsTrigger>

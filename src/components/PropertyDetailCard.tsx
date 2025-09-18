@@ -33,18 +33,18 @@ const PropertyDetailCard = ({
   };
 
   return (
-    <Card className="mt-7 md:mt-0">
+    <Card className="mt-5 md:mt-0">
       <div className="relative h-[300px] overflow-hidden rounded-lg">
         <Image
           src={imageUrl || "/placeholder-room.jpg"}
           alt={`${name} room image`}
           fill
-          className="object-cover"
+          className="object-cover "
           priority
         />
       </div>
       <CardHeader>
-        <div className="grid gap-y-7 md:grid-cols-2">
+        <div className="grid gap-y-7 md:grid-cols-2 border rounded-lg ">
           <RoomInfo name={name} guest={guest} />
           <PriceInfo price={formatPrice(price)} />
           <FacilitiesList facilities={roomFacilities} />
@@ -56,7 +56,7 @@ const PropertyDetailCard = ({
 
 const RoomInfo = ({ name, guest }: { name: string; guest: number }) => (
   <div>
-    <h4 className="text-center text-xl font-semibold">{name}</h4>
+    <h4 className="text-center text-xl text-[#0290d1] font-semibold">{name}</h4>
     <p className="text-center">Room for {guest} people</p>
   </div>
 );
@@ -66,18 +66,18 @@ const PriceInfo = ({ price }: { price: string }) => (
     <h4 className="mt-7 text-center text-base font-semibold md:mt-0">
       Price room/night
     </h4>
-    <p className="text-center text-xl font-medium text-[#396ee4]">{price}</p>
+    <p className="text-center text-xl font-medium text-[#0290d1]">{price}</p>
   </div>
 );
 
 const FacilitiesList = ({ facilities }: { facilities: RoomFacility[] }) => (
   <div className="text-center md:text-left">
-    <h5 className="text-base font-semibold">Room Facilities</h5>
-    <div className="grid gap-3">
+    <h5 className="text-base font-semibold ">Room Facilities</h5>
+    <div className="grid gap-3 mt-2">
       {facilities.map((facility) => (
         <div key={facility.id} className="space-y-1">
           <div className="flex items-center justify-center gap-3 md:justify-start">
-            <FaSquareCheck className="flex-shrink-0 text-green-500" />
+            {/* <FaSquareCheck className="flex-shrink-0 text-green-500" /> */}
             <h5 className="line-clamp-1 font-medium">{facility.title}</h5>
           </div>
           <p className="line-clamp-3 pl-7 text-sm text-gray-600 md:pr-10">

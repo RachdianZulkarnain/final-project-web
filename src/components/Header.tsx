@@ -34,7 +34,7 @@ export default function Header() {
 
   const [navbar, setNavbar] = useState(!isHome);
   const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // ✅ state untuk burger menu
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -173,7 +173,7 @@ export default function Header() {
                   className={`rounded-full ${
                     navbar
                       ? "bg-[#0290d1] text-white"
-                      : "bg-white text-[#0290d1] "
+                      : "bg-white text-[#0290d1]"
                   }`}
                 >
                   Sign In
@@ -183,18 +183,14 @@ export default function Header() {
           )}
         </div>
 
-        {/* Burger menu (mobile) */}
-        <div className="md:hidden   ">
+        {/* Mobile burger */}
+        <div className="md:hidden">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? (
-              <X className="h-10 w-10 " />
-            ) : (
-              <Menu className="h-20 w-20" />
-            )}
+            {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
           </Button>
         </div>
       </div>
@@ -226,28 +222,27 @@ export default function Header() {
               <div className="pt-4 border-t border-gray-200">
                 <Button
                   variant="destructive"
-                  className="w-full"
+                  className="w-full  hover:bg-red-500"
                   onClick={handleSignOut}
                 >
                   Sign Out
+                  <LogOut className="mr-2 h-4 w-4" />
                 </Button>
               </div>
             </>
           ) : (
-            <>
-              <div className="flex flex-col gap-3">
-                <Link href="/sign-up" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full bg-[#0290d1] text-white">
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link href="/sign-in" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full border-2 border-[#0290d1] text-[#0290d1] bg-white">
-                    Sign In
-                  </Button>
-                </Link>
-              </div>
-            </>
+            <div className="flex flex-col gap-3">
+              <Link href="/sign-up" onClick={() => setIsOpen(false)}>
+                <Button className="w-full bg-[#0290d1] text-white">
+                  Sign Up
+                </Button>
+              </Link>
+              <Link href="/sign-in" onClick={() => setIsOpen(false)}>
+                <Button className="w-full border-2 border-[#0290d1] text-[#0290d1] bg-white">
+                  Sign In
+                </Button>
+              </Link>
+            </div>
           )}
         </div>
       )}

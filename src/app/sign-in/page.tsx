@@ -128,7 +128,7 @@ const LoginPage = () => {
                     href="/forgot-password"
                     className="font-medium text-md text-primary hover:text-blue-500"
                   >
-                    I forgot my password
+                    Forgot Password ?
                   </Link>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const LoginPage = () => {
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-gradient-to-br from-white to-blue-50 px-3 text-gray-500">
+                <span className="bg-gradient-to-br from-white to-blue-50 px-3 text-[#0290d1]">
                   Or
                 </span>
               </div>

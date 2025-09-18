@@ -6,6 +6,7 @@ import useCreateCategory from "@/hooks/api/category/useCreateCatgory";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { FiPlus } from "react-icons/fi";
 import PropertyCategoryList from "./components/PropertyCategoryList";
 import { PropertyCategorySchema } from "./schemas/PropertyCategoryScema";
 
@@ -59,7 +60,8 @@ export default function CategoryPage() {
                 className="mt-3 w-full bg-[#0290d1] hover:bg-[#70cefa]"
                 type="submit"
               >
-                {isPending ? "Loading..." : "Add Category"}
+                <FiPlus className="h-5 w-5" />
+                {isPending ? "Loading..." : "Add"}
               </Button>
             </div>
           </form>

@@ -37,20 +37,24 @@ export function SiteHeader() {
     >
       <div className="flex w-full items-center justify-between gap-2">
         {/* Left side: sidebar trigger and breadcrumbs */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <SidebarTrigger className="-ml-1 text-[#0290d1]" />
           <Separator
             orientation="vertical"
-            className="h-6 bg-muted-foreground/40"
+            className="h-6 bg-muted-foreground/40 hidden sm:block"
           />
 
-          <nav className="flex items-center gap-2 text-sm font-medium text-[#0290d1]">
+          {/* Breadcrumbs - sembunyikan di layar kecil */}
+          <nav className="hidden sm:flex items-center gap-2 text-sm font-medium text-[#0290d1] truncate">
             {breadcrumbs.map((crumb) => (
-              <span key={crumb.href} className="flex items-center gap-2">
+              <span
+                key={crumb.href}
+                className="flex items-center gap-2 shrink-0"
+              >
                 <span className="text-muted-foreground">›</span>
                 <Link
                   href={crumb.href}
-                  className="transition-colors hover:text-primary hover:underline"
+                  className="transition-colors hover:text-primary hover:underline truncate max-w-[120px] sm:max-w-[200px]"
                 >
                   {crumb.label}
                 </Link>
@@ -60,21 +64,26 @@ export function SiteHeader() {
         </div>
 
         {/* Right side: avatar profile */}
-        <div className="flex items-center gap-3">
-          <Avatar className="w-8 h-8 border border-[#0290d1]">
-            <AvatarImage src={tenantImage} alt={tenantName} />
-            <AvatarFallback className="bg-primary text-white text-sm">
-              {tenantName
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-slate-700">
-              Hi, {tenantName}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link href="/dashboard/account" className="text-[#0290d1]">
+            <Avatar className="w-8 h-8 border border-[#0290d1]">
+              <AvatarImage src={tenantImage} alt={tenantName} />
+              <AvatarFallback className="bg-primary text-white text-sm">
+                {tenantName
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-medium text-slate-700 truncate max-w-[100px] sm:max-w-[150px]">
+              {tenantName}
             </span>
-            <span className="text-xs text-muted-foreground">{tenantEmail}</span>
+            <span className="hidden sm:block text-xs text-muted-foreground truncate max-w-[150px]">
+              {tenantEmail}
+            </span>
           </div>
         </div>
       </div>

@@ -41,37 +41,37 @@ export default function SearchBarResponsive() {
   const guests = formik.values.guests;
 
   return (
-    <div className="mx-auto mt-5 max-w-5xl px-4">
+    <div className="mx-auto mt-2 max-w-5xl px-4">
       {/* Mobile version */}
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 md:hidden"
       >
         {/* Location */}
-        <div className="flex flex-col bg-white rounded-4xl shadow p-2">
+        <div className="flex flex-col bg-white rounded-4xl shadow px-3">
           <Input
             name="title"
             type="text"
             placeholder="Where are you going?"
             value={formik.values.title}
             onChange={formik.handleChange}
-            className="h-12 border-0 text-base placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="h-12 border-0 text-base text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0"
           />
         </div>
 
         {/* Duration */}
-        <div className="flex flex-col bg-white rounded-4xl shadow p-3">
+        <div className="flex flex-col bg-white rounded-4xl shadow px-3">
           <DatePickerWithRange setFieldValue={formik.setFieldValue} />
         </div>
 
         {/* Guests */}
-        <div className="flex flex-col bg-white rounded-4xl shadow p-2">
+        <div className="flex flex-col bg-white rounded-4xl shadow px-2">
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="ghost"
                 className={cn(
-                  "justify-start h-12 w-full text-base text-gray-500 hover:bg-transparent px-0",
+                  "justify-start h-12 w-full text-base text-gray-500 hover:bg-transparent px-5",
                   guests.adults + guests.children > 0 && "text-black"
                 )}
               >
