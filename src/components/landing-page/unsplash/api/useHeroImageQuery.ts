@@ -6,7 +6,7 @@ export const useGetHeroImageQuery = () => {
     queryKey: ["HeroImage"],
     queryFn: async () => {
       return await axios.get(
-        "https://api.unsplash.com/photos/random?orientation=landscape&collections=travel",
+        "https://api.unsplash.com/photos/random?orientation=landscape&collections=Lwo2smI0EQk",
         {
           headers: {
             "Accept-Version": "v1",

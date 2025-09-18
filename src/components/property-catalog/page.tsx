@@ -21,7 +21,6 @@ import PropertyCard from "../property/components/PropertyCard";
 import PropertyNavigation from "./components/PropertyNavigation";
 
 export default function PropertyCatalogPage() {
-  // NuQS states
   const [location, setLocation] = useQueryState<string>("location", {
     defaultValue: "",
     parse: (val) => val ?? "",
@@ -73,7 +72,6 @@ export default function PropertyCatalogPage() {
     parse: (val) => (val === "asc" || val === "desc" ? val : "asc"),
   });
 
-  // Parse string ke Date
   const checkIn = checkInStr ? parseISO(checkInStr) : undefined;
   const checkOut = checkOutStr ? parseISO(checkOutStr) : undefined;
 
@@ -83,13 +81,13 @@ export default function PropertyCatalogPage() {
   const hasActiveFilters = location || category || checkIn || checkOut || guest;
 
   const { data, isLoading, isError } = useGetProperties({
-    page: page ?? 1, // fallback ke 1 jika null
+    page: page ?? 1,
     location,
     category,
     startDate: formattedStartDate,
     endDate: formattedEndDate,
     search: debouncedSearch,
-    guest: guest ?? undefined, // konversi null ke undefined
+    guest: guest ?? undefined,
     sortBy,
     sortOrder,
   });
@@ -158,7 +156,7 @@ export default function PropertyCatalogPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 mt-13">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-[#0290d185] to-blue-50 mt-13">
       {/* Search + Navigation */}
       <div className="mx-auto w-full max-w-7xl px-4 pt-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-2">
@@ -174,26 +172,8 @@ export default function PropertyCatalogPage() {
             />
           </div>
 
-          {/* Navigation */}
-          <div className="w-full md:w-auto md:flex-shrink-0">
-            <PropertyNavigation
-              onLocation={setLocation}
-              onCategory={setCategory}
-              onCheckIn={(date: Date | undefined) => {
-                setCheckInStr(date ? format(date, "yyyy-MM-dd") : null);
-              }}
-              onCheckOut={(date: Date | undefined) => {
-                setCheckOutStr(date ? format(date, "yyyy-MM-dd") : null);
-              }}
-              onGuest={(value: number | undefined) => {
-                setGuest(value ?? null); // NuQS number expects null to reset
-              }}
-            />
-          </div>
-
           {/* Sort Section */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">Sort by:</span>
             <Select
               onValueChange={(value) => {
                 if (value === "title") {
@@ -216,7 +196,7 @@ export default function PropertyCatalogPage() {
                   : sortBy
               }
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px] bg-white">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -226,6 +206,21 @@ export default function PropertyCatalogPage() {
                 <SelectItem value="createdAt">Newest</SelectItem>
               </SelectContent>
             </Select>
+            <span className="w-full md:w-auto md:flex-shrink-0">
+              <PropertyNavigation
+                onLocation={setLocation}
+                onCategory={setCategory}
+                onCheckIn={(date: Date | undefined) => {
+                  setCheckInStr(date ? format(date, "yyyy-MM-dd") : null);
+                }}
+                onCheckOut={(date: Date | undefined) => {
+                  setCheckOutStr(date ? format(date, "yyyy-MM-dd") : null);
+                }}
+                onGuest={(value: number | undefined) => {
+                  setGuest(value ?? null);
+                }}
+              />
+            </span>
           </div>
         </div>
       </div>
@@ -320,10 +315,10 @@ export default function PropertyCatalogPage() {
             transition={{ duration: 0.5 }}
             className="flex min-h-[60vh] flex-col items-center justify-center text-center"
           >
-            <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-blue-100">
-              <Search className="h-16 w-16 text-blue-500" />
+            <div className="mb-6 flex h-25 w-25 items-center justify-center rounded-full bg-blue-100">
+              <Search className="h-14 w-14 text-[#0290D1]" />
             </div>
-            <h3 className="mb-4 text-3xl font-medium text-[#0290D1]">
+            <h3 className="mb-4 text-3xl font-medium text-gray-700">
               No properties found
             </h3>
             <p className="max-w-xl text-xl text-gray-600">
@@ -332,7 +327,7 @@ export default function PropertyCatalogPage() {
             </p>
             <button
               onClick={clearAllFilters}
-              className="mt-8 rounded-xl bg-blue-600 px-8 py-4 text-lg font-medium text-white transition-colors hover:bg-blue-700"
+              className="mt-8 rounded-xl bg-[#0290D1] px-8 py-4 text-lg font-medium text-white transition-colors hover:bg-blue-500"
             >
               Reset Filters
             </button>
@@ -340,7 +335,7 @@ export default function PropertyCatalogPage() {
         ) : (
           <div>
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-3xl font-bold text-[#0290D1]">
+              <h2 className="text-3xl font-bold text-gray-700">
                 {data?.data?.meta?.totalCount || ""} Properties Found
               </h2>
             </div>
@@ -355,7 +350,7 @@ export default function PropertyCatalogPage() {
 
             {/* Pagination */}
             {data?.data?.data?.length > 0 && (
-              <div className="mt-10 flex justify-center text-[#0290D1]">
+              <div className="mt-10 flex justify-center text-gray-800">
                 <CatalogPagination
                   page={data?.data?.meta?.page || 1}
                   take={data?.data?.meta?.take || 10}

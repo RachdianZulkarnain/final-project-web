@@ -29,7 +29,7 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
       {/* Hamburger button for mobile */}
       <button
         onClick={() => setIsSidebarOpen(true)}
-        className="md:hidden p-4 z-50 fixed top-4 left-4"
+        className="md:hidden p-4 z-50 fixed top-4 left-4 text-white"
       >
         <Menu className="w-6 h-6" />
       </button>
@@ -86,8 +86,8 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
               onClick={handleLogout}
               className="flex items-center w-full p-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-red-500 transition-colors duration-200"
             >
-              <LogOut className="w-5 h-5 mr-3" />
-              <span className="text-sm font-medium">Log out</span>
+              <span className="text-sm font-medium ml-10">Log out</span>
+              <LogOut className="w-5 h-5 ml-3" />
             </button>
           </div>
         </nav>
@@ -98,8 +98,8 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
             onClick={handleLogout}
             className="flex items-center w-full p-3 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-red-500 transition-colors duration-200"
           >
-            <LogOut className="w-5 h-5 mr-3" />
-            <span className="text-sm font-medium">Log out</span>
+            <span className="text-sm font-medium ml-8">Log out</span>
+            <LogOut className="w-5 h-5 ml-3" />
           </button>
         </div>
       </aside>

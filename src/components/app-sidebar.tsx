@@ -6,7 +6,7 @@ import {
   IconClipboardList,
   IconDashboard,
   IconReceipt2,
-  IconUser
+  IconUser,
 } from "@tabler/icons-react";
 import * as React from "react";
 
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { NavUser } from "./nav-user";
+import { url } from "inspector";
+import Link from "next/link";
 
 const data = {
   navMain: [
@@ -36,6 +38,7 @@ const data = {
     {
       title: "My Properties",
       icon: IconBuilding,
+      url: "/dashboard/property",
       children: [
         {
           title: "Manage category",
@@ -90,19 +93,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {...props}
     >
       {/* Logo / Branding */}
-      <div className="px-4 py-3 border-b border-border flex items-center space-x-2">
-        <Image
-          src="/assets/Homigo Logo1.png"
-          alt="Homigo Logo"
-          width={40}
-          height={40}
-          className="object-contain flex items-center justify-center"
-        />
-        <span className="font-bold text-lg text-[#0290d1]">Homigo</span>
-      </div>
+      <Link href="/dashboard">
+        <div className="px-4 py-3 border-b border-border flex items-center space-x-2 ml-2">
+          <Image
+            src="/assets/Homigo Logo1.png"
+            alt="Homigo Logo"
+            width={40}
+            height={40}
+            className="object-contain flex items-center justify-center"
+          />
+          <span className="font-bold text-lg text-[#0290d1] ">Homigo</span>
+        </div>
+      </Link>
 
       {/* Navigation */}
-      <SidebarContent className="px-3 py-10">
+      <SidebarContent className="px-3 py-10 ">
         <NavMain items={data.navMain} />
       </SidebarContent>
 

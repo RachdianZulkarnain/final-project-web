@@ -155,7 +155,7 @@ export default function PropertyDetailPage({
   };
 
   return (
-    <main className="mx-auto my-8 max-w-screen-2xl px-4 sm:my-12 sm:px-6">
+    <main className="mx-auto my-8 max-w-screen-2xl px-4 sm:my-12 sm:px-6 ">
       <div className="mb-6 text-sm text-slate-500">
         <span className="hover:text-[#0290d1] hover:underline transition-colors cursor-pointer">
           Properties
@@ -234,7 +234,7 @@ export default function PropertyDetailPage({
               </div>
             </div>
 
-            <div className="grid grid-cols-6 gap-3">
+            <div className="grid grid-cols-6 gap-3 ">
               {property.propertyImage.slice(0, 6).map((image, index) => (
                 <button
                   key={image.id}
@@ -401,7 +401,7 @@ export default function PropertyDetailPage({
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="description" className="mt-8">
+            <TabsContent value="description" className="mt-8 ">
               <div className="space-y-4">
                 <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl leading-tight">
                   {property.title}

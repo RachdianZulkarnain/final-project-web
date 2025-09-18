@@ -6,7 +6,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { addDays, differenceInDays, format } from "date-fns";
-import { CalendarDays, ListFilter, MapPin, X } from "lucide-react";
+import {
+  CalendarDays,
+  ListFilter,
+  MapPin,
+  SlidersHorizontal,
+  X,
+} from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import GuestSelector from "../../property/components/Guest";
@@ -95,7 +101,7 @@ const PropertyNavigation: React.FC<NavigationProps> = ({
           onClick={() => setShowFilters(!showFilters)}
           className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
         >
-          <ListFilter className="h-4 w-4 text-primary" />
+          <SlidersHorizontal className="h-4 w-4 text-primary" />
         </Button>
 
         {showFilters && (

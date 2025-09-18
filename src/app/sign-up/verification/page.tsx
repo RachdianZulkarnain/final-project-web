@@ -1,4 +1,5 @@
 "use client";
+import { ArrowLeft, MailCheck } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,10 +17,11 @@ const EmailVerificationPage = () => {
   }, [session, status]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 flex flex-col justify-center items-center py-32 px-4 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#0290d185] to-blue-50 flex flex-col justify-center items-center py-32 px-4 lg:px-8">
       <div className="max-w-2xl w-full space-y-8 p-8 text-center">
-        <h2 className="text-4xl font-extrabold text-gray-900">
+        <h2 className="text-4xl font-extrabold text-gray-800">
           Check Your Email
+          <MailCheck className="inline-block ml-4 w-8 h-8" />
         </h2>
         <p className="mt-2 text-lg text-gray-600">
           We've sent a verification link to your email address. Please click the
@@ -33,7 +35,8 @@ const EmailVerificationPage = () => {
             href="/sign-in"
             className="text-primary hover:text-blue-600 font-medium"
           >
-            Go to Login Page
+            <ArrowLeft className="inline-block mr-2 w-4 h-4" />
+            Go to Sign In Page
           </Link>
         </div>
       </div>

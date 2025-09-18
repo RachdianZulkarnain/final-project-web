@@ -35,6 +35,16 @@ export default function Header() {
   const [navbar, setNavbar] = useState(!isHome);
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -122,11 +132,13 @@ export default function Header() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar>
+                <Avatar className="h-11 w-11">
+                  {" "}
                   <AvatarImage
                     src={
                       user?.profilePic || user?.imageUrl || "/placeholder.svg"
                     }
+                    alt={user?.firstName || "User Avatar"}
                   />
                   <AvatarFallback>
                     {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
@@ -134,10 +146,10 @@ export default function Header() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="text-[#0290d1]">
                   <Link href="/profile">
                     Profile
-                    <User className="mr-2 h-4 w-4" />
+                    <User className="mr-2 h-4 w-4 text-[#0290d1]" />
                   </Link>
                 </DropdownMenuItem>
                 {user?.role === "tenant" && (
@@ -151,7 +163,7 @@ export default function Header() {
                   className="text-red-500"
                 >
                   Sign Out
-                  <LogOut className="mr-2 h-4 w-4" />
+                  <LogOut className="mr-2 h-4 w-4 text-red-500" />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -183,14 +195,25 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile burger */}
         <div className="md:hidden">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+            {isOpen ? (
+              <X
+                className={`h-8 w-8 transition-colors ${
+                  isScrolled ? "text-black " : "text-white"
+                }`}
+              />
+            ) : (
+              <Menu
+                className={`h-8 w-8 transition-colors ${
+                  isScrolled ? "text-black" : "text-white"
+                }`}
+              />
+            )}
           </Button>
         </div>
       </div>
@@ -200,7 +223,34 @@ export default function Header() {
         <div className="md:hidden shadow-lg rounded-b-2xl px-6 py-6 space-y-4 bg-white">
           {user ? (
             <>
-              <nav className="flex flex-col space-y-3">
+              {/* Avatar Section */}
+              <Link href="/profile">
+                <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage
+                      src={
+                        user?.profilePic || user?.imageUrl || "/placeholder.svg"
+                      }
+                      alt={user?.firstName || "User Avatar"}
+                    />
+                    <AvatarFallback>
+                      {(user?.firstName?.[0] ?? user?.email[0])?.toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <p className="font-medium text-[#0290d1]">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-gray-500">{user?.email}</p>
+                    <p className="text-xs text-gray-300 capitalize mt-2">
+                      {user?.role}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Nav Links */}
+              {/* <nav className="flex flex-col space-y-3">
                 <Link
                   href="/profile"
                   onClick={() => setIsOpen(false)}
@@ -217,12 +267,13 @@ export default function Header() {
                     Dashboard
                   </Link>
                 )}
-              </nav>
+              </nav> */}
 
+              {/* Sign Out Button */}
               <div className="pt-4 border-t border-gray-200">
                 <Button
                   variant="destructive"
-                  className="w-full  hover:bg-red-500"
+                  className="w-full hover:bg-red-500"
                   onClick={handleSignOut}
                 >
                   Sign Out

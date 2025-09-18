@@ -1,7 +1,8 @@
 "use client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useSetPassword from "@/hooks/api/set-password/useSetPassword";
 import { useFormik } from "formik";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeClosed, Loader2, Send } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
@@ -15,6 +16,32 @@ yupPassword(Yup);
 interface SetPasswordPageProps {
   token: string;
 }
+
+// Reusable OutlinedInput component
+const OutlinedInput = ({
+  label,
+  id,
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) => {
+  return (
+    <div className="relative w-full">
+      <input
+        id={id}
+        placeholder=" "
+        className="peer block w-full rounded-md border border-gray-300 px-3 pt-5 pb-2 text-sm text-gray-900 focus:border-[#0290d1] focus:ring-1 focus:ring-[#0290d1]"
+        {...props}
+      />
+      <label
+        htmlFor={id}
+        className="absolute left-2 -top-2 bg-white px-1 text-sm text-gray-500
+          peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+          peer-focus:-top-2 peer-focus:text-sm peer-focus:text-[#0290d1] transition-all"
+      >
+        {label}
+      </label>
+    </div>
+  );
+};
 
 const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
   const router = useRouter();
@@ -53,93 +80,95 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center px-4 bg-gradient-to-br from-white to-blue-50">
-      <div className="p-10 max-w-xl w-full mx-auto space-y-8">
-        <div className="text-start">
-          <h2 className="text-4xl font-extrabold text-[#0290d1]">
+    <div className="min-h-screen flex justify-center items-center px-4 bg-gradient-to-br from-[#0290d185] to-blue-50">
+      <Card className="w-full max-w-xl shadow-lg rounded-2xl">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl sm:text-3xl font-extrabold text-[#0290d1]">
             Set Your New Password
-          </h2>
-          <p className="mt-2 text-md text-gray-600">
+          </CardTitle>
+          <p className="mt-2 text-sm sm:text-md text-gray-600">
             Enter a new password for your account.
           </p>
-        </div>
-        <form className="mt-8 space-y-8" onSubmit={formik.handleSubmit}>
-          {/* Password */}
-          <div className="relative">
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              autoComplete="current-password"
-              required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm pr-12"
-              placeholder="Password"
-              {...formik.getFieldProps("password")}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            >
-              {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-            </button>
-            {formik.touched.password && formik.errors.password && (
-              <div className="absolute top-full left-0 text-red-500 text-sm mt-1">
-                {formik.errors.password}
-              </div>
-            )}
-          </div>
+        </CardHeader>
 
-          {/* Confirm Password */}
-          <div className="relative">
-            <label htmlFor="confirmPassword" className="sr-only">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
-              autoComplete="new-password"
-              placeholder="Confirm New Password"
-              required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-primary placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm pr-12"
-              {...formik.getFieldProps("confirmPassword")}
-            />
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            >
-              {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-            </button>
-            {formik.touched.confirmPassword &&
-              formik.errors.confirmPassword && (
-                <div className="absolute top-full left-0 text-red-500 text-sm mt-1">
-                  {formik.errors.confirmPassword}
+        <CardContent>
+          <form className="space-y-6" onSubmit={formik.handleSubmit}>
+            {/* Password */}
+            <div className="relative">
+              <OutlinedInput
+                id="password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                {...formik.getFieldProps("password")}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-gray-500 hover:cursor-pointer"
+              >
+                {showPassword ? (
+                  <Eye className="h-5 w-5" />
+                ) : (
+                  <EyeClosed className="h-5 w-5" />
+                )}
+              </button>
+              {formik.touched.password && formik.errors.password && (
+                <div className="text-red-500 text-sm mt-1">
+                  {formik.errors.password}
                 </div>
               )}
-          </div>
+            </div>
 
-          {/* Submit Button */}
-          <div>
+            {/* Confirm Password */}
+            <div className="relative">
+              <OutlinedInput
+                id="confirmPassword"
+                label="Confirm Password"
+                type={showConfirmPassword ? "text" : "password"}
+                autoComplete="new-password"
+                {...formik.getFieldProps("confirmPassword")}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-gray-500 hover:cursor-pointer"
+              >
+                {showConfirmPassword ? (
+                  <Eye className="h-5 w-5" />
+                ) : (
+                  <EyeClosed className="h-5 w-5" />
+                )}
+              </button>
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.confirmPassword}
+                  </div>
+                )}
+            </div>
+
+            {/* Submit */}
             <button
               type="submit"
               disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
-              className="gap-2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-[#0290d1] hover:cursor-pointer hover:bg-[#4992b4] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 py-2 px-4 text-md font-medium rounded-md text-white bg-[#0290d1] hover:bg-[#5290ad] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {formik.isSubmitting ? (
                 <>
-                  Set Password...
-                  <Loader2 className="w-6 h-6 animate-spin" />
+                  Setting...
+                  <Loader2 className="w-5 h-5 animate-spin" />
                 </>
               ) : (
-                <>Submit</>
+                <>
+                  Submit
+                  <Send className="w-4 h-4" />
+                </>
               )}
             </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
