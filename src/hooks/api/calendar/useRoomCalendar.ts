@@ -42,7 +42,7 @@ const useRoomCalendar = (
       );
       return data;
     },
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5,
     enabled: roomId > 0 && options.enabled,
   });
 };

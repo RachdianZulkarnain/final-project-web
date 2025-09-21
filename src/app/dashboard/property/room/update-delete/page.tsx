@@ -528,34 +528,6 @@ const UpdateRoomPage: FC<UpdateRoomPageProps> = ({ roomId }) => {
                             )
                           }
                         />
-
-                        {/* <FormTextarea
-                          name={`facilities.${formikIndex}.description`}
-                          label="Facility Description"
-                          placeholder="Provide details about this facility..."
-                          value={facility.description}
-                          isError={hasNestedError(
-                            formik.touched,
-                            formik.errors,
-                            formikIndex,
-                            "description"
-                          )}
-                          error={getNestedError(
-                            formik.errors,
-                            formikIndex,
-                            "description"
-                          )}
-                          onBlur={formik.handleBlur}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) =>
-                            handleFacilityChange(
-                              formikIndex,
-                              "description",
-                              e.target.value
-                            )
-                          }
-                        /> */}
                       </div>
                     </div>
                   );

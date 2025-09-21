@@ -378,32 +378,6 @@ const CreateRoomPage = () => {
                           handleFacilityChange(index, "title", e.target.value)
                         }
                       />
-
-                      {/* <FormTextarea
-                        name={`facilities.${index}.description`}
-                        label="Facility Description"
-                        placeholder="Provide details about this facility..."
-                        value={facility.description}
-                        isError={hasNestedError(
-                          formik.touched,
-                          formik.errors,
-                          index,
-                          "description",
-                        )}
-                        error={getNestedError(
-                          formik.errors,
-                          index,
-                          "description",
-                        )}
-                        onBlur={formik.handleBlur}
-                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                          handleFacilityChange(
-                            index,
-                            "description",
-                            e.target.value,
-                          )
-                        }
-                      /> */}
                     </div>
                   </div>
                 ))}

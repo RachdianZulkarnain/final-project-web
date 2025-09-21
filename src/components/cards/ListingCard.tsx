@@ -38,13 +38,6 @@ export const ListingCard = ({
           <MapPin className="p-1" /> {city}, {country}
         </div>
         <div className="flex gap-2">
-          <div className="flex ml-[-5px] items-center">
-            {/* <CommentRatings
-              rating={avgRating}
-              disabled={true}
-              showCurrentRating={false}
-            /> */}
-          </div>
           <div>{avgRating.toFixed(1)}</div>
         </div>
       </div>

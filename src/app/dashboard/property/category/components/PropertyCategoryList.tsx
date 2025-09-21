@@ -1,15 +1,8 @@
 "use client";
+
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import useDeleteCategory from "@/hooks/api/category/useDeleteCategory";
 import useGetCategory from "@/hooks/api/category/useGetCategory";
 import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
@@ -33,10 +26,9 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
   const session = useSession();
   const userId = session.data?.user.id;
 
-  // Ambil data kategori
-  const { data, isPending } = useGetCategory({
+  const { data, isPending, error } = useGetCategory({
     userId,
-    take: 7,
+    take: 12,
   });
 
   const { mutateAsync: deleteCategory, isPending: pendingDelete } =
@@ -45,61 +37,75 @@ const PropertyCategoryList: FC<PropertyCategoryPageProps> = ({
 
   const categories = (data?.data ?? []) as Category[];
 
-  if (isPending) {
+  if (error) {
     return (
-      <div className="container mx-auto max-w-7xl">
-        <Skeleton className="relative h-[400px] w-full overflow-hidden rounded-2xl bg-slate-200" />
+      <div className="container mx-auto max-w-7xl py-8">
+        <Alert variant="destructive">
+          <AlertDescription>
+            Failed to load categories. Please try again.
+          </AlertDescription>
+        </Alert>
       </div>
     );
   }
 
-  if (categories.length === 0) {
+  if (isPending) {
     return (
-      <h5 className="container mx-auto mb-3 max-w-7xl text-center font-semibold md:text-left">
-        Category Not Found
-      </h5>
+      <div className="container mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {[...Array(8)].map((_, idx) => (
+            <Skeleton key={idx} className="h-[150px] rounded-xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!categories || categories.length === 0) {
+    return (
+      <div className="container mx-auto max-w-7xl py-8 text-center">
+        <h5 className="text-lg font-medium text-gray-600">
+          No categories found
+        </h5>
+        <p className="mt-2 text-gray-500">
+          Start by creating your first category
+        </p>
+      </div>
     );
   }
 
   return (
-    <>
-      <h5 className="container mx-auto mb-3 max-w-7xl text-center font-semibold md:text-left text-[#0290d1]">
+    <div className="container mx-auto max-w-7xl space-y-6 py-8">
+      <h5 className="text-lg font-semibold text-[#0290d1] text-center md:text-left">
         Category List
       </h5>
-      <section className="container mx-auto max-w-7xl rounded-lg bg-white p-5">
-        <Table>
-          <TableCaption>A list of property category</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category.id}>
-                <TableCell className="font-medium">{category.name}</TableCell>
-                <TableCell className="flex items-center gap-3">
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    disabled={pendingDelete}
-                    onClick={() => deleteCategory(category.id)}
-                  >
-                    {pendingDelete ? (
-                      <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
-                    ) : (
-                      <Trash2 className="h-4 w-4" />
-                    )}
-                  </Button>
-                  <EditPropertyCategory id={category.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </section>
-    </>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {categories.map((category) => (
+          <div
+            key={category.id}
+            className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow hover:shadow-md transition relative"
+          >
+            <h6 className="text-md font-medium">{category.name}</h6>
+            <div className="absolute bottom-3 right-3 flex items-center gap-3">
+              <EditPropertyCategory id={category.id} />
+              <Button
+                variant="destructive"
+                size="icon"
+                disabled={pendingDelete}
+                onClick={() => deleteCategory(category.id)}
+              >
+                {pendingDelete ? (
+                  <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

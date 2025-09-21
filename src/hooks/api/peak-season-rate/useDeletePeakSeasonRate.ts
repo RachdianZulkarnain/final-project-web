@@ -11,9 +11,7 @@ export const useDeletePeakSeasonRate = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      const { data } = await axiosInstance.delete(
-        `/peak-season/${id}`,
-      );
+      const { data } = await axiosInstance.delete(`/peak-season/${id}`);
       return data;
     },
     onSuccess: () => {
@@ -22,7 +20,7 @@ export const useDeletePeakSeasonRate = () => {
     },
     onError: (error: AxiosError<any>) => {
       toast.error(
-        error.response?.data?.message || "Failed to delete Peak Season Rate",
+        error.response?.data?.message || "Failed to delete Peak Season Rate"
       );
     },
   });

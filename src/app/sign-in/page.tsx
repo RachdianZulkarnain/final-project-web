@@ -86,7 +86,6 @@ const LoginPage = () => {
 
           <CardContent className="space-y-6">
             <form className="space-y-6" onSubmit={formik.handleSubmit}>
-              {/* Email */}
               <div>
                 <OutlinedInput
                   id="email"
@@ -101,7 +100,6 @@ const LoginPage = () => {
                 )}
               </div>
 
-              {/* Password */}
               <div className="relative">
                 <OutlinedInput
                   id="password"
@@ -127,7 +125,6 @@ const LoginPage = () => {
                 )}
               </div>
 
-              {/* Forgot Password */}
               <div className="flex items-center justify-between">
                 <Link
                   href="/forgot-password"
@@ -137,7 +134,6 @@ const LoginPage = () => {
                 </Link>
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={!formik.isValid || formik.isSubmitting}
@@ -157,7 +153,6 @@ const LoginPage = () => {
               </button>
             </form>
 
-            {/* Divider */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -167,7 +162,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Google Button */}
             <Button
               type="button"
               className="w-full flex justify-center items-center py-2 px-4 border border-primary rounded-md shadow-sm text-md font-medium text-primary bg-white hover:bg-gray-50"

@@ -4,7 +4,7 @@ import {
   useGetListingsCategoryQuery,
   useGetListingsFacilitiesQuery,
   useGetListingsQuery,
-} from "../api/useGetListingsQuery";
+} from "../_hooks/useGetListingsQuery";
 
 export const useGetListings = () => {
   const { data: listings, isSuccess, isError } = useGetListingsQuery();

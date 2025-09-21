@@ -64,7 +64,7 @@ const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
       href={`/property/${property.slug}`}
       className="group block transform transition-all duration-300 hover:-translate-y-2"
     >
-      <Card className="h-full overflow-hidden rounded-2xl border-none bg-white shadow-md transition-all duration-300 hover:shadow-xl">
+      <Card className="h-full overflow-hidden pt-0 rounded-2xl border-none bg-white shadow-md transition-all duration-300 hover:shadow-xl">
         <CardHeader className="relative h-48 w-full overflow-hidden p-0 sm:h-56 lg:h-64">
           <Image
             src={mainImage ?? "/placeholder.png"}

@@ -2,7 +2,6 @@
 
 import { RoomFacility } from "@/types/property";
 import Image from "next/image";
-import { FaSquareCheck } from "react-icons/fa6";
 import { Card, CardHeader } from "./ui/card";
 
 interface PropertyDetailCardProps {
@@ -77,7 +76,6 @@ const FacilitiesList = ({ facilities }: { facilities: RoomFacility[] }) => (
       {facilities.map((facility) => (
         <div key={facility.id} className="space-y-1">
           <div className="flex items-center justify-center gap-3 md:justify-start">
-            {/* <FaSquareCheck className="flex-shrink-0 text-green-500" /> */}
             <h5 className="line-clamp-1 font-medium">{facility.title}</h5>
           </div>
           <p className="line-clamp-3 pl-7 text-sm text-gray-600 md:pr-10">

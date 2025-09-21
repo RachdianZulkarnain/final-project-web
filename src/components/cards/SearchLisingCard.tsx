@@ -1,8 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
-import { FacilityBadge } from "../FacilityBadge";
-import { Badge } from "../ui/badge";
 
 interface IListingCard {
   imageUrl: string;
@@ -16,7 +14,6 @@ interface IListingCard {
   price_indexes?: { room_index: number; price_index: number };
 }
 
-// Fungsi toCurrency digabung langsung
 function toCurrency(val: number | undefined) {
   if (val === undefined) val = 0;
   return Number(val).toLocaleString("id-ID", {
@@ -61,12 +58,6 @@ export const SearchListingCard = ({
                   {city}, {country}
                 </span>
               </div>
-              {/* <CommentRatings
-                rating={avgRating}
-                disabled
-                showCurrentRating={false}
-                size={15}
-              /> */}
             </div>
           </div>
           <div className="block md:hidden">
@@ -81,16 +72,6 @@ export const SearchListingCard = ({
               </div>
             ) : (
               <div className="font-bold">{toCurrency(price)}</div>
-            )}
-          </div>
-          <div className="hidden md:flex gap-1">
-            {facilities?.slice(0, 4).map((x: any, i: number) => (
-              <FacilityBadge key={i} text={x.facility.facility} icon={false} />
-            ))}
-            {facilities && facilities.length > 4 && (
-              <Badge
-                variant={"secondary"}
-              >{`+ ${facilities.length - 4}`}</Badge>
             )}
           </div>
         </div>

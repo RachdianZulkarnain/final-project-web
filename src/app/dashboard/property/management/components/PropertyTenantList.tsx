@@ -8,7 +8,6 @@ import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTen
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// Tipe data API-safe
 interface PropertyTenant {
   id: number;
   title: string;
@@ -27,7 +26,6 @@ const PropertyTenantList = () => {
     sortOrder: "desc",
   });
 
-  // Sync page dengan URL
   useEffect(() => {
     const params = new URLSearchParams(Array.from(searchParams.entries()));
     params.set("page", page.toString());
@@ -90,7 +88,6 @@ const PropertyTenantList = () => {
         ))}
       </div>
 
-      {/* Pagination */}
       {data.meta && data.meta.total > data.meta.take && (
         <div className="flex justify-center mt-4 text-[#0290d1]">
           <Pagination

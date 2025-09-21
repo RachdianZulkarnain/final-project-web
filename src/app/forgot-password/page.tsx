@@ -13,9 +13,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import * as Yup from "yup";
-import useForgotPassword from "./_hooks/useForgotPassword";
+import useForgotPassword from "../../hooks/api/forgot-password/useForgotPassword";
 
-// Reusable OutlinedInput (floating label)
 const OutlinedInput = ({
   label,
   id,
@@ -111,7 +110,6 @@ const ForgotPasswordPage = () => {
             </button>
           </form>
 
-          {/* Divider */}
           <div className="relative mt-10">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>

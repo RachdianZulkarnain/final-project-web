@@ -13,13 +13,11 @@ const TextLink: React.FC<TextLinkProps> = ({ children }) => {
 export const Footer: React.FC = () => {
   const pathname = usePathname();
 
-  // 🚀 jika di halaman profile dan dashboard, jangan tampilkan footer
   if (pathname.startsWith("/profile") || pathname.startsWith("/dashboard"))
     return null;
 
   return (
     <div className="bg-[#0290d1] sticky rounded-t-[40px] z-10 -mt-[50px] grid grid-cols-2 md:grid-cols-5 gap-8 py-16 px-16 sm:px-8 lg:px-40 md:justify-items-center">
-      {/* About */}
       <div className="flex flex-col gap-8">
         <div className="font-bold text-white text-lg">About Homigo</div>
         <div className="text-input flex flex-col gap-2 items-start">
@@ -31,7 +29,6 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Support */}
       <div className="flex flex-col gap-8">
         <div className="font-bold text-secondary text-lg">Support</div>
         <div className="text-input grid gap-2">
@@ -44,7 +41,6 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Tenants */}
       <div className="flex flex-col gap-8">
         <div className="font-bold text-secondary text-lg">Tenants</div>
         <div className="text-input grid gap-2">
@@ -55,7 +51,6 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Explore */}
       <div className="flex flex-col gap-8">
         <div className="font-bold text-secondary text-lg">Explore</div>
         <div className="text-input grid gap-2">
@@ -66,7 +61,6 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Find Us */}
       <div className="flex flex-col gap-8">
         <div className="font-bold text-secondary text-lg">Find Us</div>
         <div className="text-input flex gap-2">

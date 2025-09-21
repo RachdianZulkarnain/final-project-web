@@ -4,12 +4,15 @@ import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
 import useCreateRoomNonAvailability from "@/hooks/api/room-non-availability/useCreateRoomNonAvailability";
 import { useFormik } from "formik";
+import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
+import { FiPlus } from "react-icons/fi";
 import { RoomIdSelect } from "../peak-season-rate/components/RoomIdSelect";
 import { DatePickerWithRangeForRoomNonAvailability } from "./components/DateRoomNonAvailability";
 import RoomNonAvailabilityList from "./components/RoomNonAvailability";
 import { RoomNonAvailabilitySchema } from "./schemas/RoomNonAvailabilitySchema";
-import { FiPlus } from "react-icons/fi";
+
+const MotionButton = motion(Button);
 
 export default function RoomNonAvailabilityPage() {
   const { mutateAsync: createRoomNonAvailability, isPending } =
@@ -37,7 +40,7 @@ export default function RoomNonAvailabilityPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-[#0290d11a] to-blue-50 rounded-2xl">
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-12">
         <div className="border-b border-gray-200 bg-gray-50 p-6 rounded-2xl">
           <div className="flex items-center justify-between">
@@ -86,13 +89,16 @@ export default function RoomNonAvailabilityPage() {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <Button
-                  className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
+                <MotionButton
+                  type="submit"
                   disabled={isPending}
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 transition-shadow border border-[#0290D1] shadow-[2px_2px_0_0_rgba(2,144,209,1)] bg-white hover:bg-[rgba(112,206,250,1)] w-full sm:w-auto text-black hover:text-white"
                 >
                   <FiPlus className="h-5 w-5" />
-                  {isPending ? "Processing..." : "Add"}
-                </Button>
+                  {isPending ? "Processing..." : ""}
+                </MotionButton>
               </div>
             </form>
           </div>

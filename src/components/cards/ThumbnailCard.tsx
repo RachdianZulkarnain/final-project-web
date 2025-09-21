@@ -1,11 +1,16 @@
+"use client";
+
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 interface IThumbnailCard {
   redirectUrl: string;
   imageUrl: string;
-  hoverAnim?: boolean | undefined;
-  text?: string | undefined;
+  hoverAnim?: boolean;
+  text?: string;
 }
 
 export const ThumbnailCard = ({
@@ -14,31 +19,51 @@ export const ThumbnailCard = ({
   hoverAnim,
   text,
 }: IThumbnailCard) => {
+  const [loading, setLoading] = useState(true);
+
   return (
     <Link href={redirectUrl}>
-      <div className="group relative border h-[120px] sm:h-[150px] xl:h-[200px] rounded-lg overflow-hidden">
-        <div className="relative brightness-80 h-full w-full overflow-hidden rounded-lg">
+      <motion.div
+        className="group relative aspect-[3/2] w-full overflow-hidden rounded-xl"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        whileHover={hoverAnim ? { scale: 1.03 } : {}}
+      >
+        {loading && (
+          <Skeleton className="absolute inset-0 h-full w-full rounded-xl" />
+        )}
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: loading ? 0 : 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative h-full w-full"
+        >
           <Image
             src={imageUrl}
-            width={100}
-            height={100}
             alt="Destination"
+            fill
             unoptimized
-            className={
-              hoverAnim
-                ? "group-hover:scale-110 h-full w-full object-cover rounded-lg transition-transform duration-500 ease-in-out transform hover:scale-110"
-                : `h-full w-full object-cover rounded-lg`
-            }
+            onLoadingComplete={() => setLoading(false)}
+            className={`object-cover transition-transform duration-500 ease-in-out 
+              ${hoverAnim ? "group-hover:scale-110" : ""}`}
           />
-        </div>
-        {text && (
-          <div className="shadow-md absolute inset-0 flex items-center justify-center">
-            <div className="flex items-center justify-center w-full h-full text-white text-3xl font-semibold">
+        </motion.div>
+
+        {text && !loading && (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-black/40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <span className="text-white text-2xl font-semibold drop-shadow-md">
               {text}
-            </div>
-          </div>
+            </span>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </Link>
   );
 };

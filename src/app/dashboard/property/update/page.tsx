@@ -9,13 +9,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useDeleteProperty from "@/hooks/api/property/useDeleteProperty";
 import useGetPropertyTenant from "@/hooks/api/property/useGetPropertyTenant";
 import useUpdateProperty from "@/hooks/api/property/useUpdateProperty";
-import { useFormik } from "formik";
-import Image from "next/image";
-import { ChangeEvent, FC, useRef, useState, useEffect } from "react";
-import { EditPropertyCategorySelect } from "../management/components/EditPropertyCategorySelect";
-import dynamic from "next/dynamic";
 import axios from "axios";
+import { useFormik } from "formik";
 import { Save, Trash2 } from "lucide-react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { EditPropertyCategorySelect } from "../management/components/EditPropertyCategorySelect";
 
 const DynamicMapComponent = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -31,6 +31,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
   const { mutateAsync: deleteProperty, isPending: deletePending } =
     useDeleteProperty();
   const { data, isPending: dataIsPending } = useGetPropertyTenant(propertyId);
+
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const imageRef = useRef<HTMLInputElement>(null);
   const [selectedPosition, setSelectedPosition] = useState<[string, string]>([
@@ -59,9 +60,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
   });
 
   useEffect(() => {
-    if (data) {
-      setSelectedPosition([data.latitude, data.longitude]);
-    }
+    if (data) setSelectedPosition([data.latitude, data.longitude]);
   }, [data]);
 
   const fetchAddress = async (lat: string, lng: string) => {
@@ -70,7 +69,6 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
         `https://api.opencagedata.com/geocode/v1/json?q=${lat},${lng}&key=${process.env.NEXT_PUBLIC_OPENCAGE_API_KEY!}&language=id&pretty=1`
       );
       const results = data.results[0]?.components || {};
-
       const location = [
         results.suburb,
         results.city_district,
@@ -79,11 +77,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
       ]
         .filter(Boolean)
         .join(", ");
-
-      formik.setValues((prevValues) => ({
-        ...prevValues,
-        location: location,
-      }));
+      formik.setValues((prev) => ({ ...prev, location }));
     } catch (err) {
       console.error("Error fetching address:", err);
     }
@@ -91,11 +85,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
 
   const handlePositionChange = (lat: string, lng: string) => {
     setSelectedPosition([lat, lng]);
-    formik.setValues((prevValues) => ({
-      ...prevValues,
-      latitude: lat,
-      longitude: lng,
-    }));
+    formik.setValues((prev) => ({ ...prev, latitude: lat, longitude: lng }));
     fetchAddress(lat, lng);
   };
 
@@ -104,8 +94,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
     if (files && files.length) {
       const fileArray = Array.from(files);
       formik.setFieldValue("imageUrl", fileArray);
-      const imageUrls = fileArray.map((file) => URL.createObjectURL(file));
-      setSelectedImages(imageUrls);
+      setSelectedImages(fileArray.map((file) => URL.createObjectURL(file)));
     }
   };
 
@@ -122,9 +111,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
   const removeAllImages = () => {
     formik.setFieldValue("imageUrl", []);
     setSelectedImages([]);
-    if (imageRef.current) {
-      imageRef.current.value = "";
-    }
+    if (imageRef.current) imageRef.current.value = "";
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -137,17 +124,9 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
     formik.setFieldValue("slug", slug);
   };
 
-  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-      .toLowerCase()
-      .replace(/[^a-zA-Z0-9-]/g, "")
-      .replace(/--+/g, "-");
-    formik.setFieldValue("slug", value);
-  };
-
   if (dataIsPending) {
     return (
-      <div className="container mx-auto max-w-7xl space-y-6 p-6">
+      <div className="container mx-auto max-w-7xl space-y-6 p-6 ">
         <Skeleton className="h-[300px] w-full overflow-hidden rounded-2xl bg-slate-200" />
         <Skeleton className="h-[300px] w-full overflow-hidden rounded-2xl bg-slate-200" />
       </div>
@@ -163,9 +142,35 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-white shadow">
+        <div className="container mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-[#0290d1]">
+              Update Property
+            </h1>
+            <p className="text-sm text-gray-600">
+              Manage property details, images, location, and category
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={async () => await deleteProperty(propertyId)}
+            disabled={deletePending}
+            className="flex items-center gap-2"
+          >
+            <Trash2 className="h-4 w-4" />
+            {deletePending ? "Deleting..." : ""}
+          </Button>
+        </div>
+      </div>
+
       <section className="container mx-auto max-w-7xl p-6">
-        <form onSubmit={formik.handleSubmit} className="space-y-5">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="space-y-5 bg-white shadow-sm rounded-xl p-6"
+        >
           <div className="space-y-5">
             {selectedImages.length > 0 ? (
               <div className="space-y-4">
@@ -212,6 +217,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
                 ))}
               </div>
             ) : null}
+
             <div className="mx-auto max-w-xs">
               <Label>Property Images</Label>
               <Input
@@ -235,21 +241,12 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
             onBlur={formik.handleBlur}
             onChange={handleTitleChange}
           />
-          {/* <FormInput
-            name="slug"
-            label="Slug"
-            type="text"
-            placeholder="custom-url-slug"
-            value={formik.values.slug}
-            isError={!!formik.touched.slug && !!formik.errors.slug}
-            error={formik.errors.slug}
-            onBlur={formik.handleBlur}
-            onChange={handleSlugChange}
-          /> */}
+
           <EditPropertyCategorySelect
             setFieldValue={formik.setFieldValue}
             initialValue={data.propertyCategory?.id}
           />
+
           <FormTextarea
             name="description"
             label="Description"
@@ -308,19 +305,7 @@ const UpdatePropertyPage: FC<PropertyDetailPageProps> = ({ propertyId }) => {
             />
           </div>
 
-          <div className="flex justify-between">
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={async () => {
-                await deleteProperty(propertyId);
-              }}
-              disabled={deletePending}
-            >
-              <Trash2 className="h-4 w-4" />
-              {deletePending ? "Deleting..." : ""}
-            </Button>
-
+          <div className="flex justify-end gap-4">
             <Button type="submit" disabled={isPending}>
               <Save />
               {isPending ? "Updating..." : ""}

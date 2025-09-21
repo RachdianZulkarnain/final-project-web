@@ -76,7 +76,6 @@ const RegisterPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-10 px-6 sm:px-10">
-          {/* === FORM START === */}
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
@@ -141,9 +140,7 @@ const RegisterPage = () => {
               </button>
             </div>
           </form>
-          {/* === FORM END === */}
 
-          {/* Google Sign Up */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
               onClick={() => signIn("google", { callbackUrl: "/" })}
@@ -172,12 +169,10 @@ const RegisterPage = () => {
                   d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 ></path>
               </svg>
-              {/* google svg */}
               Sign up with Google
             </Button>
           </div>
 
-          {/* Or separator */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>

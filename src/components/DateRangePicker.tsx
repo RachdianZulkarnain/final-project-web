@@ -28,7 +28,6 @@ export function DatePickerWithRange({
     to: addDays(new Date(), 1),
   });
 
-  // Sinkron ke Formik
   React.useEffect(() => {
     if (date?.from && date?.to) {
       setFieldValue("duration", { from: date.from, to: date.to });

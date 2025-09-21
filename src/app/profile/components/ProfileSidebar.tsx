@@ -17,16 +17,12 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const navbarItems = [
-    { name: "My Profile", icon: User },
-    // { name: "Notifications", icon: Bell },
-  ];
+  const navbarItems = [{ name: "My Profile", icon: User }];
 
   const handleLogout = () => signOut({ callbackUrl: "/sign-in" });
 
   return (
     <div className="relative">
-      {/* Hamburger button for mobile */}
       <button
         onClick={() => setIsSidebarOpen(true)}
         className="md:hidden p-4 z-50 fixed top-4 left-4 text-white"
@@ -34,19 +30,16 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
         <Menu className="w-6 h-6" />
       </button>
 
-      {/* Sidebar */}
       <aside
         className={`fixed md:static top-0 left-0 h-screen w-64 bg-white p-6 shadow-lg rounded-r-xl z-40 transition-transform duration-300 ease-in-out
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 flex flex-col justify-between overflow-y-auto`}
       >
-        {/* Close button on mobile */}
         <div className="md:hidden flex justify-end mb-12">
           <button onClick={() => setIsSidebarOpen(false)}>
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        {/* Logo */}
         <div className="flex items-center mb-10 pl-2">
           <Link href="/" className="flex items-center gap-2 text-white">
             <Image
@@ -60,7 +53,6 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
           </Link>
         </div>
 
-        {/* Navigation */}
         <nav className="flex flex-col flex-1">
           <ul>
             {navbarItems.map((item, index) => (
@@ -80,7 +72,6 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
             ))}
           </ul>
 
-          {/* Logout for mobile */}
           <div className="md:hidden mt-auto pt-4 border-t border-gray-200">
             <button
               onClick={handleLogout}
@@ -92,7 +83,6 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
           </div>
         </nav>
 
-        {/* Logout for desktop */}
         <div className="hidden md:block mt-auto pt-4 border-t border-gray-200">
           <button
             onClick={handleLogout}
@@ -104,7 +94,6 @@ const ProfileSidebar: FC<ProfileSidebarProps> = ({
         </div>
       </aside>
 
-      {/* Overlay for mobile when sidebar is open */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 md:hidden"

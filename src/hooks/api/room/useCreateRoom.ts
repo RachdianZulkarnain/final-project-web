@@ -50,7 +50,7 @@ const useCreateRoom = () => {
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["room"] });
       toast.success("Create room success");
-      router.push("/dashboard/property/room");
+      router.push("/dashboard/property");
     },
     onError: (error: AxiosError<any>) => {
       toast.error(error.response?.data?.message || "Create room failed");

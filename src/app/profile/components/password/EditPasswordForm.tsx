@@ -2,13 +2,13 @@
 
 import { Form, Formik } from "formik";
 import { motion } from "framer-motion";
+import { Save } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
 import useChangePassword from "../../../../hooks/api/change-password/useChangePassword";
 import { validationSchema } from "../../schema";
 import PasswordFieldInput from "./PasswordFieldInput";
-import { Save } from "lucide-react";
 
 interface EditPasswordFormProps {
   onClose: () => void;
@@ -61,7 +61,6 @@ export const EditPasswordForm: FC<EditPasswordFormProps> = ({
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, setErrors }) => {
-            // Validasi confirmPassword di frontend
             if (values.newPassword !== values.confirmPassword) {
               setErrors({
                 confirmPassword: "New password and confirm password must match",
@@ -102,7 +101,7 @@ export const EditPasswordForm: FC<EditPasswordFormProps> = ({
         >
           {() => (
             <Form>
-              <PasswordFieldInput name="oldPassword" label="Current Password"  />
+              <PasswordFieldInput name="oldPassword" label="Current Password" />
               <PasswordFieldInput name="newPassword" label="New Password" />
               <PasswordFieldInput
                 name="confirmPassword"

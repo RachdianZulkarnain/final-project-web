@@ -2,9 +2,9 @@
 import Loading from "@/app/loading";
 import Image from "next/image";
 import SearchBar from "../searchbar/SearchBar";
-import { ExploreCity } from "./sections/sections/ExploreSection";
-import { FeaturedRooms } from "./sections/sections/FeaturedSection";
-import { BestDeals } from "./sections/sections/PromoSection";
+import { ExploreCity } from "./sections/ExploreSection";
+import { FeaturedRooms } from "./sections/FeaturedSection";
+import { BestDeals } from "./sections/PromoSection";
 import { useGetHeroImage } from "./unsplash/hooks/useGetHeroImage";
 
 export default function LandingPage() {
@@ -33,9 +33,9 @@ export default function LandingPage() {
       </div>
       <div
         id="bigCard"
-        className="relative w-full mt-[-35px] bg-white py-16 z-10 rounded-[30px]"
+        className="relative w-full  bg-gradient-to-br from-[#0290d11a] to-blue-50 py-16 z-10  "
       >
-        <div className="w-[80vw] mx-auto ">
+        <div className="w-[80vw] mx-auto  ">
           <ExploreCity />
           <FeaturedRooms />
           <BestDeals />

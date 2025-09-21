@@ -1,14 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import useCreateCategory from "@/hooks/api/category/useCreateCatgory";
 import { useFormik } from "formik";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { FiPlus } from "react-icons/fi";
 import PropertyCategoryList from "./components/PropertyCategoryList";
-import useCreateCategory from "@/hooks/api/category/useCreateCatgory";
 import { PropertyCategorySchema } from "./schemas/PropertyCategoryScema";
-import { Loader2 } from "lucide-react";
 
 const OutlinedInput = ({
   label,
@@ -35,6 +36,8 @@ const OutlinedInput = ({
   );
 };
 
+const MotionButton = motion(Button);
+
 export default function CategoryPage() {
   const session = useSession();
   const { mutateAsync: createCategory, isPending } = useCreateCategory();
@@ -57,51 +60,57 @@ export default function CategoryPage() {
   });
 
   return (
-    <div className="flex h-screen">
-      <div className="flex flex-grow flex-col bg-gray-100 dark:bg-gray-900 rounded-2xl">
-        <section className="container mx-auto max-w-7xl space-y-10 p-6">
-          <form onSubmit={formik.handleSubmit}>
-            <div className="border-b border-gray-200 bg-gray-50 p-6 rounded-2xl">
-              <h2 className="text-xl font-semibold text-[#0290d1]">
+    <div className="flex flex-grow flex-col bg-gray-100 dark:bg-gray-900 rounded-2xl">
+      <section className="container mx-auto max-w-7xl space-y-6 p-4 sm:p-6">
+        <div className="border-b border-gray-200 bg-gray-50 p-4 sm:p-6 rounded-2xl">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-lg sm:text-xl font-semibold text-[#0290d1]">
                 Manage Category
               </h2>
               <p className="mt-1 text-sm text-gray-600">
                 Monitor all your categories
               </p>
             </div>
-            <div className="mt-6 space-y-3">
-              <OutlinedInput
-                id="name"
-                label="Add Category"
-                type="text"
-                {...formik.getFieldProps("name")}
-              />
-              {formik.touched.name && formik.errors.name && (
-                <p className="text-xs text-red-500">{formik.errors.name}</p>
+            <MotionButton
+              className="flex items-center gap-2 shadow-sm transition-shadow bg-[#0290d1] hover:bg-[#70cefa] w-full sm:w-auto text-white"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              onClick={formik.submitForm}
+              disabled={isPending || !formik.isValid}
+            >
+              {isPending ? (
+                <>
+                  Loading...
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                </>
+              ) : (
+                <>
+                  <FiPlus className="h-5 w-5" />
+                  <span className="hidden xs:inline">Add Category</span>
+                </>
               )}
-              <Button
-                className="mt-3 w-full bg-[#0290d1] hover:bg-[#70cefa] flex items-center justify-center gap-2"
-                type="submit"
-                disabled={isPending || !formik.isValid}
-              >
-                {isPending ? (
-                  <>
-                    Loading...
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  </>
-                ) : (
-                  <>
-                    <FiPlus className="h-5 w-5" />
-                    Add
-                  </>
-                )}
-              </Button>
-            </div>
-          </form>
+            </MotionButton>
+          </div>
+        </div>
 
-          <PropertyCategoryList propertyCategoryId={propertyCategoryId} />
-        </section>
-      </div>
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm">
+          <OutlinedInput
+            id="name"
+            label="Add Category"
+            type="text"
+            {...formik.getFieldProps("name")}
+          />
+          {formik.touched.name && formik.errors.name && (
+            <p className="text-xs text-red-500 mt-2">{formik.errors.name}</p>
+          )}
+
+          <div className="mt-4">
+            <PropertyCategoryList propertyCategoryId={propertyCategoryId} />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

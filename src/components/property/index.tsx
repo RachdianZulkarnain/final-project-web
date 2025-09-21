@@ -53,14 +53,14 @@ export default function PropertyListPage() {
 
   if (isError) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white to-[#CDF5FD]">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.4 }}
-          className="mx-4 max-w-md rounded-2xl bg-white p-8 text-center shadow-lg"
+          className="mx-4 max-w-md rounded-xl bg-white p-8 text-center shadow-md"
         >
-          <h1 className="text-3xl font-bold text-[#00A9FF]">Oops!</h1>
+          <h1 className="text-2xl font-bold text-[#0290d1]">Oops!</h1>
           <p className="mt-4 text-gray-600">
             Failed to load properties. Please try again later.
           </p>
@@ -70,25 +70,29 @@ export default function PropertyListPage() {
   }
 
   return (
-    <div className="my-16 flex flex-col gap-2 px-4 sm:px-6 lg:px-16">
-      {/* Section Title */}
-      <div className="text-2xl sm:text-3xl font-bold text-[#0290d1]">
-        Featured Properties
+    <div className="my-20 flex flex-col gap-8 px-4 sm:px-6 lg:px-12">
+      {/* Section Header */}
+      <div className="text-center sm:text-left">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#0290d1]">
+          Featured Properties
+        </h2>
       </div>
 
+      {/* Loading State */}
       {isLoading ? (
-        <div className="flex h-64 flex-col items-center justify-center">
-          <Loader2 className="h-10 w-10 animate-spin text-[#00A9FF]" />
-          <span className="mt-4 text-base sm:text-lg font-medium text-gray-600">
-            Loading amazing properties...
+        <div className="flex h-72 flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-gray-50">
+          <Loader2 className="h-12 w-12 animate-spin text-[#0290d1]" />
+          <span className="mt-4 text-base sm:text-lg font-medium text-gray-700">
+            Loading properties...
           </span>
         </div>
       ) : !properties.length ? (
-        <div className="flex h-64 flex-col items-center justify-center text-center">
-          <div className="rounded-full bg-[#A0E9FF]/20 p-4">
-            <Search className="h-12 w-12 text-[#00A9FF]" />
+        /* Empty State */
+        <div className="flex h-72 flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center">
+          <div className="rounded-full bg-[#0290d1]/10 p-5">
+            <Search className="h-12 w-12 text-[#0290d1]" />
           </div>
-          <p className="mt-6 text-lg sm:text-xl font-medium text-gray-800">
+          <p className="mt-6 text-lg sm:text-xl font-semibold text-gray-800">
             No properties found
           </p>
           <p className="mt-2 text-sm sm:text-base text-gray-600">
@@ -99,47 +103,39 @@ export default function PropertyListPage() {
         <>
           {/* Carousel */}
           <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 5000,
-              }),
-            ]}
+            opts={{ align: "start", loop: true }}
+            plugins={[Autoplay({ delay: 5000 })]}
             className="mx-auto w-full"
           >
             <CarouselContent className="-ml-2 sm:-ml-4">
               {properties.slice(0, 7).map((property, i) => (
                 <CarouselItem
                   key={property.id}
-                  className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 px-2"
+                  className="px-2 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
                   >
                     <PropertyCard property={property} />
                   </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
           </Carousel>
 
-          {/* CTA Button */}
-          <div className="mt-8 flex justify-center text-[#00A9FF]">
+          {/* Button */}
+          <div className="mt-10 flex justify-center">
             <Button
               onClick={handleExploreMore}
-              variant="outline"
               size="lg"
-              className="rounded-full text-base sm:text-lg font-semibold flex items-center"
+              className="rounded-full bg-[#0290d1] hover:bg-[#027bb3] text-white text-base sm:text-lg font-semibold shadow-md flex items-center px-8 py-5"
             >
               See More Properties
-              <ArrowRight className="ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+              <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
             </Button>
           </div>
         </>

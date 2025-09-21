@@ -78,7 +78,6 @@ const RegisterTenant = () => {
         </CardHeader>
 
         <CardContent className="space-y-10 px-6 sm:px-10">
-          {/* === FORM START === */}
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
@@ -182,9 +181,7 @@ const RegisterTenant = () => {
               </button>
             </div>
           </form>
-          {/* === FORM END === */}
 
-          {/* Or separator */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>

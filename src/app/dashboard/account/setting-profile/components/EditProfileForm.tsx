@@ -30,7 +30,7 @@ import useGetTenant from "@/hooks/api/account/useGetTenant";
 import { useUpdateTenant } from "@/hooks/api/account/useUpdateTenant";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { toast } from "sonner"; // <-- Ganti ke Sonner
+import { toast } from "sonner";
 import { Icons } from "./icons";
 
 import {

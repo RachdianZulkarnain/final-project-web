@@ -9,7 +9,6 @@ import BasicInfoSection from "./components/general/BasicInfoSection";
 import HeadSection from "./components/HeadSection";
 import Loading from "./components/Loading";
 import LoadingSpinner from "./components/LoadingSpinner";
-import NotifListSection from "./components/notification/NotifList";
 import ProfileSidebar from "./components/ProfileSidebar";
 
 const ProfilePage = () => {
@@ -88,11 +87,7 @@ const ProfilePage = () => {
             </>
           )}
           {activeIndex === 2 && userId && <div className="w-full py-12"></div>}
-          {activeIndex === 3 && userId && (
-            <div className="w-full py-12">
-              <NotifListSection />
-            </div>
-          )}
+          {activeIndex === 3 && userId && <div className="w-full py-12"></div>}
         </div>
       </div>
 

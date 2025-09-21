@@ -102,7 +102,6 @@ export default function Header() {
       }`}
     >
       <div className="flex items-center justify-between px-8 py-4 lg:px-32">
-        {/* Logo */}
         <Link
           href="/"
           className={`flex items-center gap-2 transition-all duration-500 ${
@@ -127,7 +126,6 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <DropdownMenu>
@@ -218,12 +216,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
       {isOpen && (
         <div className="md:hidden shadow-lg rounded-b-2xl px-6 py-6 space-y-4 bg-white">
           {user ? (
             <>
-              {/* Avatar Section */}
               <Link href="/profile">
                 <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
                   <Avatar className="h-12 w-12">
@@ -249,27 +245,6 @@ export default function Header() {
                 </div>
               </Link>
 
-              {/* Nav Links */}
-              {/* <nav className="flex flex-col space-y-3">
-                <Link
-                  href="/profile"
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-700 hover:text-[#0290d1] transition-colors"
-                >
-                  Profile
-                </Link>
-                {user?.role === "tenant" && (
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setIsOpen(false)}
-                    className="text-gray-700 hover:text-[#0290d1] transition-colors"
-                  >
-                    Dashboard
-                  </Link>
-                )}
-              </nav> */}
-
-              {/* Sign Out Button */}
               <div className="pt-4 border-t border-gray-200">
                 <Button
                   variant="destructive"

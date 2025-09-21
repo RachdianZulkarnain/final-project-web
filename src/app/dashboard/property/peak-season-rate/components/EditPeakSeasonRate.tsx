@@ -46,11 +46,11 @@ export const EditPeakSeasonButton: FC<EditPeakSeasonButtonProps> = ({ id }) => {
     ) => {
       const dataToSubmit = {
         ...values,
-        price: Number(values.price), // pastikan number
+        price: Number(values.price),
       };
       await updateCategory(dataToSubmit);
       setIsOpen(false);
-      helpers.resetForm({ values }); // reset form jika perlu
+      helpers.resetForm({ values });
     },
   });
 
@@ -77,7 +77,7 @@ export const EditPeakSeasonButton: FC<EditPeakSeasonButtonProps> = ({ id }) => {
               label="Price"
               type="number"
               placeholder="Price for Peak Season"
-              value={formik.values.price} // sekarang pasti number
+              value={formik.values.price}
               isError={!!formik.touched.price && !!formik.errors.price}
               error={formik.errors.price}
               onBlur={formik.handleBlur}

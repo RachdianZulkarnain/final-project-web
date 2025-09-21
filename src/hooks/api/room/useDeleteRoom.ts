@@ -19,7 +19,7 @@ const useDeleteRoom = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["room"] });
       toast.success("Delete Room success");
-      router.push("/dashboard/property/room");
+      router.push("/dashboard/property");
     },
     onError: (error: AxiosError<any>) => {
       toast.error(error.response?.data || "Delete Room failed");

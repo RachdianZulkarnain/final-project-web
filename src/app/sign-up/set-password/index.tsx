@@ -17,7 +17,6 @@ interface SetPasswordPageProps {
   token: string;
 }
 
-// Reusable OutlinedInput component
 const OutlinedInput = ({
   label,
   id,
@@ -93,7 +92,6 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
 
         <CardContent>
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
-            {/* Password */}
             <div className="relative">
               <OutlinedInput
                 id="password"
@@ -120,7 +118,6 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
               )}
             </div>
 
-            {/* Confirm Password */}
             <div className="relative">
               <OutlinedInput
                 id="confirmPassword"
@@ -148,7 +145,6 @@ const SetPasswordPage: FC<SetPasswordPageProps> = ({ token }) => {
                 )}
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}

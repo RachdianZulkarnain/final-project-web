@@ -4,16 +4,19 @@ import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { useCreatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useCreatePeakSeasonRate";
 import { useFormik } from "formik";
+import { motion } from "framer-motion";
+import { FiPlus } from "react-icons/fi";
 import { DatePickerWithRangeForPeakSeason } from "./components/DateRangePickerPeakSeason";
 import PeakSeasonsRateList from "./components/PeakSeasonRateList";
 import { RoomIdSelect } from "./components/RoomIdSelect";
 import { PeakSeasonRateSchema } from "./schemas/PeakSeasonRateSchema";
 
+const MotionButton = motion(Button);
+
 export default function PeakSeasonRatePage(props: any) {
   const { mutateAsync: createPeakSeasonRate, isPending } =
     useCreatePeakSeasonRate();
 
-  // Ambil roomId dari searchParams (Next.js inject otomatis)
   const roomIdParam = props?.searchParams?.roomId;
   const roomId = roomIdParam ? Number(roomIdParam) : undefined;
 
@@ -36,13 +39,13 @@ export default function PeakSeasonRatePage(props: any) {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-[#0290d11a] to-blue-50 rounded-2xl">
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-12">
         <header className="mb-8">
           <div className="border-b border-gray-200 bg-gray-50 p-6 rounded-2xl">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-semibold  text-[#0290d1]">
+                <h2 className="text-xl font-semibold text-[#0290d1]">
                   Peak Season Management
                 </h2>
                 <p className="mt-1 text-sm text-gray-600">
@@ -87,12 +90,16 @@ export default function PeakSeasonRatePage(props: any) {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <Button
-                  className="px-6 transition-all bg-[#0290d1] hover:bg-[#70cefa]"
+                <MotionButton
+                  type="submit"
                   disabled={isPending}
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 transition-shadow border border-[#0290D1] shadow-[2px_2px_0_0_rgba(2,144,209,1)] bg-white hover:bg-[rgba(112,206,250,1)] w-full sm:w-auto text-black hover:text-white"
                 >
-                  {isPending ? "Processing..." : "Add Peak Season"}
-                </Button>
+                  <FiPlus className="h-5 w-5" />
+                  {isPending ? "Processing..." : ""}
+                </MotionButton>
               </div>
             </form>
           </div>

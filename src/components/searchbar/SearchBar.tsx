@@ -42,12 +42,10 @@ export default function SearchBarResponsive() {
 
   return (
     <div className="mx-auto mt-2 max-w-5xl px-4">
-      {/* Mobile version */}
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 md:hidden"
       >
-        {/* Location */}
         <div className="flex flex-col bg-white rounded-4xl shadow px-3">
           <Input
             name="title"
@@ -59,12 +57,10 @@ export default function SearchBarResponsive() {
           />
         </div>
 
-        {/* Duration */}
         <div className="flex flex-col bg-white rounded-4xl shadow px-3">
           <DatePickerWithRange setFieldValue={formik.setFieldValue} />
         </div>
 
-        {/* Guests */}
         <div className="flex flex-col bg-white rounded-4xl shadow px-2">
           <Popover>
             <PopoverTrigger asChild>
@@ -101,7 +97,6 @@ export default function SearchBarResponsive() {
           </Popover>
         </div>
 
-        {/* Search Button */}
         <Button
           type="submit"
           className="flex items-center justify-center bg-[#0290d1] hover:bg-[#70cefa] text-white rounded-3xl w-full h-12"
@@ -110,12 +105,10 @@ export default function SearchBarResponsive() {
         </Button>
       </form>
 
-      {/* Desktop version */}
       <form
         onSubmit={formik.handleSubmit}
         className="hidden md:flex items-center justify-between rounded-full bg-white shadow-lg overflow-hidden"
       >
-        {/* Location */}
         <div className="flex flex-col flex-1 px-6 py-3 border-r">
           <Input
             name="title"
@@ -127,12 +120,10 @@ export default function SearchBarResponsive() {
           />
         </div>
 
-        {/* Duration */}
         <div className="flex flex-col flex-1 px-6 py-3 border-r">
           <DatePickerWithRange setFieldValue={formik.setFieldValue} />
         </div>
 
-        {/* Guests */}
         <div className="flex flex-col flex-1 px-6 py-3">
           <Popover>
             <PopoverTrigger asChild>
@@ -169,7 +160,6 @@ export default function SearchBarResponsive() {
           </Popover>
         </div>
 
-        {/* Search Button */}
         <Button
           type="submit"
           className="flex items-center justify-center bg-[#0290d1] text-white rounded-full w-14 h-14 mr-2 hover:bg-[#70cefa]"

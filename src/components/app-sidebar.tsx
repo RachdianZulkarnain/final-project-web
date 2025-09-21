@@ -1,90 +1,56 @@
 "use client";
 
 import {
+  IconBed,
   IconBuilding,
+  IconCalendarCheck,
   IconCalendarWeek,
-  IconClipboardList,
-  IconDashboard,
-  IconReceipt2,
+  IconCategory,
   IconUser,
 } from "@tabler/icons-react";
 import * as React from "react";
 
-import { useGetDashboardProfile } from "@/app/dashboard/settings/_hooks/useGetDashboardProfile";
 import { NavMain } from "@/components/nav-main";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import Image from "next/image";
+import useGetTenant from "@/hooks/api/account/useGetTenant";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { NavUser } from "./nav-user";
 import { url } from "inspector";
-import Link from "next/link";
 
 const data = {
   navMain: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: IconDashboard,
-    },
-    {
-      title: "My Profile",
-      url: "/dashboard/account",
-      icon: IconUser,
-    },
-
+    { title: "My Profile", url: "/dashboard/account", icon: IconUser },
     {
       title: "My Properties",
       icon: IconBuilding,
       url: "/dashboard/property",
-      children: [
-        {
-          title: "Manage category",
-          url: "/dashboard/property/category",
-        },
-        {
-          title: "Manage Property",
-          url: "/dashboard/property/management",
-        },
-        {
-          title: "Manage Room",
-          url: "/dashboard/property/room",
-        },
-
-        {
-          title: "Room Availability",
-          url: "/dashboard/property/room-non-availability",
-        },
-      ],
+    },
+    {
+      title: "Room Non Availability",
+      url: "/dashboard/property/room-non-availability",
+      icon: IconCalendarCheck,
     },
     {
       title: "Peak Season Rate",
       url: "/dashboard/property/peak-season-rate",
       icon: IconCalendarWeek,
     },
-    {
-      title: "Sales Report",
-      url: "/dashboard/report",
-      icon: IconClipboardList,
-    },
-    {
-      title: "My Order",
-      url: "/dashboard/transactions",
-      icon: IconReceipt2,
-    },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: profile } = useGetDashboardProfile();
+  const { data: tenant } = useGetTenant();
+  const { data: session } = useSession();
 
-  const user = {
-    name: profile?.firstName ?? "Loading...",
-    email: profile?.email ?? "",
-    avatar: profile?.imageUrl ?? "/avatars/default.jpg",
-  };
+  const tenantName = tenant?.name || "Tenant";
+  const tenantEmail = session?.user?.email || "tenant@example.com";
+  const tenantImage = tenant?.imageUrl || "/assets/avatar.png";
 
   return (
     <Sidebar
@@ -92,26 +58,33 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="bg-card/50 backdrop-blur-sm border-r border-border shadow-md"
       {...props}
     >
-      {/* Logo / Branding */}
-      <Link href="/dashboard">
-        <div className="px-4 py-3 border-b border-border flex items-center space-x-2 ml-2">
-          <Image
-            src="/assets/Homigo Logo1.png"
-            alt="Homigo Logo"
-            width={40}
-            height={40}
-            className="object-contain flex items-center justify-center"
-          />
-          <span className="font-bold text-lg text-[#0290d1] ">Homigo</span>
+      <Link
+        href="/dashboard"
+        className="px-4 py-3 border-b border-border flex items-center gap-2 ml-2"
+      >
+        <Avatar className="w-12 h-12 border border-[#0290d1]">
+          <AvatarImage src={tenantImage} alt={tenantName} />
+          <AvatarFallback className="bg-primary text-white text-sm">
+            {tenantName
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col min-w-0">
+          <span className="font-bold text-lg text-[#0290d1] truncate max-w-[120px]">
+            {tenantName}
+          </span>
+          <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+            {tenantEmail}
+          </span>
         </div>
       </Link>
 
-      {/* Navigation */}
-      <SidebarContent className="px-3 py-10 ">
+      <SidebarContent className="px-3 py-10">
         <NavMain items={data.navMain} />
       </SidebarContent>
 
-      {/* Footer with User Info */}
       <SidebarFooter className="border-t border-border px-3 py-4 bg-card/30">
         <NavUser />
       </SidebarFooter>

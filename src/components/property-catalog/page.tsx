@@ -156,7 +156,7 @@ export default function PropertyCatalogPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-[#0290d185] to-blue-50 mt-13">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-[#0290d11a] to-blue-50 mt-13">
       {/* Search + Navigation */}
       <div className="mx-auto w-full max-w-7xl px-4 pt-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-2">

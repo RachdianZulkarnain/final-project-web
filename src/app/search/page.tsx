@@ -2,11 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { SearchListingCard } from "@/components/cards/SearchLisingCard";
-import {
-  useGetListingsBySearch,
-  useGetListingsCategory,
-  useGetListingsFacilities,
-} from "@/components/listings/hooks/useGetListings";
+
 import SearchBarVariant from "@/components/searchbar/searchBarVariant";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -23,9 +19,13 @@ import { Slider } from "@/components/ui/slider";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Loading from "../loading";
+import {
+  useGetListingsBySearch,
+  useGetListingsCategory,
+  useGetListingsFacilities,
+} from "./_hooks/useGetListings";
 import { SortSearch } from "./sections/sortSelect";
 
-// ==================== TO CURRENCY FUNCTION ====================
 function toCurrency(val: number | undefined) {
   if (val === undefined) val = 0;
   return Number(val).toLocaleString("id-ID", {
@@ -33,7 +33,6 @@ function toCurrency(val: number | undefined) {
     currency: "IDR",
   });
 }
-// ===============================================================
 
 export default function Page() {
   const searchParams = useSearchParams();

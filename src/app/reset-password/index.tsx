@@ -77,7 +77,6 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = ({ token }) => {
           </div>
 
           <form className="space-y-8" onSubmit={formik.handleSubmit}>
-            {/* New Password */}
             <div className="relative">
               <label htmlFor="newPassword" className="sr-only">
                 New Password
@@ -103,7 +102,6 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = ({ token }) => {
               )}
             </div>
 
-            {/* Confirm Password */}
             <div className="relative mt-4">
               <label htmlFor="confirmPassword" className="sr-only">
                 Confirm Password
@@ -130,7 +128,6 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = ({ token }) => {
                 )}
             </div>
 
-            {/* Submit Button */}
             <div>
               <button
                 type="submit"

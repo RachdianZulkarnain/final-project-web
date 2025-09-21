@@ -23,12 +23,10 @@ export const BestDeals = () => {
 
   return (
     <div className="my-16 flex flex-col gap-6 px-4 sm:px-0">
-      {/* Section Title */}
       <div className="text-3xl font-bold text-[#0290d1] text-center sm:text-left">
         Best deals for you
       </div>
 
-      {/* Carousel */}
       <div className="w-full">
         <Carousel
           opts={{ align: "start", loop: true }}
@@ -53,13 +51,11 @@ export const BestDeals = () => {
         </Carousel>
       </div>
 
-      {/* CTA Button */}
       <div className="flex justify-center mt-4">
         <Link href="/">
           <Button
-            variant="outline"
             size="lg"
-            className="rounded-full w-full sm:w-auto text-lg font-semibold flex items-center justify-center text-[#0290d1]"
+            className="rounded-full bg-[#0290d1] hover:bg-[#027bb3] text-white text-base sm:text-lg font-semibold shadow-md flex items-center px-8 py-5"
           >
             See more promos
             <ArrowRight className="ml-3" />

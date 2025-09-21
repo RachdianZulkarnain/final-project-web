@@ -14,13 +14,13 @@ const useResendEmailVerif = () => {
       return data;
     },
     onSuccess: () => {
-      toast.success('Please check your email to verify');
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      toast.success("Please check your email to verify");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error: any) => {
-      const message = error?.response?.data?.message || 'Something went wrong';
+      const message = error?.response?.data?.message || "Something went wrong";
       toast.error(message);
-    }
+    },
   });
 };
 

@@ -72,7 +72,7 @@ export default function SearchBarVariant({
         encodedString[i + 2] === "0"
       ) {
         result += " ";
-        i += 3; // Skip over the "%20"
+        i += 3;
       } else if (!/[a-zA-Z]/.test(encodedString[i])) {
         let asciiValue = "";
         while (i < encodedString.length && !/[a-zA-Z]/.test(encodedString[i])) {
