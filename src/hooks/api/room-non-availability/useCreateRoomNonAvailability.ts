@@ -1,3 +1,4 @@
+// useCreateRoomNonAvailability.ts
 "use client";
 
 import useAxios from "@/hooks/useAxios";
@@ -18,9 +19,7 @@ const useCreateRoomNonAvailability = () => {
 
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
-      if (typeof window === "undefined") {
-        throw new Error("Client-side only");
-      }
+      if (typeof window === "undefined") throw new Error("Client-side only");
 
       const token = localStorage.getItem("token");
       if (!token) {
@@ -38,13 +37,12 @@ const useCreateRoomNonAvailability = () => {
         const { data } = await axiosInstance.post(
           `${process.env.NEXT_PUBLIC_API_URL}/room-non-availabilities`,
           payloadToSend,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         return data;
       } catch (err: any) {
-        console.error("API Error:", err.response || err);
+        console.error("API Error Status:", err.response?.status);
+        console.error("API Error Data:", err.response?.data);
         throw err;
       }
     },
