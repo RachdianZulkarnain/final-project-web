@@ -1,5 +1,5 @@
-// useCreateRoomNonAvailability.ts
 "use client";
+
 import useAxios from "@/hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -18,8 +18,14 @@ const useCreateRoomNonAvailability = () => {
 
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
+      if (typeof window === "undefined") {
+        throw new Error("Client-side only");
+      }
+
       const token = localStorage.getItem("token");
-      if (!token) throw new Error("Unauthorized: token not found");
+      if (!token) {
+        throw new Error("Unauthorized: token not found");
+      }
 
       const payloadToSend = {
         ...payload,
@@ -27,15 +33,19 @@ const useCreateRoomNonAvailability = () => {
         endDate: payload.endDate.toISOString(),
       };
 
-      const { data } = await axiosInstance.post(
-        "/room-non-availabilities",
-        payloadToSend,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      return data;
+      try {
+        const { data } = await axiosInstance.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/room-non-availabilities`,
+          payloadToSend,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        return data;
+      } catch (err: any) {
+        console.error("API Error:", err.response || err);
+        throw err;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["roomNonAvailabilities"] });
@@ -45,7 +55,9 @@ const useCreateRoomNonAvailability = () => {
       const message =
         typeof error.response?.data === "string"
           ? error.response.data
-          : error.response?.data?.message || "Something went wrong";
+          : error.response?.data?.message ||
+            error.message ||
+            "Something went wrong";
       toast.error(message);
     },
   });
