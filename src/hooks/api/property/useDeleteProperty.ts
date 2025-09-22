@@ -1,6 +1,6 @@
 "use client";
 
-import { axiosInstance } from "@/lib/axios"; // pastikan baseURL nya absolute, bukan relative
+import useAxios from "@/hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -8,19 +8,12 @@ import { toast } from "sonner";
 
 const useDeleteProperty = () => {
   const router = useRouter();
+  const axiosInstance = useAxios();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (id: number) => {
-      if (typeof window === "undefined") throw new Error("No window context");
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Unauthorized: token not found");
-
-      const { data } = await axiosInstance.delete(`/properties/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.delete(`/properties/${id}`);
       return data;
     },
     onSuccess: () => {
@@ -35,13 +28,7 @@ const useDeleteProperty = () => {
         message: error.message,
       });
 
-      const errData = error.response?.data;
-      const errorMessage =
-        typeof errData === "string"
-          ? errData
-          : errData?.message || "Delete Property failed";
-
-      toast.error(errorMessage);
+      toast.error(error.response?.data?.message || "Delete Property failed");
     },
   });
 };
