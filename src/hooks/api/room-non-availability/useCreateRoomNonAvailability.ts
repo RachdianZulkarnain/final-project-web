@@ -1,9 +1,8 @@
-// useCreateRoomNonAvailability.ts
 "use client";
 
 import { axiosInstance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
+import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 interface CreateRoomNonAvailabilityPayload {
@@ -15,15 +14,9 @@ interface CreateRoomNonAvailabilityPayload {
 
 const useCreateRoomNonAvailability = () => {
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
 
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
-      if (!session?.user?.accessToken) {
-        toast.error("You must login before creating room non availability");
-        throw new Error("Unauthorized: no token in session");
-      }
-
       const payloadToSend = {
         ...payload,
         startDate: payload.startDate.toISOString(),
@@ -32,12 +25,7 @@ const useCreateRoomNonAvailability = () => {
 
       const { data } = await axiosInstance.post(
         "/room-non-availabilities",
-        payloadToSend,
-        {
-          headers: {
-            Authorization: `Bearer ${session.user.accessToken}`,
-          },
-        }
+        payloadToSend
       );
 
       return data;
@@ -46,15 +34,11 @@ const useCreateRoomNonAvailability = () => {
       queryClient.invalidateQueries({ queryKey: ["roomNonAvailabilities"] });
       toast.success("Room Non Availability created successfully");
     },
-    onError: (error: any) => {
-      console.error("❌ RoomNonAvailability Error:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message,
-      });
-
-      const message = error?.response?.data?.message || "Something went wrong";
-      toast.error(message);
+    onError: (error: AxiosError<any>) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to create Room Non Availability"
+      );
     },
   });
 };
