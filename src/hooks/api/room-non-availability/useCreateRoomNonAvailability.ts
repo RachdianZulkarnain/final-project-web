@@ -42,10 +42,17 @@ const useCreateRoomNonAvailability = () => {
       toast.success("Room Non Availability created successfully");
     },
     onError: (error: AxiosError<any>) => {
+      console.error("❌ RoomNonAvailability Error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+
       const message =
         typeof error.response?.data === "string"
           ? error.response.data
           : error.response?.data?.message || "Something went wrong";
+
       toast.error(message);
     },
   });
