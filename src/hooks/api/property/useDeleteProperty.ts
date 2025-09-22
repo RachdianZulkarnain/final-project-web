@@ -27,7 +27,6 @@ const useDeleteProperty = () => {
         data: error.response?.data,
         message: error.message,
       });
-
       toast.error(error.response?.data?.message || "Delete Property failed");
     },
   });
