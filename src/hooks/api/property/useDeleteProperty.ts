@@ -22,12 +22,13 @@ const useDeleteProperty = () => {
       router.push("/dashboard/property");
     },
     onError: (error: AxiosError<any>) => {
-      console.error("❌ Delete Property Error:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message,
-      });
-      toast.error(error.response?.data?.message || "Delete Property failed");
+      const errData = error.response?.data;
+      const errorMessage =
+        typeof errData === "string"
+          ? errData
+          : errData?.message || "Delete Property failed";
+
+      toast.error(errorMessage);
     },
   });
 };
