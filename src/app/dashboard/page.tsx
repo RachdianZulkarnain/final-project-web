@@ -68,7 +68,7 @@ const TenantDashboardPage: FC = () => {
           style={{ width: "20%", height: "350px" }}
         >
           <Image
-            src="/assets/Homigo Logo2.png"
+            src="/assets/ho.webp"
             alt="Tenant Dashboard Illustration"
             fill
             className="object-contain object-right"

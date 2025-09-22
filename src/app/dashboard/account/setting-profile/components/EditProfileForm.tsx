@@ -214,7 +214,7 @@ const EditProfileForm = () => {
       <Card className="overflow-hidden border-none shadow-md">
         <div className="relative h-32 bg-[#0290d1] sm:h-48">
           <Image
-            src="/assets/Homigo Logo2.png"
+            src="/assets/ho.webp"
             alt="Logo"
             width={100}
             height={100}
