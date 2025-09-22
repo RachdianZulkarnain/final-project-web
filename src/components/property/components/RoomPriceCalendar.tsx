@@ -23,7 +23,16 @@ import {
 } from "@/utils/date";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
-import { CalendarIcon, CreditCard, Info } from "lucide-react";
+import {
+  AlertTriangle,
+  CalendarIcon,
+  CheckCircle2,
+  Clock,
+  CreditCard,
+  Info,
+  Loader2,
+  Users,
+} from "lucide-react";
 import * as React from "react";
 import type { DayButtonProps } from "react-day-picker";
 
@@ -112,48 +121,66 @@ const DayButton = (
       {...buttonProps}
       className={cn(
         buttonProps.className,
-        isPeak && "rounded-md border border-amber-400 bg-amber-50/50",
-        isSoldOut && "cursor-not-allowed bg-rose-100 opacity-70",
-        "p-0 transition-all duration-300 hover:scale-105 hover:shadow-sm"
+        "group relative overflow-hidden p-0 transition-all duration-300",
+        isPeak &&
+          "ring-2 ring-amber-300 ring-opacity-60 bg-gradient-to-br from-amber-50 to-orange-50",
+        isSoldOut &&
+          "cursor-not-allowed bg-gradient-to-br from-red-50 to-rose-100 opacity-80",
+        !isSoldOut && "hover:scale-105 hover:shadow-md hover:z-10",
+        isGoodPrice &&
+          !isSoldOut &&
+          "ring-2 ring-emerald-300 ring-opacity-40 bg-gradient-to-br from-emerald-50 to-green-50"
       )}
       disabled={isSoldOut}
     >
-      <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center p-1">
         <span
           className={cn(
-            "font-medium",
-            isSoldOut && "text-rose-700 line-through"
+            "font-semibold text-sm transition-colors",
+            isSoldOut && "text-red-600 line-through",
+            isPeak && !isSoldOut && "text-amber-700",
+            isGoodPrice && !isSoldOut && "text-emerald-700"
           )}
         >
           {props.children}
         </span>
+
         {price && (
           <span
             className={cn(
-              "text-[10px] font-medium",
-              isGoodPrice
-                ? "text-emerald-600"
-                : price > basePrice * 1.1
-                  ? "text-rose-600"
-                  : "text-slate-600",
-              isSoldOut && "text-rose-700"
+              "text-[9px] font-bold mt-0.5 px-1 py-0.5 rounded-sm",
+              isGoodPrice && !isSoldOut
+                ? "text-emerald-700 bg-emerald-100"
+                : price > basePrice * 1.1 && !isSoldOut
+                  ? "text-red-700 bg-red-100"
+                  : "text-slate-700 bg-slate-100",
+              isSoldOut && "text-red-600 bg-red-200"
             )}
           >
             {formatCompactPrice(price)}
           </span>
         )}
-        {dayData && (
-          <span className="mt-0.5 block text-[8px] leading-tight">
-            {dayData.isAvailable ? (
-              <span className="rounded-sm bg-slate-100 px-1 py-0.5 text-slate-600">
-                {dayData.availableStock} left
-              </span>
-            ) : (
-              <span className="rounded-sm bg-rose-200 px-1 py-0.5 font-semibold text-rose-700">
-                Sold out
-              </span>
-            )}
-          </span>
+
+        <div className="mt-1 flex items-center justify-center">
+          {dayData.isAvailable ? (
+            <span className="flex items-center gap-1 rounded-full bg-white/80 px-1.5 py-0.5 text-[7px] font-medium shadow-sm">
+              <CheckCircle2 className="h-2 w-2 text-emerald-500" />
+              <span className="text-slate-600">{dayData.availableStock}</span>
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 rounded-full bg-red-100 px-1.5 py-0.5 text-[7px] font-bold">
+              <AlertTriangle className="h-2 w-2 text-red-500" />
+              <span className="text-red-700">Full</span>
+            </span>
+          )}
+        </div>
+
+        {isPeak && !isSoldOut && (
+          <div className="absolute top-0 right-0 h-2 w-2 rounded-full bg-amber-400 shadow-sm"></div>
+        )}
+
+        {isGoodPrice && !isSoldOut && (
+          <div className="absolute top-0 left-0 h-2 w-2 rounded-full bg-emerald-400 shadow-sm"></div>
         )}
       </div>
     </button>
@@ -348,7 +375,7 @@ export function RoomPriceCalendar({
       maximumFractionDigits: 0,
     })
       .format(amount)
-      .replace("Rp", "");
+      .replace("Rp", "Rp ");
   };
 
   const nights =
@@ -379,21 +406,33 @@ export function RoomPriceCalendar({
   };
 
   return (
-    <div className="mx-auto max-w-md space-y-6 rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
-      <div className="space-y-2">
-        <label className="text-sm font-medium leading-none text-slate-700">
+    <div className="mx-auto max-w-lg space-y-6 rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200/60 backdrop-blur-sm">
+      <div className="space-y-3">
+        <label className="flex items-center gap-2 text-sm font-semibold text-slate-800">
+          <Users className="h-4 w-4 text-blue-600" />
           Select Room Type
         </label>
         <Select onValueChange={onRoomSelect} value={selectedRoomId}>
-          <SelectTrigger className="border-slate-200 bg-white shadow-sm transition-colors hover:border-slate-300 focus:ring-offset-0">
-            <SelectValue placeholder="Select a room type" />
+          <SelectTrigger className="group border-slate-300 bg-white shadow-sm transition-all duration-200 hover:border-blue-400 hover:shadow-md focus:ring-2 focus:ring-blue-500/20">
+            <SelectValue placeholder="Choose your perfect room..." />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl border-slate-200 shadow-xl">
             {rooms.map((room) => (
-              <SelectItem key={room.id} value={room.id.toString()}>
-                <div className="flex items-center justify-between gap-4">
-                  <span className="font-medium">{room.type}</span>
-                  <span className="text-slate-500">
+              <SelectItem
+                key={room.id}
+                value={room.id.toString()}
+                className="cursor-pointer transition-colors hover:bg-blue-50"
+              >
+                <div className="flex items-center justify-between gap-6 py-1">
+                  <div className="flex flex-col">
+                    <span className="font-medium text-slate-800">
+                      {room.type}
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      Up to {room.guest} {room.guest === 1 ? "guest" : "guests"}
+                    </span>
+                  </div>
+                  <span className="font-semibold text-blue-600">
                     {formatIDR(room.price)}
                   </span>
                 </div>
@@ -403,160 +442,193 @@ export function RoomPriceCalendar({
         </Select>
       </div>
 
-      <div className="flex gap-2">
+      {/* Date Selection */}
+      <div className="space-y-3">
+        <label className="flex items-center gap-2 text-sm font-semibold text-slate-800">
+          <CalendarIcon className="h-4 w-4 text-blue-600" />
+          Select Your Dates
+        </label>
+
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
-            <div className="flex w-full flex-col justify-between gap-2 transition-all sm:flex-row sm:gap-0">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div
-                className={`${buttonClasses(
-                  dateRange.from
-                )} flex h-full cursor-pointer flex-col gap-1 rounded-lg border border-slate-200 p-3 transition-colors hover:bg-slate-50 sm:rounded-l-lg sm:rounded-r-none sm:border-r-0`}
+                className="group cursor-pointer rounded-xl border-2 border-slate-200 bg-gradient-to-br from-white to-slate-50/50 p-4 transition-all duration-200 hover:border-blue-300 hover:shadow-md hover:shadow-blue-100/50"
                 onClick={() => setIsOpen(true)}
-                aria-label="Select check-in date"
               >
-                <span className="text-xs font-semibold text-slate-700">
-                  CHECK-IN (14:00)
-                </span>
-                <div className="flex items-center text-sm">
-                  <CalendarIcon className="mr-2 h-4 w-4 text-blue-500" />
-                  <span
-                    className={
-                      dateRange.from ? "text-slate-900" : "text-slate-400"
-                    }
-                  >
-                    {dateRange.from
-                      ? formatLocalDate(dateRange.from)
-                      : "DD/MM/YYYY"}
-                  </span>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-3 w-3 text-blue-500" />
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+                        Check-in
+                      </span>
+                    </div>
+                    <div className="text-sm font-medium text-slate-900">
+                      {dateRange.from
+                        ? formatLocalDate(dateRange.from)
+                        : "Select date"}
+                    </div>
+                    <div className="text-xs text-slate-500">After 2:00 PM</div>
+                  </div>
+                  <CalendarIcon className="h-5 w-5 text-blue-400 transition-transform group-hover:scale-110" />
                 </div>
               </div>
 
+              {/* Check-out */}
               <div
-                className={`${buttonClasses(
-                  dateRange.to
-                )} flex h-full cursor-pointer flex-col gap-1 rounded-lg border border-slate-200 p-3 transition-colors hover:bg-slate-50 sm:rounded-l-none sm:rounded-r-lg`}
+                className="group cursor-pointer rounded-xl border-2 border-slate-200 bg-gradient-to-br from-white to-slate-50/50 p-4 transition-all duration-200 hover:border-blue-300 hover:shadow-md hover:shadow-blue-100/50"
                 onClick={() => setIsOpen(true)}
-                aria-label="Select check-out date"
               >
-                <span className="text-xs font-semibold text-slate-700">
-                  CHECK-OUT (12:00)
-                </span>
-                <div className="flex items-center text-sm">
-                  <CalendarIcon className="mr-2 h-4 w-4 text-blue-500" />
-                  <span
-                    className={
-                      dateRange.to ? "text-slate-900" : "text-slate-400"
-                    }
-                  >
-                    {dateRange.to
-                      ? formatLocalDate(dateRange.to)
-                      : "DD/MM/YYYY"}
-                  </span>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-3 w-3 text-blue-500" />
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+                        Check-out
+                      </span>
+                    </div>
+                    <div className="text-sm font-medium text-slate-900">
+                      {dateRange.to
+                        ? formatLocalDate(dateRange.to)
+                        : "Select date"}
+                    </div>
+                    <div className="text-xs text-slate-500">
+                      Before 12:00 PM
+                    </div>
+                  </div>
+                  <CalendarIcon className="h-5 w-5 text-blue-400 transition-transform group-hover:scale-110" />
                 </div>
               </div>
             </div>
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto rounded-lg border-slate-200 p-0 shadow-lg"
+            className="w-auto rounded-2xl border-slate-200 p-0 shadow-2xl"
             align="start"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col overflow-hidden">
               {selectedRoomId && (
-                <div className="flex items-center border-b bg-gradient-to-r from-blue-50 to-slate-50 p-3 text-xs">
-                  <Info className="mr-2 h-4 w-4 text-blue-500" />
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center">
-                      <div className="mr-1 h-3 w-3 rounded-sm bg-rose-500 opacity-70"></div>
-                      <span className="text-slate-700">Non Available</span>
+                <div className="border-b bg-gradient-to-r from-blue-50 via-white to-slate-50 p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Info className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm font-medium text-slate-800">
+                      Price & Availability Legend
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-gradient-to-br from-red-100 to-rose-200 border border-red-200"></div>
+                      <span className="text-slate-700">Sold Out</span>
                     </div>
-                    <div className="flex items-center">
-                      <div className="mr-1 h-3 w-3 rounded-sm border border-amber-400 bg-amber-50"></div>
-                      <span className="text-slate-700">Peak season</span>
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-300"></div>
+                      <span className="text-slate-700">Peak Season</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-gradient-to-br from-emerald-50 to-green-100 border border-emerald-300"></div>
+                      <span className="text-slate-700">Best Deal</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                      <span className="text-slate-700">Available</span>
                     </div>
                   </div>
                 </div>
               )}
 
-              <Calendar
-                mode="range"
-                defaultMonth={dateRange.from || new Date()}
-                selected={dateRange}
-                onSelect={handleDateSelect}
-                numberOfMonths={1}
-                showOutsideDays={false}
-                initialFocus
-                disabled={isDateDisabled}
-                onMonthChange={setCurrentMonth}
-                components={{
-                  DayButton: (props: DayButtonProps) => (
-                    <DayButton
-                      {...props}
-                      calendarData={calendarData?.data?.calendar}
-                      basePrice={calendarData?.data?.basePrice}
-                      isPeakSeason={isPeakSeason}
-                    />
-                  ),
-                }}
-                classNames={{
-                  months: "flex flex-col space-y-4",
-                  month: "space-y-4",
-                  caption:
-                    "flex justify-center pt-3 pb-1 relative items-center",
-                  caption_label: "text-sm font-medium text-slate-800",
-                  nav: "space-x-1 flex items-center",
-                  nav_button:
-                    "h-7 w-7 bg-transparent p-0 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors",
-                  nav_button_previous: "absolute left-1",
-                  nav_button_next: "absolute right-1",
-                  table: "w-full border-collapse space-y-1",
-                  head_row: "flex",
-                  head_cell:
-                    "text-slate-500 rounded-md w-11 font-medium text-[0.8rem] py-2",
-                  row: "flex w-full mt-2",
-                  cell: "h-14 w-11 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-blue-50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                  day: "h-14 w-11 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-colors",
-                  day_selected:
-                    "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-700 focus:text-white rounded-md shadow-sm",
-                  day_today:
-                    "bg-blue-50 text-blue-700 font-medium ring-1 ring-blue-200",
-                  day_outside: "text-slate-400 opacity-50",
-                  day_disabled: "text-slate-400 opacity-50",
-                  day_range_middle:
-                    "aria-selected:bg-slate-100 aria-selected:text-slate-900",
-                  day_hidden: "invisible",
-                  day_button: "h-14 w-11 p-0 font-normal",
-                }}
-              />
+              {/* Calendar */}
+              <div className="p-4">
+                <Calendar
+                  mode="range"
+                  defaultMonth={dateRange.from || new Date()}
+                  selected={dateRange}
+                  onSelect={handleDateSelect}
+                  numberOfMonths={1}
+                  showOutsideDays={false}
+                  initialFocus
+                  disabled={isDateDisabled}
+                  onMonthChange={setCurrentMonth}
+                  components={{
+                    DayButton: (props: DayButtonProps) => (
+                      <DayButton
+                        {...props}
+                        calendarData={calendarData?.data?.calendar}
+                        basePrice={calendarData?.data?.basePrice}
+                        isPeakSeason={isPeakSeason}
+                      />
+                    ),
+                  }}
+                  classNames={{
+                    months: "flex flex-col space-y-4",
+                    month: "space-y-4",
+                    caption:
+                      "flex justify-center pt-1 pb-2 relative items-center",
+                    caption_label: "text-base font-semibold text-slate-800",
+                    nav: "space-x-1 flex items-center",
+                    nav_button:
+                      "h-8 w-8 bg-white border border-slate-200 p-0 text-slate-600 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 rounded-lg transition-all duration-200 shadow-sm hover:shadow",
+                    nav_button_previous: "absolute left-1",
+                    nav_button_next: "absolute right-1",
+                    table: "w-full border-collapse space-y-1",
+                    head_row: "flex mb-1",
+                    head_cell:
+                      "text-slate-600 rounded-md w-12 font-semibold text-xs py-2 uppercase tracking-wide",
+                    row: "flex w-full mt-1",
+                    cell: "h-16 w-12 text-center text-sm p-0.5 relative [&:has([aria-selected])]:bg-blue-100/50 first:[&:has([aria-selected])]:rounded-l-xl last:[&:has([aria-selected])]:rounded-r-xl focus-within:relative focus-within:z-20",
+                    day: "h-16 w-12 p-0 font-normal aria-selected:opacity-100 rounded-lg transition-all duration-200",
+                    day_selected:
+                      "bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 rounded-lg shadow-lg ring-2 ring-blue-200",
+                    day_today:
+                      "bg-blue-50 text-blue-700 font-semibold ring-2 ring-blue-200 shadow-sm",
+                    day_outside: "text-slate-300 opacity-40",
+                    day_disabled:
+                      "text-slate-300 opacity-40 cursor-not-allowed",
+                    day_range_middle:
+                      "aria-selected:bg-blue-100 aria-selected:text-blue-800",
+                    day_hidden: "invisible",
+                    day_button: "h-16 w-12 p-0",
+                  }}
+                />
+              </div>
+
+              {/* Error Message */}
               {selectedRoomId &&
                 dateRange.from &&
                 dateRange.to &&
                 checkUnavailableDatesInRange() && (
-                  <div className="rounded-md bg-rose-50 p-3 text-sm text-rose-700">
-                    <strong>Attention:</strong> The date range you selected
-                    contains dates that are already sold out. Please select a
-                    different date range to continue with your booking.
+                  <div className="mx-4 mb-4 rounded-xl bg-red-50 border border-red-200 p-4">
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="font-semibold text-red-800 text-sm">
+                          Dates Unavailable
+                        </h4>
+                        <p className="text-red-700 text-xs mt-1">
+                          Some dates in your selection are sold out. Please
+                          choose different dates.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
-              <div className="flex items-center justify-end gap-2 border-t bg-gradient-to-r from-slate-50 to-blue-50 p-3">
+              {/* Actions */}
+              <div className="flex items-center justify-between gap-3 border-t bg-gradient-to-r from-slate-50 to-blue-50 p-4">
                 <Button
                   variant="outline"
                   onClick={() => {
-                    onDateChange({
-                      from: undefined,
-                      to: undefined,
-                    });
+                    onDateChange({ from: undefined, to: undefined });
                   }}
-                  className="border-slate-300 text-slate-700 transition-all hover:bg-slate-100 hover:text-slate-900"
+                  className="border-slate-300 text-slate-700 transition-all hover:bg-slate-100 hover:border-slate-400"
                 >
-                  Reset
+                  Clear Dates
                 </Button>
                 <Button
                   onClick={() => setIsOpen(false)}
-                  className="bg-blue-600 text-white shadow-sm transition-all hover:bg-blue-700"
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
                 >
-                  Apply
+                  Confirm Selection
                 </Button>
               </div>
             </div>
@@ -565,74 +637,105 @@ export function RoomPriceCalendar({
       </div>
 
       {isLoading && selectedRoomId && (
-        <div className="flex items-center justify-center py-2">
-          <div className="animate-pulse rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500">
-            Loading pricing data...
+        <div className="flex items-center justify-center py-6">
+          <div className="flex items-center gap-3 rounded-full bg-blue-50 px-4 py-2 shadow-sm">
+            <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+            <span className="text-sm font-medium text-blue-700">
+              Loading pricing data...
+            </span>
           </div>
         </div>
       )}
+
       {selectedRoomId &&
         dateRange.from &&
         dateRange.to &&
         hasUnavailableDates && (
-          <div className="rounded-md bg-rose-50 p-3 text-sm text-rose-700">
-            <strong>Attention:</strong> The date range you selected contains
-            dates that are already sold out. Please select a different date
-            range to continue with your booking.
+          <div className="rounded-xl bg-red-50 border border-red-200 p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-semibold text-red-800 text-sm">
+                  Booking Unavailable
+                </h4>
+                <p className="text-red-700 text-sm mt-1">
+                  The selected date range contains sold-out dates. Please select
+                  different dates to continue.
+                </p>
+              </div>
+            </div>
           </div>
         )}
+
       {selectedRoom &&
         dateRange.from &&
         dateRange.to &&
         totalPrice &&
         !hasUnavailableDates && (
-          <div className="mt-4 space-y-3 rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50/50 to-slate-50/50 p-4">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-medium text-slate-900">
+          <div className="space-y-4 rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-blue-50/30 via-white to-slate-50/30 p-5 shadow-lg">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h3 className="font-bold text-slate-900 text-lg">
                   {selectedRoom.type}
                 </h3>
-                <p className="text-sm text-slate-500">
-                  {nights} {nights === 1 ? "night" : "nights"},{" "}
-                  {selectedRoom.guest}{" "}
-                  {selectedRoom.guest === 1 ? "guest" : "guests"}
-                </p>
+                <div className="flex items-center gap-4 text-sm text-slate-600">
+                  <div className="flex items-center gap-1">
+                    <CalendarIcon className="h-4 w-4" />
+                    <span>
+                      {nights} {nights === 1 ? "night" : "nights"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Users className="h-4 w-4" />
+                    <span>
+                      {selectedRoom.guest}{" "}
+                      {selectedRoom.guest === 1 ? "guest" : "guests"}
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="text-right">
-                <div className="font-semibold text-slate-900">
+                <div className="text-2xl font-bold text-blue-700">
                   {formatIDR(totalPrice)}
                 </div>
-                <div className="text-xs text-slate-500">
-                  {formatIDR(Math.round(totalPrice / nights))}/night avg.
+                <div className="text-sm text-slate-500">
+                  {formatIDR(Math.round(totalPrice / nights))}/night avg
                 </div>
               </div>
             </div>
+
             <details className="group">
-              <summary className="flex cursor-pointer items-center justify-between text-sm font-medium text-slate-700 hover:text-blue-600">
-                <span className="flex items-center">
-                  <CreditCard className="mr-1.5 h-4 w-4 text-blue-500" />
-                  View price breakdown
+              <summary className="flex cursor-pointer items-center justify-between rounded-lg bg-white/60 p-3 text-sm font-medium text-slate-700 transition-all hover:bg-white/80 hover:text-blue-600">
+                <span className="flex items-center gap-2">
+                  <CreditCard className="h-4 w-4 text-blue-500" />
+                  View detailed breakdown
                 </span>
-                <span className="text-xs text-slate-400 transition-transform group-open:rotate-180">
+                <span className="text-xs text-slate-400 transition-transform duration-200 group-open:rotate-180">
                   ▼
                 </span>
               </summary>
-              <div className="mt-2 space-y-1 pl-6 text-sm">
+              <div className="mt-3 space-y-2 rounded-lg bg-white/40 p-4">
                 {Object.entries(nightlyPrices).map(([date, price]) => (
-                  <div key={date} className="flex justify-between">
-                    <span className="text-slate-600">
+                  <div
+                    key={date}
+                    className="flex items-center justify-between py-1"
+                  >
+                    <span className="text-slate-600 text-sm">
                       {format(new Date(date), "EEE, MMM d")}
                     </span>
-                    <span className="font-medium text-slate-700">
+                    <span className="font-semibold text-slate-800">
                       {formatIDR(price)}
                     </span>
                   </div>
                 ))}
-                <div className="mt-2 flex justify-between border-t border-slate-200 pt-2 font-medium">
-                  <span className="text-slate-800">
-                    Total ({nights} {nights === 1 ? "night" : "nights"})
+                <div className="mt-3 flex items-center justify-between border-t border-slate-200 pt-3">
+                  <span className="font-semibold text-slate-900">
+                    Total for {nights} {nights === 1 ? "night" : "nights"}
                   </span>
-                  <span className="text-blue-700">{formatIDR(totalPrice)}</span>
+                  <span className="text-xl font-bold text-blue-700">
+                    {formatIDR(totalPrice)}
+                  </span>
                 </div>
               </div>
             </details>
