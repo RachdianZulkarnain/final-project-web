@@ -24,7 +24,8 @@ const useCreateRoomNonAvailability = () => {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        throw new Error("Unauthorized: token not found");
+        toast.error("You must be logged in to perform this action");
+        return Promise.reject("Unauthorized: token not found");
       }
 
       const payloadToSend = {
