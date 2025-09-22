@@ -1,8 +1,9 @@
 // useCreateRoomNonAvailability.ts
 "use client";
-import useAxios from "@/hooks/useAxios";
+
+import { axiosInstance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
 interface CreateRoomNonAvailabilityPayload {
@@ -13,13 +14,15 @@ interface CreateRoomNonAvailabilityPayload {
 }
 
 const useCreateRoomNonAvailability = () => {
-  const axiosInstance = useAxios();
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Unauthorized: token not found");
+      if (!session?.user?.accessToken) {
+        toast.error("You must login before creating room non availability");
+        throw new Error("Unauthorized: no token in session");
+      }
 
       const payloadToSend = {
         ...payload,
@@ -31,7 +34,9 @@ const useCreateRoomNonAvailability = () => {
         "/room-non-availabilities",
         payloadToSend,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${session.user.accessToken}`,
+          },
         }
       );
 
@@ -41,18 +46,14 @@ const useCreateRoomNonAvailability = () => {
       queryClient.invalidateQueries({ queryKey: ["roomNonAvailabilities"] });
       toast.success("Room Non Availability created successfully");
     },
-    onError: (error: AxiosError<any>) => {
+    onError: (error: any) => {
       console.error("❌ RoomNonAvailability Error:", {
         status: error.response?.status,
         data: error.response?.data,
         message: error.message,
       });
 
-      const message =
-        typeof error.response?.data === "string"
-          ? error.response.data
-          : error.response?.data?.message || "Something went wrong";
-
+      const message = error?.response?.data?.message || "Something went wrong";
       toast.error(message);
     },
   });
