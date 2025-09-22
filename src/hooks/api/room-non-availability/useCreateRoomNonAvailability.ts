@@ -1,6 +1,5 @@
 // useCreateRoomNonAvailability.ts
 "use client";
-
 import useAxios from "@/hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -19,13 +18,8 @@ const useCreateRoomNonAvailability = () => {
 
   return useMutation({
     mutationFn: async (payload: CreateRoomNonAvailabilityPayload) => {
-      if (typeof window === "undefined") throw new Error("Client-side only");
-
       const token = localStorage.getItem("token");
-      if (!token) {
-        toast.error("You must be logged in to perform this action");
-        return Promise.reject("Unauthorized: token not found");
-      }
+      if (!token) throw new Error("Unauthorized: token not found");
 
       const payloadToSend = {
         ...payload,
@@ -33,18 +27,15 @@ const useCreateRoomNonAvailability = () => {
         endDate: payload.endDate.toISOString(),
       };
 
-      try {
-        const { data } = await axiosInstance.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/room-non-availabilities`,
-          payloadToSend,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        return data;
-      } catch (err: any) {
-        console.error("API Error Status:", err.response?.status);
-        console.error("API Error Data:", err.response?.data);
-        throw err;
-      }
+      const { data } = await axiosInstance.post(
+        "/room-non-availabilities",
+        payloadToSend,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["roomNonAvailabilities"] });
@@ -54,9 +45,7 @@ const useCreateRoomNonAvailability = () => {
       const message =
         typeof error.response?.data === "string"
           ? error.response.data
-          : error.response?.data?.message ||
-            error.message ||
-            "Something went wrong";
+          : error.response?.data?.message || "Something went wrong";
       toast.error(message);
     },
   });
