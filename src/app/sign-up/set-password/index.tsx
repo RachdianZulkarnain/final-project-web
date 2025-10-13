@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import useSetPassword from "@/hooks/api/set-password/useSetPassword";
+import useSetPassword from "@/app/sign-up/set-password/_hooks/useSetPassword";
 import { useFormik } from "formik";
 import { Eye, EyeClosed, Loader2, Send } from "lucide-react";
 import { useSession } from "next-auth/react";

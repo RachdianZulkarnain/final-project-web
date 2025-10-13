@@ -9,8 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRoomNonAvailability";
-import useUpdateRoomNonAvailability from "@/hooks/api/room-non-availability/useUpdateRoomNonAvailability";
+import useRoomNonAvailabilities from "@/app/dashboard/property/room-non-availability/_hooks/useGetRoomNonAvailability";
+import useUpdateRoomNonAvailability from "@/app/dashboard/property/room-non-availability/_hooks/useUpdateRoomNonAvailability";
 import { useFormik } from "formik";
 import { Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";

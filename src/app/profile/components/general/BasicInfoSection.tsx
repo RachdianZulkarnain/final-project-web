@@ -1,7 +1,7 @@
 import { User } from "@/types/user";
 import { FC, useState } from "react";
 import { arrowRightIcon } from "../../../../components/icon/icon";
-import useUpdateUser from "../../../../hooks/api/profile-user/useUpdateUser";
+import useUpdateUser from "../../_hooks/useUpdateUser";
 import { EditPasswordForm } from "../password/EditPasswordForm";
 import { EditForm } from "./EditForm";
 import ProfilePicSection from "./ProfilePicSection";

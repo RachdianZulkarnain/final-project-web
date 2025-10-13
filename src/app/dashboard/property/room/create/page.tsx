@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useCreateRoom from "@/hooks/api/room/useCreateRoom";
+import useCreateRoom from "@/app/dashboard/property/room/_hooks/useCreateRoom";
 import { FormikErrors, useFormik } from "formik";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";

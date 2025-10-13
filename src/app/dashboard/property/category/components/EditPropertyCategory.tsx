@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
+import useUpdateCategory from "@/app/dashboard/property/category/_hooks/useUpdateCategory";
 import { useFormik } from "formik";
 import { Pencil } from "lucide-react";
 import { FC, useState } from "react";

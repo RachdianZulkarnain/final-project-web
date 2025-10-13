@@ -23,9 +23,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import useDeleteRoom from "@/hooks/api/room/useDeleteRoom";
-import useGetRoom from "@/hooks/api/room/useGetRoom";
-import useUpdateRoom from "@/hooks/api/room/useUpdateRoom";
+import useDeleteRoom from "@/app/dashboard/property/room/_hooks/useDeleteRoom";
+import useGetRoom from "@/app/dashboard/property/room/_hooks/useGetRoom";
+import useUpdateRoom from "@/app/dashboard/property/room/_hooks/useUpdateRoom";
 import { FormikErrors, useFormik } from "formik";
 import Image from "next/image";
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import yupPassword from "yup-password";
-import useResetPassword from "../../hooks/api/reset-password/useResetPassword";
+import useResetPassword from "./_hooks/useResetPassword";
 import InvalidToken from "../sign-up/set-password/components/InvalidToken";
 
 yupPassword(Yup);

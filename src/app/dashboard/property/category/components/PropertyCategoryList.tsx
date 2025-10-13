@@ -3,9 +3,9 @@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import useDeleteCategory from "@/hooks/api/category/useDeleteCategory";
-import useGetCategory from "@/hooks/api/category/useGetCategory";
-import useUpdateCategory from "@/hooks/api/category/useUpdateCategory";
+import useDeleteCategory from "@/app/dashboard/property/category/_hooks/useDeleteCategory";
+import useGetCategory from "@/app/dashboard/property/category/_hooks/useGetCategory";
+import useUpdateCategory from "@/app/dashboard/property/category/_hooks/useUpdateCategory";
 import { Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC } from "react";

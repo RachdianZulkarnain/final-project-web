@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
-import useGetUser from "../../hooks/api/profile-user/useGetUser";
+import useGetUser from "./_hooks/useGetUser";
 import ConfirmDialog from "./components/ConfirmDialog";
 import BasicInfoSection from "./components/general/BasicInfoSection";
 import HeadSection from "./components/HeadSection";

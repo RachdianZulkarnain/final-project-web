@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetRoomsTenant } from "@/hooks/api/room/useGetRoomsTenant";
+import { useGetRoomsTenant } from "@/app/dashboard/property/room/_hooks/useGetRoomsTenant";
 import { FC } from "react";
 
 interface FcFormSelectProps {

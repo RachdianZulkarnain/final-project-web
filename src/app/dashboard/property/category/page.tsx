@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import useCreateCategory from "@/hooks/api/category/useCreateCatgory";
+import useCreateCategory from "@/app/dashboard/property/category/_hooks/useCreateCatgory";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";

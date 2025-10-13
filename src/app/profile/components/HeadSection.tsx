@@ -4,7 +4,7 @@ import { User } from "@/types/user";
 import { Menu } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import { checkCircleIcon } from "../../../components/icon/icon";
-import useResendEmailVerif from "../../../hooks/api/profile-user/useResendEmailVerif";
+import useResendEmailVerif from "../_hooks/useResendEmailVerif";
 
 interface HeadSectionProps {
   user: User;

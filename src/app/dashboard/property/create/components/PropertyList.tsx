@@ -10,12 +10,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import useDeleteProperty from "@/hooks/api/property/useDeleteProperty";
+import useDeleteProperty from "@/app/property/_hooks/useDeleteProperty";
 import { useSession } from "next-auth/react";
 
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
+import { useGetPropertiesTenant } from "@/app/property/_hooks/useGetPropertiesTenant";
 import Image from "next/image";
 import { useState } from "react";
 import { EditPropertyCategory } from "../../category/components/EditPropertyCategory";

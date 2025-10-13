@@ -4,7 +4,7 @@ import Pagination from "@/components/PaginationSection";
 import PropertyTenantCard from "@/components/PropertyTenantCard";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
+import { useGetPropertiesTenant } from "@/app/property/_hooks/useGetPropertiesTenant";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

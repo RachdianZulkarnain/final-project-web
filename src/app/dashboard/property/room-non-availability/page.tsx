@@ -2,7 +2,7 @@
 
 import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
-import useCreateRoomNonAvailability from "@/hooks/api/room-non-availability/useCreateRoomNonAvailability";
+import useCreateRoomNonAvailability from "@/app/dashboard/property/room-non-availability/_hooks/useCreateRoomNonAvailability";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";

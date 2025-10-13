@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import useGetProperty from "@/hooks/api/property/useGetProperty";
+import useGetProperty from "@/app/property/_hooks/useGetProperty";
 import {
   standardizeToCheckInTime,
   standardizeToCheckOutTime,

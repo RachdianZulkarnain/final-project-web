@@ -3,7 +3,7 @@ import Pagination from "@/components/PaginationSection";
 import RoomCard from "@/components/RoomTenantCard";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetRoomsTenant } from "@/hooks/api/room/useGetRoomsTenant";
+import { useGetRoomsTenant } from "@/app/dashboard/property/room/_hooks/useGetRoomsTenant";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 

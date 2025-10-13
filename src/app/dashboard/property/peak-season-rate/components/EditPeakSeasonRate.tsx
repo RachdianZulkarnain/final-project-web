@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { useUpdatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useUpdatePeakSeasonRate";
+import { useUpdatePeakSeasonRate } from "@/app/dashboard/property/peak-season-rate/_hooks/useUpdatePeakSeasonRate";
 import { FormikHelpers, useFormik } from "formik";
 import { Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";

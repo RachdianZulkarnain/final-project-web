@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import useRegisterTenant from "../../../hooks/api/register-tenant/useRegisterTenant";
+import useRegisterTenant from "./_hooks/useRegisterTenant";
 import { TenantSignupSchema } from "./schema";
 
 const OutlinedInput = ({

@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useGetCategory from "@/hooks/api/category/useGetCategory";
+import useGetCategory from "@/app/dashboard/property/category/_hooks/useGetCategory";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 

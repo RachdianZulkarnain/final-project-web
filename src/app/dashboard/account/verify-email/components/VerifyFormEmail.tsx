@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useVerifyChangeEmail } from "@/hooks/api/account/useChangeEmailVerify";
+import { useVerifyChangeEmail } from "@/app/dashboard/account/_hooks/useChangeEmailVerify";
 import { motion } from "framer-motion";
 import { Check, Eye, EyeOff, X } from "lucide-react";
 import verifySchema from "../schema";

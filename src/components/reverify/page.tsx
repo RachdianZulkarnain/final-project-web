@@ -1,6 +1,6 @@
 "use client";
 
-import useVerifyEmail from "@/hooks/api/reverify/useVerifyEmail";
+import useVerifyEmail from "@/app/reverify/_hooks/useVerifyEmail";
 import { FC, useEffect, useState } from "react";
 
 interface ReverifyPageProps {

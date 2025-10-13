@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import useRegister from "../../hooks/api/sign-up/useRegister";
+import useRegister from "./_hooks/useRegister";
 import { SignupSchema } from "./schema";
 
 const OutlinedInput = ({

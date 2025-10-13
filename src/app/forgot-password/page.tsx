@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import * as Yup from "yup";
-import useForgotPassword from "../../hooks/api/forgot-password/useForgotPassword";
+import { useForgotPassword } from "./_hooks/useForgotPassword";
 
 const OutlinedInput = ({
   label,

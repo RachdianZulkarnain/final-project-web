@@ -2,7 +2,7 @@
 
 import FormInput from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
-import { useCreatePeakSeasonRate } from "@/hooks/api/peak-season-rate/useCreatePeakSeasonRate";
+import { useCreatePeakSeasonRate } from "@/app/dashboard/property/peak-season-rate/_hooks/useCreatePeakSeasonRate";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { FiPlus } from "react-icons/fi";

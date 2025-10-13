@@ -17,7 +17,7 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import useGetTenant from "@/hooks/api/account/useGetTenant";
+import useGetTenant from "@/app/dashboard/account/_hooks/useGetTenant";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { NavUser } from "./nav-user";

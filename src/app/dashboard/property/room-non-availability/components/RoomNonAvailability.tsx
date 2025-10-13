@@ -10,8 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import useDeleteRoomNonAvailability from "@/hooks/api/room-non-availability/useDeleteRoomNonAvailability";
-import useRoomNonAvailabilities from "@/hooks/api/room-non-availability/useGetRoomNonAvailability";
+import useDeleteRoomNonAvailability from "@/app/dashboard/property/room-non-availability/_hooks/useDeleteRoomNonAvailability";
+import useRoomNonAvailabilities from "@/app/dashboard/property/room-non-availability/_hooks/useGetRoomNonAvailability";
 import { Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";

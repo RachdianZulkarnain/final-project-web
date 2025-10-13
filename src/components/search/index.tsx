@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetPropertiesByQuery } from "@/hooks/api/search-property/useGetPropertiesByQuery";
+import { useGetPropertiesByQuery } from "@/app/property/_hooks/useGetPropertiesByQuery";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

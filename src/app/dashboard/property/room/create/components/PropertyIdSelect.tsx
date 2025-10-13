@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetPropertiesTenant } from "@/hooks/api/property/useGetPropertiesTenant";
+import { useGetPropertiesTenant } from "@/app/property/_hooks/useGetPropertiesTenant";
 import { PropertyCategory } from "@/types/property";
 import { FC } from "react";
 

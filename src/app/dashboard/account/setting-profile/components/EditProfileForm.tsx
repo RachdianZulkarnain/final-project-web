@@ -24,10 +24,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useChangeEmail } from "@/hooks/api/account/useChangeEmail";
-import useChangePassword from "@/hooks/api/account/useChangePassword";
-import useGetTenant from "@/hooks/api/account/useGetTenant";
-import { useUpdateTenant } from "@/hooks/api/account/useUpdateTenant";
+import { useChangeEmail } from "@/app/dashboard/account/_hooks/useChangeEmail";
+import useChangePassword from "@/app/dashboard/account/_hooks/useChangePassword";
+import useGetTenant from "@/app/dashboard/account/_hooks/useGetTenant";
+import { useUpdateTenant } from "@/app/dashboard/account/_hooks/useUpdateTenant";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";

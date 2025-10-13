@@ -13,7 +13,7 @@ import { SessionProvider, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useLogin from "../../hooks/api/sign-in/useLogin";
+import useLogin from "./_hooks/useLogin";
 import { LoginSchema } from "./schema";
 
 const OutlinedInput = ({

@@ -6,7 +6,7 @@ import { Save } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
-import useChangePassword from "../../../../hooks/api/change-password/useChangePassword";
+import useChangePassword from "../../_hooks/useChangePassword";
 import { validationSchema } from "../../schema";
 import PasswordFieldInput from "./PasswordFieldInput";
 

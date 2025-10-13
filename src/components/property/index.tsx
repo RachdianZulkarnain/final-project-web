@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import useGetProperties from "@/hooks/api/property/useGetProperties";
-import useDebounce from "@/hooks/useDebounce";
+import useGetProperties from "@/app/property/_hooks/useGetProperties";
+import useDebounce from "@/app/_hooks/useDebounce";
 import { Property as ImportedProperty } from "@/types/property";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
